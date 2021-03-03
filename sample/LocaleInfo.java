@@ -37,7 +37,6 @@ public class LocaleInfo {
         } else {
             return usaText;
         }
-
     }
 
     /**

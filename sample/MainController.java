@@ -1,10 +1,8 @@
 package sample;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.stage.Stage;
 
 import java.util.ResourceBundle;
 
@@ -58,5 +56,53 @@ public class MainController {
     }
 
 
+    /**
+     * void checkLogin()
+     * Checks for test username and password
+     * and generate appropriate error messages.
+     */
+    public void checkLogin(){
+        String un = usernameField.getText();
+        String pw = passwordField.getText();
+        String correct = "test";
+
+       if ( !un.equals(correct) && !pw.equals(correct)) {
+           System.out.println(un + pw);
+           generateError(langBundle.getString("ErrorBoth"));
+           return;
+        }else if (!un.equals(correct)){
+            generateError(langBundle.getString("ErrorUn"));
+            return;
+        } else if (!pw.equals(correct)){
+           generateError(langBundle.getString("ErrorPw"));
+           return;
+        } else if (pw.equals(correct) && un.equals(correct)){
+                closeWindow();
+                return;
+       } else {
+           generateError(langBundle.getString("ErrorUnknown"));
+           return;
+       }
+
+    }
+
+    /**
+     * void closeWindow()
+     * Closes LoginView window.
+     */
+    public void closeWindow(){
+        Stage stage = (Stage) titleLabel.getScene().getWindow();
+        stage.close();
+    }
+
+    /**
+     * void generateError()
+     * @param message
+     * Generates an error message with a custom message.
+     */
+    public void generateError(String message){
+        Alert err = new Alert(Alert.AlertType.ERROR, message, ButtonType.OK);
+        err.show();
+    }
 
 }

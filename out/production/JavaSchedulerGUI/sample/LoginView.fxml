@@ -26,7 +26,7 @@
             <Label fx:id="locationNameLabel" layoutX="218.0" layoutY="348.0" prefHeight="17.0" prefWidth="74.0" text="Canada" />
             <Label fx:id="usernameLabel" layoutX="59.0" layoutY="135.0" text="Username:" />
             <Label fx:id="passwordLabel" layoutX="59.0" layoutY="183.0" text="Password:" />
-            <Button fx:id="loginButton" layoutX="124.0" layoutY="238.0" mnemonicParsing="false" text="Log in" />
+            <Button onAction="#checkLogin" fx:id="loginButton" layoutX="124.0" layoutY="238.0" mnemonicParsing="false" text="Log in" />
          </children>
       </AnchorPane>
    </children>
