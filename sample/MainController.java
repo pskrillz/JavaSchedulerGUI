@@ -5,41 +5,36 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
-import java.util.Locale;
-
 
 public class MainController {
 
     @FXML private TextField usernameField;
     @FXML private PasswordField passwordField;
 
-    @FXML private Label regionName;
+    @FXML private Label regionNameLabel;
 
+    /**
+     * initialize()
+     * sets the UI to it's default state.
+     */
     @FXML public void initialize(){
-    getCurrentLangZone();
+    setRegionNameLabel();
+
+
     }
 
-
-    private Locale renderLanguage;
-
-
-    public void getCurrentLangZone(){
+    // this sets the region name from the Locale Class
+    private String regionName = sample.LocaleInfo.getDefaultLocale();
 
 
-       var locA = new java.util.Locale("en-us");
-       var locB = new java.util.Locale("fr-ca");
-
-        if (Locale.getDefault() == locA)
-            renderLanguage = locA;
-
-        if(Locale.getDefault() == locB){
-            renderLanguage = locB;
-        }
-
-       var language = locB.getDisplayLanguage();
-       regionName.setText(language);
-
+    /**
+     * setRegionNameLabel()
+     * This sets the region name to the label.
+     */
+    public void setRegionNameLabel(){
+        regionNameLabel.setText(regionName);
     }
+
 
 
 }

@@ -14,20 +14,19 @@
    <children>
       <AnchorPane prefHeight="370.0" prefWidth="300.0">
          <children>
-            <Label layoutX="167.0" layoutY="109.0" prefHeight="31.0" prefWidth="46.0" text="Login">
-               <font>
-                  <Font size="18.0" />
-               </font></Label>
-            <TextField fx:id="usernameField" layoutX="98.0" layoutY="151.0" prefHeight="25.0" prefWidth="183.0" />
-            <PasswordField fx:id="passwordField" layoutX="98.0" layoutY="193.0" prefHeight="25.0" prefWidth="183.0" />
+            <TextField fx:id="usernameField" layoutX="59.0" layoutY="152.0" prefHeight="25.0" prefWidth="183.0" />
+            <PasswordField fx:id="passwordField" layoutX="59.0" layoutY="200.0" prefHeight="25.0" prefWidth="183.0" />
 
-            <Label layoutX="79.0" layoutY="56.0" prefHeight="30.0" prefWidth="235.0" text="Appointment Scheduler ">
+            <Label layoutX="34.0" layoutY="76.0" prefHeight="30.0" prefWidth="234.0" text="Appointment Scheduler ">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
             </Label>
-            <Label layoutX="241.0" layoutY="347.0" prefHeight="17.0" prefWidth="53.0" text="Location: " />
-            <Label fx:id="regionName" layoutX="290.0" layoutY="347.0" prefHeight="17.0" prefWidth="101.0" text="&lt;location name&gt;" />
+            <Label layoutX="137.0" layoutY="340.0" prefHeight="17.0" prefWidth="53.0" text="Location: " />
+            <Label fx:id="regionNameLabel" layoutX="190.0" layoutY="340.0" prefHeight="17.0" prefWidth="90.0" text="&lt;location name&gt;" />
+            <Label layoutX="59.0" layoutY="135.0" text="Username:" />
+            <Label layoutX="59.0" layoutY="183.0" text="Password:" />
+            <Button layoutX="124.0" layoutY="238.0" mnemonicParsing="false" text="Log in" />
          </children>
       </AnchorPane>
    </children>
