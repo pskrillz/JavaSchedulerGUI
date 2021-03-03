@@ -8,6 +8,11 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
+    /**
+     * JavaFX initialization;
+     * @param primaryStage
+     * @throws Exception
+     */
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("LoginView.fxml"));
@@ -18,10 +23,15 @@ public class Main extends Application {
 
 
     public static void main(String[] args) {
+        /**
+         * MysqlCon.establishConnection()
+         * Creates connection to db using a seperate class
+         * for configuration.
+         */
+        MysqlCon.establishConnection();
         launch(args);
-
-
-
 
     }
 }
+
+
