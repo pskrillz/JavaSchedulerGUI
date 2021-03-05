@@ -25,7 +25,7 @@ public class Main extends Application {
     public static void main(String[] args) {
         /**
          * MysqlCon.establishConnection()
-         * Creates connection to db using a seperate class
+         * Creates connection to db using a separate class
          * for configuration.
          */
         MysqlCon.establishConnection();

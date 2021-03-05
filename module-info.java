@@ -6,4 +6,5 @@ module JavaSchedulerGUI {
     requires java.sql;
 
     opens sample;
+    opens lib;
 }
