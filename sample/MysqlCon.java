@@ -26,7 +26,11 @@ class MysqlCon {
             testQuery = "select * from WJ07tms.appointments;";
 
 
-
+    /**
+     * establishConnection()
+     * Creates the connection with the database
+     * and includes test a test query to check.
+     */
     public static void establishConnection(){
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -36,7 +40,6 @@ class MysqlCon {
             Statement stmt=con.createStatement();
             ResultSet rs=stmt.executeQuery(testQuery);
 
-            // test server
             while(rs.next()) {
                 System.out.println(rs.getInt(1) + "  " + rs.getString(2) + "  " + rs.getString(3));
             }

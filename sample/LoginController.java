@@ -1,13 +1,16 @@
 package sample;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.util.ResourceBundle;
 
 
-public class MainController {
+public class LoginController {
 
     @FXML private TextField usernameField;
     @FXML private PasswordField passwordField;
@@ -61,7 +64,7 @@ public class MainController {
      * Checks for test username and password
      * and generate appropriate error messages.
      */
-    public void checkLogin(){
+    public void checkLogin() throws Exception {
         String un = usernameField.getText();
         String pw = passwordField.getText();
         String correct = "test";
@@ -78,6 +81,7 @@ public class MainController {
            return;
         } else if (pw.equals(correct) && un.equals(correct)){
                 closeWindow();
+                openMainUi();
                 return;
        } else {
            generateError(langBundle.getString("ErrorUnknown"));
@@ -103,6 +107,16 @@ public class MainController {
     public void generateError(String message){
         Alert err = new Alert(Alert.AlertType.ERROR, message, ButtonType.OK);
         err.show();
+    }
+
+
+    public void openMainUi() throws Exception{
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MainUi.fxml"));
+        Parent root = (Parent) fxmlLoader.load();
+        Stage stage = new Stage();
+        stage.setTitle("uSchedule Main UI");
+        stage.setScene(new Scene(root));
+        stage.show();
     }
 
 }
