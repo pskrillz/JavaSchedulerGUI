@@ -27,8 +27,7 @@ public class MainUiController {
    // @FXML private TableColumn<Customer, (Date?)> custDateCol;
 
 
-    @FXML
-    private TextField custIdF;
+    @FXML private TextField custIdF;
     @FXML private TextField custNameF;
     @FXML private TextField custAddrF;
     @FXML private TextField custZipF;

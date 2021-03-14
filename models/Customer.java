@@ -1,22 +1,37 @@
 package models;
 
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-
 import java.io.Serializable;
 
 public class Customer implements Serializable {
-    private SimpleIntegerProperty cId;
-    private SimpleStringProperty cName;
-    private SimpleStringProperty cAddr;
-    private SimpleStringProperty cZip;
-    private SimpleStringProperty cPhone;
-    private SimpleIntegerProperty cDivId;
+//    private SimpleIntegerProperty cId;
+//    private SimpleStringProperty cName;
+//    private SimpleStringProperty cAddr;
+//    private SimpleStringProperty cZip;
+//    private SimpleStringProperty cPhone;
+//    private SimpleIntegerProperty cDivId;
+    //    private SimpleIntegerProperty cId;
+    private String cName;
+    private String cAddr;
+    private String cZip;
+    private String cPhone;
+    private Integer cDivId;
 
 
-    public Customer(/*SimpleIntegerProperty cId,*/ SimpleStringProperty cName,
-                    SimpleStringProperty cAddr, SimpleStringProperty cZip,
-                    SimpleStringProperty cPhone, SimpleIntegerProperty cDivId) {
+
+//    public Customer(/*SimpleIntegerProperty cId,*/ SimpleStringProperty cName,
+//                    SimpleStringProperty cAddr, SimpleStringProperty cZip,
+//                    SimpleStringProperty cPhone, SimpleIntegerProperty cDivId) {
+////        this.cId = cId;
+//        this.cName = cName;
+//        this.cAddr = cAddr;
+//        this.cZip = cZip;
+//        this.cPhone = cPhone;
+//        this.cDivId = cDivId;
+//    }
+
+        public Customer(String cName,
+                    String cAddr, String cZip,
+                    String cPhone, Integer cDivId) {
 //        this.cId = cId;
         this.cName = cName;
         this.cAddr = cAddr;
@@ -37,6 +52,52 @@ public class Customer implements Serializable {
 //        this.cId.set(cId);
 //    }
 
+    public String getcName() {
+        return cName;
+    }
+
+    public void setcName(String cName) {
+        this.cName = cName;
+    }
+
+    public String getcAddr() {
+        return cAddr;
+    }
+
+    public void setcAddr(String cAddr) {
+        this.cAddr = cAddr;
+    }
+
+    public String getcZip() {
+        return cZip;
+    }
+
+    public void setcZip(String cZip) {
+        this.cZip = cZip;
+    }
+
+    public String getcPhone() {
+        return cPhone;
+    }
+
+    public void setcPhone(String cPhone) {
+        this.cPhone = cPhone;
+    }
+
+    public Integer getcDivId() {
+        return cDivId;
+    }
+
+    public void setcDivId(Integer cDivId) {
+        this.cDivId = cDivId;
+    }
+
+
+    /**
+     * Simple properties getters and setters.
+     */
+
+    /*
     public String getName() {
         return cName.get();
     }
@@ -96,6 +157,10 @@ public class Customer implements Serializable {
     public void setDivId(int cDivId) {
         this.cDivId.set(cDivId);
     }
+
+     */
+
+
 }
 
 

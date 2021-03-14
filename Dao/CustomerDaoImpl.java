@@ -96,13 +96,13 @@ public class CustomerDaoImpl implements CustomerDao<Customer>{
         try {
             connection = getConnection();
             prepStatment = connection.prepareStatement(queryAddCust);
-            prepStatment.setString(1, customer.getName());
-            prepStatment.setString(2, customer.getPhone());
-            prepStatment.setString(3, customer.getAddr());
-            prepStatment.setString(4, customer.getZip());
-            prepStatment.setInt(5, customer.getDivId());
+            prepStatment.setString(1, customer.getcName());
+            prepStatment.setString(2, customer.getcPhone());
+            prepStatment.setString(3, customer.getcAddr());
+            prepStatment.setString(4, customer.getcZip());
+            prepStatment.setInt(5, customer.getcDivId());
             prepStatment.executeUpdate();
-            System.out.println("Customer " + customer.getName() +  " Added Successfully");
+            System.out.println("Customer " + customer.getcName() +  " Added Successfully");
         } catch (SQLException e){
             e.printStackTrace();
         } finally {

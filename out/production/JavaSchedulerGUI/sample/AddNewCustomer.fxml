@@ -28,6 +28,6 @@
        <Label layoutX="79.0" layoutY="423.0" prefHeight="17.0" prefWidth="92.0" text="Postal Code:" />
        <Label layoutX="79.0" layoutY="366.0" prefHeight="17.0" prefWidth="119.0" text="First-Level Division:" />
        <Label layoutX="79.0" layoutY="305.0" prefHeight="17.0" prefWidth="92.0" text="Country:" />
-       <Button onAction="#addCustomer" fx:id="custUpdateBtn" disable="true" layoutX="190.0" layoutY="513.0" mnemonicParsing="false" text="Add Customer" />
+       <Button fx:id="custUpdateBtn" layoutX="190.0" layoutY="513.0" mnemonicParsing="false" text="Add Customer" />
    </children>
 </AnchorPane>
