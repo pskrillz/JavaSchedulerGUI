@@ -24,11 +24,9 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         /**
-         * MysqlCon.establishConnection()
-         * Creates connection to db using a separate class
-         * for configuration.
+         * Run a test query to make sure the DbConnectionFactory is working.
          */
-        MysqlCon.establishConnection();
+        DbConnectionFactory.fireTestQuery();
         launch(args);
 
     }

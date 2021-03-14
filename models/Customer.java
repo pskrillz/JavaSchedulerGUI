@@ -3,7 +3,9 @@ package models;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
-public class Customer {
+import java.io.Serializable;
+
+public class Customer implements Serializable {
     private SimpleIntegerProperty cId;
     private SimpleStringProperty cName;
     private SimpleStringProperty cAddr;
@@ -12,10 +14,10 @@ public class Customer {
     private SimpleIntegerProperty cDivId;
 
 
-    public Customer(SimpleIntegerProperty cId, SimpleStringProperty cName,
+    public Customer(/*SimpleIntegerProperty cId,*/ SimpleStringProperty cName,
                     SimpleStringProperty cAddr, SimpleStringProperty cZip,
                     SimpleStringProperty cPhone, SimpleIntegerProperty cDivId) {
-        this.cId = cId;
+//        this.cId = cId;
         this.cName = cName;
         this.cAddr = cAddr;
         this.cZip = cZip;
@@ -23,75 +25,75 @@ public class Customer {
         this.cDivId = cDivId;
     }
 
-    public int getcId() {
-        return cId.get();
-    }
+//    public int getId() {
+//        return cId.get();
+//    }
+//
+//    public SimpleIntegerProperty cIdProperty() {
+//        return cId;
+//    }
+//
+//    public void setId(int cId) {
+//        this.cId.set(cId);
+//    }
 
-    public SimpleIntegerProperty cIdProperty() {
-        return cId;
-    }
-
-    public void setcId(int cId) {
-        this.cId.set(cId);
-    }
-
-    public String getcName() {
+    public String getName() {
         return cName.get();
     }
 
-    public SimpleStringProperty cNameProperty() {
+    public SimpleStringProperty getNameProperty() {
         return cName;
     }
 
-    public void setcName(String cName) {
+    public void setName(String cName) {
         this.cName.set(cName);
     }
 
-    public String getcAddr() {
+    public String getAddr() {
         return cAddr.get();
     }
 
-    public SimpleStringProperty cAddrProperty() {
+    public SimpleStringProperty getAddrProperty() {
         return cAddr;
     }
 
-    public void setcAddr(String cAddr) {
+    public void setAddr(String cAddr) {
         this.cAddr.set(cAddr);
     }
 
-    public String getcZip() {
+    public String getZip() {
         return cZip.get();
     }
 
-    public SimpleStringProperty cZipProperty() {
+    public SimpleStringProperty getZipProperty() {
         return cZip;
     }
 
-    public void setcZip(String cZip) {
+    public void setZip(String cZip) {
         this.cZip.set(cZip);
     }
 
-    public String getcPhone() {
+    public String getPhone() {
         return cPhone.get();
     }
 
-    public SimpleStringProperty cPhoneProperty() {
+    public SimpleStringProperty getPhoneProperty() {
         return cPhone;
     }
 
-    public void setcPhone(String cPhone) {
+    public void setPhone(String cPhone) {
         this.cPhone.set(cPhone);
     }
 
-    public int getcDivId() {
+    public int getDivId() {
         return cDivId.get();
     }
 
-    public SimpleIntegerProperty cDivIdProperty() {
+    public SimpleIntegerProperty getDivIdProperty() {
         return cDivId;
     }
 
-    public void setcDivId(int cDivId) {
+    public void setDivId(int cDivId) {
         this.cDivId.set(cDivId);
     }
 }

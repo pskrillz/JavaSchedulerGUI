@@ -1,9 +1,12 @@
 package sample;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.stage.Stage;
+import models.Customer;
 
 public class MainUiController {
 
@@ -12,7 +15,7 @@ public class MainUiController {
      * All the FXML elements for the Customers Tab
      */
 
-    /*
+
     @FXML private TableView<Customer> customerTableView;
     @FXML private TableColumn<Customer, Integer> custIdCol;
     @FXML private TableColumn<Customer, String> custNameCol;
@@ -21,9 +24,8 @@ public class MainUiController {
     @FXML private TableColumn<Customer, String> custCountryCol;
     @FXML private TableColumn<Customer, String> custZipCol;
     @FXML private TableColumn<Customer, String> custDivCol;
-    @FXML private TableColumn<Customer, (Date?)> custDateCol;
+   // @FXML private TableColumn<Customer, (Date?)> custDateCol;
 
-     */
 
     @FXML
     private TextField custIdF;
@@ -39,7 +41,10 @@ public class MainUiController {
     @FXML private Button custAddBtn;
     @FXML private Button custUpdateBtn;
 
+    @FXML
+    private void initialize(){
 
+    }
     /*
     End Customers Tab
      */
@@ -49,4 +54,18 @@ public class MainUiController {
 
 
 
+
+
+
+
+
+
+    public void openAddCust() throws Exception{
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("AddNewCustomer.fxml"));
+        Parent root = (Parent) fxmlLoader.load();
+        Stage stage = new Stage();
+        stage.setTitle("uSchedule Main UI");
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
 }
