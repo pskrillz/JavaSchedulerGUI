@@ -15,9 +15,10 @@
        <ComboBox fx:id="custDivDrop" layoutX="79.0" layoutY="385.0" prefWidth="157.0" promptText="Select Division" />
        <TextField fx:id="custIdF" disable="true" layoutX="79.0" layoutY="111.0" promptText="Auto-Generated" />
        <TextField fx:id="custNameF" layoutX="79.0" layoutY="162.0" promptText="Enter name" />
+       <TextField fx:id="custPhoneF" layoutX="79.0" layoutY="218.0" promptText="(999) 999-9999 format" />
        <TextField fx:id="custAddrF" layoutX="79.0" layoutY="267.0" prefHeight="25.0" prefWidth="239.0" promptText="Do not include first division or country" />
        <TextField fx:id="custZipF" layoutX="79.0" layoutY="440.0" promptText="Enter Postal Code" />
-       <TextField fx:id="custPhoneF" layoutX="79.0" layoutY="218.0" promptText="(999) 999-9999 format" />
+
 
 
        <Label layoutX="79.0" layoutY="92.0" prefHeight="17.0" prefWidth="72.0" text="Customer ID:" />
@@ -28,6 +29,6 @@
        <Label layoutX="79.0" layoutY="423.0" prefHeight="17.0" prefWidth="92.0" text="Postal Code:" />
        <Label layoutX="79.0" layoutY="366.0" prefHeight="17.0" prefWidth="119.0" text="First-Level Division:" />
        <Label layoutX="79.0" layoutY="305.0" prefHeight="17.0" prefWidth="92.0" text="Country:" />
-       <Button onAction="#addCustomer" fx:id="custUpdateBtn" disable="true" layoutX="190.0" layoutY="513.0" mnemonicParsing="false" text="Add Customer" />
+       <Button onAction="#addCustomer" fx:id="custUpdateBtn" layoutX="190.0" layoutY="513.0" mnemonicParsing="false" text="Add Customer" />
    </children>
 </AnchorPane>

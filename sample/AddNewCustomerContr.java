@@ -1,5 +1,6 @@
 package sample;
 
+import Dao.CustomerDaoImpl;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -27,9 +28,10 @@ public class AddNewCustomerContr {
     String address = custAddrF.getText();
     String zip = custZipF.getText();
     String phone = custPhoneF.getText();
-    int divisionId = (int) custDivDrop.getValue();
+  //  int divisionId = (int) custDivDrop.getValue();
 
-        Customer newCustomer = new Customer(name, address, zip, phone, divisionId);
+        Customer newCustomer = new Customer(name, address, zip, phone, 663);
+        CustomerDaoImpl.getInstance().addCustomer(newCustomer);
 
     }
 

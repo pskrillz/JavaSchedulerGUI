@@ -22,6 +22,11 @@ public class CustomerDaoImpl implements CustomerDao<Customer>{
 
     }
 
+    public static CustomerDaoImpl getInstance(){
+        CustomerDaoImpl custDatabase = new CustomerDaoImpl();
+        return custDatabase;
+    }
+
     private Connection getConnection() throws SQLException {
         Connection con = DbConnectionFactory.getInstance().getConnection();
         return con;

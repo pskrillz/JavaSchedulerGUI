@@ -1,5 +1,6 @@
 package sample;
 
+import Dao.CustomerDaoImpl;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -27,6 +28,7 @@ public class Main extends Application {
          * Run a test query to make sure the DbConnectionFactory is working.
          */
         DbConnectionFactory.fireTestQuery();
+        Dao.CustomerDaoImpl custDatabase = new CustomerDaoImpl();
         launch(args);
 
     }
