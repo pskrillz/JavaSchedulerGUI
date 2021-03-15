@@ -29,6 +29,7 @@ public class Main extends Application {
          */
         DbConnectionFactory.fireTestQuery();
         Dao.CustomerDaoImpl custDatabase = new CustomerDaoImpl();
+     //   custDatabase.getAllCustomers();
         launch(args);
 
     }

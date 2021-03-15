@@ -1,5 +1,6 @@
 package Dao;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import models.Customer;
 import sample.DbConnectionFactory;
@@ -17,6 +18,9 @@ public class CustomerDaoImpl implements CustomerDao<Customer>{
     Connection connection = null;
     PreparedStatement prepStatment = null;
     ResultSet resultSet = null;
+
+    ObservableList<Customer> allCustomers = FXCollections.observableArrayList();
+  //  Customer currCust;
 
     public CustomerDaoImpl(){
 
@@ -63,12 +67,42 @@ public class CustomerDaoImpl implements CustomerDao<Customer>{
         } finally {
             closeConnection();
         }
-        return (Customer) resultSet;
+        return (Customer) resultSet; // will casting work here?
     }
 
     @Override
     public ObservableList<Customer> getAllCustomers() {
-        return null;
+        try {
+            connection = getConnection();
+            prepStatment = connection.prepareStatement(querySelectAll);
+            resultSet = prepStatment.executeQuery();
+
+            // loop to make observable list
+            while(resultSet.next()) {
+                String name = resultSet.getString(2);
+                String addr = resultSet.getString(3);
+                String zip = resultSet.getString(4);
+                String phone = resultSet.getString(5);
+                int divId = resultSet.getInt(10);
+
+
+             Customer currCust = new Customer(name, addr, zip, phone, divId);
+              //  System.out.println(currCust);
+              allCustomers.add(currCust);
+              // System.out.println(allCustomers);
+
+//                System.out.println(resultSet.getInt(1) + "  " +
+//                        resultSet.getString(2) + "  " +
+//                        resultSet.getString(3));
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        } finally {
+            closeConnection();
+        }
+
+        return allCustomers;
+
     }
 
 
