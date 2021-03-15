@@ -1,6 +1,8 @@
 package sample;
 
 import Dao.CustomerDaoImpl;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -24,13 +26,16 @@ public class AddNewCustomerContr {
 
 
     public void addCustomer(){
-    String name = custNameF.getText();
-    String address = custAddrF.getText();
-    String zip = custZipF.getText();
-    String phone = custPhoneF.getText();
+    SimpleStringProperty name = new SimpleStringProperty(custNameF.getText());
+    SimpleStringProperty address = new SimpleStringProperty(custAddrF.getText());
+    SimpleStringProperty zip = new SimpleStringProperty(custZipF.getText());
+    SimpleStringProperty phone = new SimpleStringProperty(custPhoneF.getText());
   //  int divisionId = (int) custDivDrop.getValue();
 
-        Customer newCustomer = new Customer(name, address, zip, phone, 663);
+       SimpleIntegerProperty divId = new SimpleIntegerProperty(663);
+
+       // need to not have it be hard-coded by getting the div id combo boxes done
+        Customer newCustomer = new Customer(name, address, zip, phone, divId);
         CustomerDaoImpl.getInstance().addCustomer(newCustomer);
 
     }

@@ -1,5 +1,7 @@
 package Dao;
 
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import models.Customer;
@@ -79,11 +81,11 @@ public class CustomerDaoImpl implements CustomerDao<Customer>{
 
             // loop to make observable list
             while(resultSet.next()) {
-                String name = resultSet.getString(2);
-                String addr = resultSet.getString(3);
-                String zip = resultSet.getString(4);
-                String phone = resultSet.getString(5);
-                int divId = resultSet.getInt(10);
+                SimpleStringProperty name = new SimpleStringProperty(resultSet.getString(2));
+                SimpleStringProperty addr = new SimpleStringProperty(resultSet.getString(3)) ;
+                SimpleStringProperty zip = new SimpleStringProperty(resultSet.getString(4)) ;
+                SimpleStringProperty phone =  new SimpleStringProperty(resultSet.getString(5));
+                SimpleIntegerProperty divId = new SimpleIntegerProperty(resultSet.getInt(10));
 
 
              Customer currCust = new Customer(name, addr, zip, phone, divId);

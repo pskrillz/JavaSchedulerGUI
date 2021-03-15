@@ -8,4 +8,5 @@ module JavaSchedulerGUI {
 
     opens sample;
     opens lib;
+    opens models;
 }

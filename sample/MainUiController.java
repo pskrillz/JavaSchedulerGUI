@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import models.Customer;
 
@@ -42,7 +43,7 @@ public class MainUiController {
 
     @FXML
     private void initialize(){
-
+    setCustomerTableView();
 
     }
     /*
@@ -68,4 +69,17 @@ public class MainUiController {
         stage.setScene(new Scene(root));
         stage.show();
     }
+
+
+    public void setCustomerTableView(){
+        custIdCol.setCellValueFactory(new PropertyValueFactory<>("cId"));
+        custNameCol.setCellValueFactory(new PropertyValueFactory<>("cName"));
+        custPhoneCol.setCellValueFactory(new PropertyValueFactory<>("cPhone"));
+        custAddrCol.setCellValueFactory(new PropertyValueFactory<>("cAddr"));
+        custZipCol.setCellValueFactory(new PropertyValueFactory<>("cZip"));
+        custDivCol.setCellValueFactory(new PropertyValueFactory<>("cDivId"));
+        customerTableView.getItems().setAll(Dao.CustomerDaoImpl.getInstance().getAllCustomers());
+    }
+
+
 }
