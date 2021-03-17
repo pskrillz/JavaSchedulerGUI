@@ -7,7 +7,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import models.Country;
 import models.Customer;
+import models.Division;
 
 public class AddNewCustomerContr {
  //   @FXML private TextField custIdF;
@@ -15,9 +17,13 @@ public class AddNewCustomerContr {
     @FXML private TextField custAddrF;
     @FXML private TextField custZipF;
     @FXML private TextField custPhoneF;
-    @FXML private ComboBox custCountryDrop; // needs the objects in here though
-    @FXML private ComboBox custDivDrop; // make with object
+    @FXML private ComboBox<Country> custCountryDrop; // needs the objects in here though
+    @FXML private ComboBox<Division> custDivDrop; // make with object
     @FXML private Button submitBtn;
+   @FXML
+   private void initialize(){
+      setCountriesDrop();
+   }
 
 
 
@@ -38,6 +44,17 @@ public class AddNewCustomerContr {
         //close window
        sample.AppMethodsSingleton.closeWindow(submitBtn);
     }
+
+
+   public void setCountriesDrop(){
+      custCountryDrop.getItems().setAll(Dao.CustomerDaoImpl.getInstance().getNeededCountries());
+   }
+
+   public void onCountrySelected(){
+      Country selCountry = custCountryDrop.getSelectionModel().getSelectedItem();
+      custDivDrop.setDisable(false);
+      custDivDrop.setItems(Dao.CustomerDaoImpl.getInstance().getSelCountryDivs(selCountry));
+   }
 
 
 }

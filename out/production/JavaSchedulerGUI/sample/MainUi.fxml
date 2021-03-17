@@ -33,8 +33,8 @@
                               <Font name="System Bold" size="28.0" />
                            </font>
                         </Label>
-                        <ComboBox fx:id="custCountryDrop" layoutX="65.0" layoutY="361.0" prefWidth="150.0" promptText="Select Country" />
-                        <ComboBox fx:id="custDivDrop" layoutX="65.0" layoutY="424.0" prefWidth="157.0" promptText="Select Division" />
+                        <ComboBox fx:id="custCountryDrop" onAction="#onCountrySelected" layoutX="65.0" layoutY="361.0" prefWidth="150.0" promptText="Select Country" />
+                        <ComboBox fx:id="custDivDrop" disable="true" layoutX="65.0" layoutY="424.0" prefWidth="157.0" promptText="Select Division" />
                         <TextField fx:id="custIdF" disable="true" layoutX="65.0" layoutY="150.0" promptText="Auto-Generated" />
                         <TextField fx:id="custNameF" layoutX="65.0" layoutY="201.0" promptText="Enter name" />
                         <TextField fx:id="custAddrF" layoutX="65.0" layoutY="306.0" prefHeight="25.0" prefWidth="239.0" promptText="Do not include first division or country" />

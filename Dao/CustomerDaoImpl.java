@@ -6,6 +6,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import models.Country;
 import models.Customer;
+import models.Division;
 import sample.DbConnectionFactory;
 
 import java.sql.Connection;
@@ -24,6 +25,8 @@ public class CustomerDaoImpl implements CustomerDao<Customer>{
 
     public static ObservableList<Customer> allCustomers = FXCollections.observableArrayList();
     public static ObservableList<Country> allCountries = FXCollections.observableArrayList();
+    public static ObservableList<Country> neededCountries = FXCollections.observableArrayList();
+    public static ObservableList<Division> selCountryDivs = FXCollections.observableArrayList();
 
     public CustomerDaoImpl(){
 
@@ -34,7 +37,7 @@ public class CustomerDaoImpl implements CustomerDao<Customer>{
         return custDatabase;
     }
 
-    public Connection getConnection() throws SQLException {
+    private Connection getConnection() throws SQLException {
         Connection con = DbConnectionFactory.getInstance().getConnection();
         return con;
     }
@@ -168,6 +171,7 @@ public class CustomerDaoImpl implements CustomerDao<Customer>{
         }
     }
 
+    // not needed for this app, just 3 countries
     public ObservableList<Country> getAllCountries() {
         try {
             connection = getConnection();
@@ -184,13 +188,50 @@ public class CustomerDaoImpl implements CustomerDao<Customer>{
         } catch (SQLException e){
             e.printStackTrace();
         } finally {
-            // re-use the Customer DAO
+
             closeConnection();
         }
-
         return allCountries;
+    }
+
+    public static ObservableList<Country> getNeededCountries() {
+
+        Country canada = new Country(new SimpleIntegerProperty(38), new SimpleStringProperty("Canada"));
+        Country uk = new Country(new SimpleIntegerProperty(230), new SimpleStringProperty("United Kingdom"));
+        Country us = new Country(new SimpleIntegerProperty(231), new SimpleStringProperty("United States"));
+        neededCountries.add(canada);
+        neededCountries.add(us);
+        neededCountries.add(uk);
+        return neededCountries;
+    }
+
+    public ObservableList<Division> getSelCountryDivs(Country selCountry){
+        try {
+            connection = getConnection();
+            prepStatment = connection.prepareStatement("SELECT * FROM WJ07tms.first_level_divisions where COUNTRY_ID = ?;");
+            prepStatment.setInt(1, selCountry.getCountryId());
+            resultSet = prepStatment.executeQuery();
+            System.out.println(resultSet);
+
+            // loop to make observable list
+            while(resultSet.next()) {
+                System.out.println(resultSet.getInt(1) + "  " +
+                        resultSet.getString(2) + "  " + resultSet.getInt(7));
+                SimpleIntegerProperty id = new SimpleIntegerProperty(resultSet.getInt(1));
+                SimpleStringProperty name = new SimpleStringProperty(resultSet.getString(2));
+                SimpleIntegerProperty countryId = new SimpleIntegerProperty(resultSet.getInt(7));
+                Division currDivision = new Division(id, name, countryId);
+                selCountryDivs.add(currDivision);
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        } finally {
+            closeConnection();
+        }
+        return selCountryDivs;
 
     }
+
 
 
 

@@ -21,6 +21,12 @@ public class Country {
         this.countryName = countryName;
     }
 
+    // This converts the objects names to string names in the combobox
+    @Override
+    public String toString() {
+        return  this.getCountryName();
+    }
+
     public int getCountryId() {
         return countryId.get();
     }

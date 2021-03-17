@@ -9,9 +9,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 import models.Country;
 import models.Customer;
+import models.Division;
 
 public class MainUiController {
 
@@ -39,7 +39,7 @@ public class MainUiController {
     @FXML private TextField custPhoneF;
     @FXML private TextField custSearchF;
     @FXML private ComboBox<Country> custCountryDrop;
-  //  @FXML private ComboBox custDivDrop<Divisions>;
+    @FXML private ComboBox<Division> custDivDrop;
     @FXML private Button custSearchBtn;
     @FXML private Button custDeleteBtn;
     @FXML private Button custAddBtn;
@@ -85,21 +85,29 @@ public class MainUiController {
         custAddrCol.setCellValueFactory(new PropertyValueFactory<>("cAddr"));
         custZipCol.setCellValueFactory(new PropertyValueFactory<>("cZip"));
         custDivCol.setCellValueFactory(new PropertyValueFactory<>("cDivId"));
-        customerTableView.getItems().setAll(Dao.CustomerDaoImpl.getInstance().getAllCustomers());
+        customerTableView.setItems(Dao.CustomerDaoImpl.getInstance().getAllCustomers());
     }
 
     public void setCountriesDrop(){
-        Callback<ListView<Country>, ListCell<Country>> factory = lv -> new ListCell<Country>() {
-
-            protected void updateItem(Country item, boolean empty) {
-                super.updateItem(item, empty);
-                setText(empty ? "" : item.getCountryName());
-            }
-
-        };
-        custCountryDrop.setCellFactory(factory);
-        custCountryDrop.getItems().setAll(Dao.CustomerDaoImpl.getInstance().getAllCountries());
+//        Callback<ListView<Country>, ListCell<Country>> factory = lv -> new ListCell<Country>() {
+//
+//            protected void updateItem(Country item, boolean empty) {
+//                super.updateItem(item, empty);
+//                setText(empty ? "" : item.getCountryName());
+//            }
+//
+//        };
+//        custCountryDrop.setCellFactory(factory);
+        custCountryDrop.getItems().setAll(Dao.CustomerDaoImpl.getInstance().getNeededCountries());
     }
+
+
+    public void onCountrySelected(){
+            Country selCountry = custCountryDrop.getSelectionModel().getSelectedItem();
+            custDivDrop.setDisable(false);
+            custDivDrop.setItems(Dao.CustomerDaoImpl.getInstance().getSelCountryDivs(selCountry));
+    }
+
 
 
     /*
