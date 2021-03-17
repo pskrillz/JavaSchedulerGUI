@@ -4,6 +4,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import models.Country;
 import models.Customer;
 import sample.DbConnectionFactory;
 
@@ -21,8 +22,8 @@ public class CustomerDaoImpl implements CustomerDao<Customer>{
     PreparedStatement prepStatment = null;
     ResultSet resultSet = null;
 
-    ObservableList<Customer> allCustomers = FXCollections.observableArrayList();
-  //  Customer currCust;
+    public static ObservableList<Customer> allCustomers = FXCollections.observableArrayList();
+    public static ObservableList<Country> allCountries = FXCollections.observableArrayList();
 
     public CustomerDaoImpl(){
 
@@ -33,7 +34,7 @@ public class CustomerDaoImpl implements CustomerDao<Customer>{
         return custDatabase;
     }
 
-    private Connection getConnection() throws SQLException {
+    public Connection getConnection() throws SQLException {
         Connection con = DbConnectionFactory.getInstance().getConnection();
         return con;
     }
@@ -90,13 +91,8 @@ public class CustomerDaoImpl implements CustomerDao<Customer>{
 
 
              Customer currCust = new Customer(id, name, addr, zip, phone, divId);
-              //  System.out.println(currCust);
-              allCustomers.add(currCust);
-              // System.out.println(allCustomers);
 
-//                System.out.println(resultSet.getInt(1) + "  " +
-//                        resultSet.getString(2) + "  " +
-//                        resultSet.getString(3));
+              allCustomers.add(currCust);
             }
         } catch (SQLException e){
             e.printStackTrace();
@@ -171,4 +167,31 @@ public class CustomerDaoImpl implements CustomerDao<Customer>{
             closeConnection();
         }
     }
+
+    public ObservableList<Country> getAllCountries() {
+        try {
+            connection = getConnection();
+            prepStatment = connection.prepareStatement("SELECT * FROM WJ07tms.countries;");
+            resultSet = prepStatment.executeQuery();
+
+            // loop to make observable list
+            while(resultSet.next()) {
+                SimpleIntegerProperty id = new SimpleIntegerProperty(resultSet.getInt(1));
+                SimpleStringProperty name = new SimpleStringProperty(resultSet.getString(2));
+                Country currCountry = new Country(id, name);
+                allCountries.add(currCountry);
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        } finally {
+            // re-use the Customer DAO
+            closeConnection();
+        }
+
+        return allCountries;
+
+    }
+
+
+
 }

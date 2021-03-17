@@ -6,7 +6,7 @@ interface CustomerDao<Customer> {
 
    public models.Customer getCustomer(Integer id);
 
-   // ObservableList<Customer>
+
     public ObservableList<Customer> getAllCustomers();
 
     public void addCustomer(Customer customer);

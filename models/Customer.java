@@ -12,6 +12,7 @@ public class Customer implements Serializable {
     private SimpleStringProperty cZip;
     private SimpleStringProperty cPhone;
     private SimpleIntegerProperty cDivId;
+  //  private  dateCreated;
 
 
     public Customer(      SimpleStringProperty cName,
@@ -39,6 +40,7 @@ public class Customer implements Serializable {
         this.cZip = cZip;
         this.cPhone = cPhone;
         this.cDivId = cDivId;
+       // this.dateCreated = dateCreated;
     }
 
     public int getcId() {
