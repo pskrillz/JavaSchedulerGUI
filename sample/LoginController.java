@@ -80,7 +80,7 @@ public class LoginController {
            generateError(langBundle.getString("ErrorPw"));
            return;
         } else if (pw.equals(correct) && un.equals(correct)){
-                closeWindow();
+                sample.AppMethodsSingleton.closeWindow(loginButton);
                 openMainUi();
                 return;
        } else {
@@ -90,14 +90,7 @@ public class LoginController {
 
     }
 
-    /**
-     * void closeWindow()
-     * Closes LoginView window.
-     */
-    public void closeWindow(){
-        Stage stage = (Stage) titleLabel.getScene().getWindow();
-        stage.close();
-    }
+
 
     /**
      * void generateError()

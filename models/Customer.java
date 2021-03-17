@@ -13,11 +13,27 @@ public class Customer implements Serializable {
     private SimpleStringProperty cPhone;
     private SimpleIntegerProperty cDivId;
 
-    public Customer(SimpleStringProperty cName,
+
+    public Customer(      SimpleStringProperty cName,
+                          SimpleStringProperty cAddr,
+                          SimpleStringProperty cZip,
+                          SimpleStringProperty cPhone,
+                          SimpleIntegerProperty cDivId) {
+        this.cName = cName;
+        this.cAddr = cAddr;
+        this.cZip = cZip;
+        this.cPhone = cPhone;
+        this.cDivId = cDivId;
+    }
+
+
+    public Customer( SimpleIntegerProperty cId,
+                    SimpleStringProperty cName,
                     SimpleStringProperty cAddr,
                     SimpleStringProperty cZip,
                     SimpleStringProperty cPhone,
                     SimpleIntegerProperty cDivId) {
+        this.cId = cId;
         this.cName = cName;
         this.cAddr = cAddr;
         this.cZip = cZip;

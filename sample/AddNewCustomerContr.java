@@ -15,13 +15,10 @@ public class AddNewCustomerContr {
     @FXML private TextField custAddrF;
     @FXML private TextField custZipF;
     @FXML private TextField custPhoneF;
-    @FXML private TextField custSearchF;
     @FXML private ComboBox custCountryDrop; // needs the objects in here though
     @FXML private ComboBox custDivDrop; // make with object
-    @FXML private Button custSearchBtn;
-    @FXML private Button custDeleteBtn;
-    @FXML private Button custAddBtn;
-    @FXML private Button custUpdateBtn;
+    @FXML private Button submitBtn;
+
 
 
 
@@ -38,6 +35,8 @@ public class AddNewCustomerContr {
         Customer newCustomer = new Customer(name, address, zip, phone, divId);
         CustomerDaoImpl.getInstance().addCustomer(newCustomer);
 
+        //close window
+       sample.AppMethodsSingleton.closeWindow(submitBtn);
     }
 
 

@@ -81,6 +81,7 @@ public class CustomerDaoImpl implements CustomerDao<Customer>{
 
             // loop to make observable list
             while(resultSet.next()) {
+                SimpleIntegerProperty id = new SimpleIntegerProperty(resultSet.getInt(1));
                 SimpleStringProperty name = new SimpleStringProperty(resultSet.getString(2));
                 SimpleStringProperty addr = new SimpleStringProperty(resultSet.getString(3)) ;
                 SimpleStringProperty zip = new SimpleStringProperty(resultSet.getString(4)) ;
@@ -88,7 +89,7 @@ public class CustomerDaoImpl implements CustomerDao<Customer>{
                 SimpleIntegerProperty divId = new SimpleIntegerProperty(resultSet.getInt(10));
 
 
-             Customer currCust = new Customer(name, addr, zip, phone, divId);
+             Customer currCust = new Customer(id, name, addr, zip, phone, divId);
               //  System.out.println(currCust);
               allCustomers.add(currCust);
               // System.out.println(allCustomers);

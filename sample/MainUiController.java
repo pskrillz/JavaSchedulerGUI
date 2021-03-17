@@ -68,6 +68,8 @@ public class MainUiController {
         stage.setTitle("uSchedule Main UI");
         stage.setScene(new Scene(root));
         stage.show();
+        stage.setOnHiding(event -> setCustomerTableView()); // reset table after adding
+
     }
 
 
