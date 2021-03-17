@@ -49,7 +49,7 @@ public class CustomerDaoImpl implements CustomerDao<Customer>{
         "(CUSTOMER_NAME, PHONE, ADDRESS, POSTAL_CODE,  DIVISION_ID) values(?,?,?,?,?)";
     private final String queryUpdateCust = "update " + db + "where CUSTOMER_ID=" + custId +
             "set ";
-    private final String queryDelete = "delete from " + db + " where CUSTOMER_ID=";
+    private final String queryDelete = "delete from " + db + " where CUSTOMER_ID=?";
 
 
 
@@ -159,6 +159,16 @@ public class CustomerDaoImpl implements CustomerDao<Customer>{
 
     @Override
     public void deleteCustomer(Customer customer) {
-
+        try {
+            connection = getConnection();
+            prepStatment = connection.prepareStatement(queryDelete);
+            prepStatment.setInt(1, customer.getcId());
+            prepStatment.executeUpdate();
+            System.out.println("Customer " + customer.getcName() +  " deleted Successfully");
+        } catch (SQLException e){
+            e.printStackTrace();
+        } finally {
+            closeConnection();
+        }
     }
 }

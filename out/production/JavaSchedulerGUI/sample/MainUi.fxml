@@ -18,7 +18,6 @@
                             <TableColumn fx:id="custNameCol" prefWidth="102.0" text="Name" />
                               <TableColumn fx:id="custPhoneCol" prefWidth="118.0" text="Phone #" />
                               <TableColumn fx:id="custAddrCol" prefWidth="168.0" text="Address" />
-                              <TableColumn fx:id="custCountryCol" prefWidth="97.0" text="Country" />
                               <TableColumn fx:id="custZipCol" prefWidth="100.0" text="Postal Code" />
                               <TableColumn fx:id="custDivCol" minWidth="0.0" prefWidth="140.0" text="First-Level Division" />
                               <TableColumn fx:id="custDateCol" prefWidth="117.0" text="Date Created" />
@@ -45,7 +44,7 @@
                         <Button fx:id="custSearchBtn" layoutX="1171.0" layoutY="85.0" mnemonicParsing="false" text="Search" />
                         <Label layoutX="65.0" layoutY="131.0" prefHeight="17.0" prefWidth="72.0" text="Customer ID:" />
                         <Label layoutX="65.0" layoutY="184.0" prefHeight="17.0" prefWidth="92.0" text="Name:" />
-                        <Button fx:id="custDeleteBtn" layoutX="1128.0" layoutY="708.0" mnemonicParsing="false" text="Delete Selected" />
+                        <Button fx:id="custDeleteBtn" onAction="#deleteCustomer" disable="true" layoutX="1128.0" layoutY="708.0" mnemonicParsing="false" text="Delete Selected" />
                         <Button onAction="#openAddCust" fx:id="custAddBtn" layoutX="1051.0" layoutY="708.0" mnemonicParsing="false" text="Add New" />
                         <Label layoutX="65.0" layoutY="237.0" prefHeight="17.0" prefWidth="92.0" text="Phone Number:" />
                         <Label layoutX="65.0" layoutY="289.0" prefHeight="17.0" prefWidth="92.0" text="Address:" />

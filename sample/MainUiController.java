@@ -6,6 +6,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import models.Customer;
 
@@ -45,21 +47,21 @@ public class MainUiController {
     private void initialize(){
     setCustomerTableView();
 
+        customerTableView.setOnMouseClicked((MouseEvent event) -> {
+            if(event.getButton().equals(MouseButton.PRIMARY)){
+                System.out.println(customerTableView.getSelectionModel().getSelectedItem());
+                // modify and delete buttons are only enabled if an item is selected
+                custDeleteBtn.setDisable(false);
+
+            }
+        });
     }
-    /*
-    End Customers Tab
-     */
 
-
-
-
-
-
-
-
-
-
-
+    public void deleteCustomer(){
+        Customer selectedCust = customerTableView.getSelectionModel().getSelectedItem();
+        Dao.CustomerDaoImpl.getInstance().deleteCustomer(selectedCust);
+        setCustomerTableView();
+    }
 
     public void openAddCust() throws Exception{
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("AddNewCustomer.fxml"));
@@ -82,6 +84,12 @@ public class MainUiController {
         custDivCol.setCellValueFactory(new PropertyValueFactory<>("cDivId"));
         customerTableView.getItems().setAll(Dao.CustomerDaoImpl.getInstance().getAllCustomers());
     }
+
+    /*
+    End Customers Tab
+     */
+
+
 
 
 }
