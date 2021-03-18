@@ -33,11 +33,10 @@ public class AddNewCustomerContr {
     SimpleStringProperty address = new SimpleStringProperty(custAddrF.getText());
     SimpleStringProperty zip = new SimpleStringProperty(custZipF.getText());
     SimpleStringProperty phone = new SimpleStringProperty(custPhoneF.getText());
-  //  int divisionId = (int) custDivDrop.getValue();
+    SimpleIntegerProperty divId = custDivDrop.getSelectionModel().getSelectedItem().divisionIdProperty();
 
-       SimpleIntegerProperty divId = new SimpleIntegerProperty(663);
 
-       // need to not have it be hard-coded by getting the div id combo boxes done
+
         Customer newCustomer = new Customer(name, address, zip, phone, divId);
         CustomerDaoImpl.getInstance().addCustomer(newCustomer);
 

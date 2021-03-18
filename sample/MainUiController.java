@@ -65,6 +65,7 @@ public class MainUiController {
         Customer selectedCust = customerTableView.getSelectionModel().getSelectedItem();
         Dao.CustomerDaoImpl.getInstance().deleteCustomer(selectedCust);
         setCustomerTableView();
+        sample.AppMethodsSingleton.generateAlert(Alert.AlertType.INFORMATION, "Customer " + selectedCust.getcName() + " deleted successfully!" );
     }
 
     public void openAddCust() throws Exception{
@@ -115,6 +116,20 @@ public class MainUiController {
             custDivDrop.setItems(Dao.CustomerDaoImpl.getInstance().getSelCountryDivs(selCountry));
     }
 
+    @FXML
+    public void fillUpdateForm(){
+
+        Customer selCustomer = customerTableView.getSelectionModel().getSelectedItem();
+        System.out.println(selCustomer.getcName());
+        custIdF.setText(Integer.toString(selCustomer.getcId()));
+        custNameF.setText(selCustomer.getcName());
+        custAddrF.setText(selCustomer.getcAddr());
+        custZipF.setText(selCustomer.getcZip());
+        custPhoneF.setText(selCustomer.getcPhone());
+
+        // custCountryDrop.setValue();
+        // custDivDrop.setValue(selCustomer.getcDivId());
+    }
 
 
     /*

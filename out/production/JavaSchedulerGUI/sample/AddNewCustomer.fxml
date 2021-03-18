@@ -11,12 +11,13 @@
             <Font size="20.0" />
          </font>
       </Label>
-       <ComboBox fx:id="custCountryDrop" onAction="#onCountrySelected" layoutX="79.0" layoutY="322.0" prefWidth="150.0" promptText="Select Country" />
-       <ComboBox fx:id="custDivDrop" disable="true" layoutX="79.0" layoutY="385.0" prefWidth="157.0" promptText="Select Division" />
+
        <TextField fx:id="custIdF" disable="true" layoutX="79.0" layoutY="111.0" promptText="Auto-Generated" />
        <TextField fx:id="custNameF" layoutX="79.0" layoutY="162.0" promptText="Enter name" />
        <TextField fx:id="custPhoneF" layoutX="79.0" layoutY="218.0" promptText="(999) 999-9999 format" />
        <TextField fx:id="custAddrF" layoutX="79.0" layoutY="267.0" prefHeight="25.0" prefWidth="239.0" promptText="Do not include first division or country" />
+       <ComboBox fx:id="custCountryDrop" onAction="#onCountrySelected" layoutX="79.0" layoutY="322.0" prefWidth="150.0" promptText="Select Country" />
+       <ComboBox fx:id="custDivDrop" disable="true" layoutX="79.0" layoutY="385.0" prefWidth="157.0" promptText="Select Division" />
        <TextField fx:id="custZipF" layoutX="79.0" layoutY="440.0" promptText="Enter Postal Code" />
 
 

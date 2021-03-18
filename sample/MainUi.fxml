@@ -12,7 +12,7 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="800.0" prefWidth="1200.0">
                      <children>
-                        <TableView fx:id="customerTableView" layoutX="339.0" layoutY="116.0" prefHeight="577.0" prefWidth="900.0">
+                        <TableView onMousePressed="#fillUpdateForm" fx:id="customerTableView" layoutX="339.0" layoutY="116.0" prefHeight="577.0" prefWidth="900.0">
                           <columns>
                             <TableColumn fx:id="custIdCol" prefWidth="57.0" text="ID #" />
                             <TableColumn fx:id="custNameCol" prefWidth="102.0" text="Name" />
@@ -33,13 +33,17 @@
                               <Font name="System Bold" size="28.0" />
                            </font>
                         </Label>
-                        <ComboBox fx:id="custCountryDrop" onAction="#onCountrySelected" layoutX="65.0" layoutY="361.0" prefWidth="150.0" promptText="Select Country" />
-                        <ComboBox fx:id="custDivDrop" disable="true" layoutX="65.0" layoutY="424.0" prefWidth="157.0" promptText="Select Division" />
+
+
                         <TextField fx:id="custIdF" disable="true" layoutX="65.0" layoutY="150.0" promptText="Auto-Generated" />
                         <TextField fx:id="custNameF" layoutX="65.0" layoutY="201.0" promptText="Enter name" />
+                         <TextField fx:id="custPhoneF" layoutX="65.0" layoutY="257.0" promptText="(999) 999-9999 format" />
                         <TextField fx:id="custAddrF" layoutX="65.0" layoutY="306.0" prefHeight="25.0" prefWidth="239.0" promptText="Do not include first division or country" />
-                        <TextField fx:id="custZipF" layoutX="65.0" layoutY="479.0" promptText="Enter Postal Code" />
-                        <TextField fx:id="custPhoneF" layoutX="65.0" layoutY="257.0" promptText="(999) 999-9999 format" />
+                         <ComboBox fx:id="custCountryDrop" onAction="#onCountrySelected" layoutX="65.0" layoutY="361.0" prefWidth="150.0" promptText="Select Country" />
+                         <ComboBox fx:id="custDivDrop" disable="true" layoutX="65.0" layoutY="424.0" prefWidth="157.0" promptText="Select Division" />
+                         <TextField fx:id="custZipF" layoutX="65.0" layoutY="479.0" promptText="Enter Postal Code" />
+                         <Button fx:id="custUpdateBtn" layoutX="70.0" layoutY="535.0" mnemonicParsing="false" text="Update Customer" />
+
                         <TextField fx:id="custSearchF" layoutX="995.0" layoutY="85.0" promptText="Search by name or ID" />
                         <Button fx:id="custSearchBtn" layoutX="1171.0" layoutY="85.0" mnemonicParsing="false" text="Search" />
                         <Label layoutX="65.0" layoutY="131.0" prefHeight="17.0" prefWidth="72.0" text="Customer ID:" />
@@ -51,7 +55,7 @@
                         <Label layoutX="65.0" layoutY="462.0" prefHeight="17.0" prefWidth="92.0" text="Postal Code:" />
                         <Label layoutX="65.0" layoutY="405.0" prefHeight="17.0" prefWidth="119.0" text="First-Level Division:" />
                         <Label layoutX="65.0" layoutY="344.0" prefHeight="17.0" prefWidth="92.0" text="Country:" />
-                        <Button fx:id="custUpdateBtn" layoutX="70.0" layoutY="535.0" mnemonicParsing="false" text="Update Customer" />
+
                      </children></AnchorPane>
             </content>
           </Tab>
