@@ -49,6 +49,7 @@ public class MainUiController {
     private void initialize(){
     setCustomerTableView();
     setCountriesDrop();
+    Dao.CustomerDaoImpl.getInstance().getNeededCountries();
 
         customerTableView.setOnMouseClicked((MouseEvent event) -> {
             if(event.getButton().equals(MouseButton.PRIMARY)){
@@ -79,6 +80,8 @@ public class MainUiController {
 
 
     public void setCustomerTableView(){
+       // resetCustomerTable();
+
         custIdCol.setCellValueFactory(new PropertyValueFactory<>("cId"));
         custNameCol.setCellValueFactory(new PropertyValueFactory<>("cName"));
         custPhoneCol.setCellValueFactory(new PropertyValueFactory<>("cPhone"));
@@ -86,6 +89,10 @@ public class MainUiController {
         custZipCol.setCellValueFactory(new PropertyValueFactory<>("cZip"));
         custDivCol.setCellValueFactory(new PropertyValueFactory<>("cDivId"));
         customerTableView.setItems(Dao.CustomerDaoImpl.getInstance().getAllCustomers());
+    }
+
+    public void resetCustomerTable(){
+        Dao.CustomerDaoImpl.getInstance().getAllCustomers();
     }
 
     public void setCountriesDrop(){

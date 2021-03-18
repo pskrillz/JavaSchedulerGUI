@@ -23,10 +23,8 @@ public class CustomerDaoImpl implements CustomerDao<Customer>{
     PreparedStatement prepStatment = null;
     ResultSet resultSet = null;
 
-    public static ObservableList<Customer> allCustomers = FXCollections.observableArrayList();
     public static ObservableList<Country> allCountries = FXCollections.observableArrayList();
-    public static ObservableList<Country> neededCountries = FXCollections.observableArrayList();
-    public static ObservableList<Division> selCountryDivs = FXCollections.observableArrayList();
+
 
     public CustomerDaoImpl(){
 
@@ -78,6 +76,7 @@ public class CustomerDaoImpl implements CustomerDao<Customer>{
 
     @Override
     public ObservableList<Customer> getAllCustomers() {
+       ObservableList<Customer> allCustomersScoped = FXCollections.observableArrayList();
         try {
             connection = getConnection();
             prepStatment = connection.prepareStatement(querySelectAll);
@@ -95,7 +94,7 @@ public class CustomerDaoImpl implements CustomerDao<Customer>{
 
              Customer currCust = new Customer(id, name, addr, zip, phone, divId);
 
-              allCustomers.add(currCust);
+              allCustomersScoped.add(currCust);
             }
         } catch (SQLException e){
             e.printStackTrace();
@@ -103,7 +102,7 @@ public class CustomerDaoImpl implements CustomerDao<Customer>{
             closeConnection();
         }
 
-        return allCustomers;
+        return allCustomersScoped;
 
     }
 
@@ -194,8 +193,8 @@ public class CustomerDaoImpl implements CustomerDao<Customer>{
         return allCountries;
     }
 
-    public static ObservableList<Country> getNeededCountries() {
-
+    public ObservableList<Country> getNeededCountries() {
+        ObservableList<Country> neededCountries = FXCollections.observableArrayList();
         Country canada = new Country(new SimpleIntegerProperty(38), new SimpleStringProperty("Canada"));
         Country uk = new Country(new SimpleIntegerProperty(230), new SimpleStringProperty("United Kingdom"));
         Country us = new Country(new SimpleIntegerProperty(231), new SimpleStringProperty("United States"));
@@ -206,6 +205,7 @@ public class CustomerDaoImpl implements CustomerDao<Customer>{
     }
 
     public ObservableList<Division> getSelCountryDivs(Country selCountry){
+        ObservableList<Division> selCountryDivs = FXCollections.observableArrayList();
         try {
             connection = getConnection();
             prepStatment = connection.prepareStatement("SELECT * FROM WJ07tms.first_level_divisions where COUNTRY_ID = ?;");
