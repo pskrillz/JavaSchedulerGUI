@@ -1,5 +1,6 @@
 package sample;
 
+import Dao.CustomerDaoImpl;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,6 +13,8 @@ import javafx.stage.Stage;
 import models.Country;
 import models.Customer;
 import models.Division;
+
+import java.sql.SQLException;
 
 public class MainUiController {
 
@@ -45,6 +48,10 @@ public class MainUiController {
     @FXML private Button custAddBtn;
     @FXML private Button custUpdateBtn;
 
+    Customer selCustomer;
+    CustomerDaoImpl customerDao = Dao.CustomerDaoImpl.getInstance();
+
+
     @FXML
     private void initialize(){
     setCustomerTableView();
@@ -52,10 +59,14 @@ public class MainUiController {
     Dao.CustomerDaoImpl.getInstance().getNeededCountries();
 
         customerTableView.setOnMouseClicked((MouseEvent event) -> {
+            selCustomer = customerTableView.getSelectionModel().getSelectedItem();
             if(event.getButton().equals(MouseButton.PRIMARY)){
-                System.out.println(customerTableView.getSelectionModel().getSelectedItem());
-                // modify and delete buttons are only enabled if an item is selected
-                custDeleteBtn.setDisable(false);
+                if (selCustomer != null) {
+                    // modify and delete buttons are only enabled if an item is selected
+                    custDeleteBtn.setDisable(false);
+                    custUpdateBtn.setDisable(false);
+
+                }
 
             }
         });
@@ -97,39 +108,59 @@ public class MainUiController {
     }
 
     public void setCountriesDrop(){
-//        Callback<ListView<Country>, ListCell<Country>> factory = lv -> new ListCell<Country>() {
-//
-//            protected void updateItem(Country item, boolean empty) {
-//                super.updateItem(item, empty);
-//                setText(empty ? "" : item.getCountryName());
-//            }
-//
-//        };
-//        custCountryDrop.setCellFactory(factory);
         custCountryDrop.getItems().setAll(Dao.CustomerDaoImpl.getInstance().getNeededCountries());
     }
 
-
+   // public Country selCountry;
     public void onCountrySelected(){
-            Country selCountry = custCountryDrop.getSelectionModel().getSelectedItem();
+           Country selCountry = custCountryDrop.getSelectionModel().getSelectedItem();
             custDivDrop.setDisable(false);
             custDivDrop.setItems(Dao.CustomerDaoImpl.getInstance().getSelCountryDivs(selCountry));
+
     }
 
     @FXML
-    public void fillUpdateForm(){
+    public void fillUpdateForm() throws SQLException {
 
-        Customer selCustomer = customerTableView.getSelectionModel().getSelectedItem();
+
+        selCustomer = customerTableView.getSelectionModel().getSelectedItem();
         System.out.println(selCustomer.getcName());
         custIdF.setText(Integer.toString(selCustomer.getcId()));
         custNameF.setText(selCustomer.getcName());
         custAddrF.setText(selCustomer.getcAddr());
         custZipF.setText(selCustomer.getcZip());
         custPhoneF.setText(selCustomer.getcPhone());
+        customerDao.getSpecDivCountry(selCustomer.getcDivId());
+       // custCountryDrop.setValue(customerDao.selCountry);
 
         // custCountryDrop.setValue();
         // custDivDrop.setValue(selCustomer.getcDivId());
     }
+
+
+    /**
+     * Country findCountry(String countryName)
+     * Finds the right country and returns it as the object
+     * @param countryName
+     */
+    Country matchCountry;
+   Country findCountry(int countryId){
+        for(Country country : customerDao.getNeededCountries()){
+            if (country.getCountryId() == countryId){
+                matchCountry = country;
+            }
+        }
+        return matchCountry;
+    }
+
+//        Country matchCountry = null;
+//        Dao.CustomerDaoImpl.getInstance().getNeededCountries().forEach((item -> {
+//            if(item.getCountryName() == countryName){
+//                return
+//
+//            }
+//        }));
+
 
 
     /*

@@ -204,6 +204,40 @@ public class CustomerDaoImpl implements CustomerDao<Customer>{
         return neededCountries;
     }
 
+    /**
+     * String getSpecDivCountry(int divId)
+     * Returns the string name of the customer's country for display in the update
+     * @param divId
+     * @return
+     */
+    public int selCountryId;
+    public void getSpecDivCountry(int divId) throws SQLException{
+
+        try {
+            connection = getConnection();
+            prepStatment = connection.prepareStatement(
+                    "SELECT COUNTRY_ID FROM WJ07tms.first_level_divisions where DIVISION_ID = ?;");
+            prepStatment.setInt(1, divId);
+            resultSet = prepStatment.executeQuery();
+           // System.out.println(resultSet);
+
+            while(resultSet.next()) {
+                System.out.println(resultSet.getInt(1));
+                SimpleIntegerProperty id = new SimpleIntegerProperty(resultSet.getInt(1));
+                // SimpleStringProperty name = new SimpleStringProperty(resultSet.getString(2));
+                selCountryId = id.getValue();
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        } finally {
+            closeConnection();
+           // System.out.println(resultSet.getString(1));
+        }
+
+    }
+
+
+
     public ObservableList<Division> getSelCountryDivs(Country selCountry){
         ObservableList<Division> selCountryDivs = FXCollections.observableArrayList();
         try {
