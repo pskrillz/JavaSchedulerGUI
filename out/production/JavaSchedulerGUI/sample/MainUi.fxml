@@ -42,7 +42,7 @@
                          <ComboBox fx:id="custCountryDrop" layoutX="65.0" layoutY="361.0" onAction="#onCountrySelected" prefWidth="150.0" promptText="Select Country" />
                          <ComboBox fx:id="custDivDrop" disable="true" layoutX="65.0" layoutY="424.0" prefWidth="157.0" promptText="Select Division" />
                          <TextField fx:id="custZipF" layoutX="65.0" layoutY="479.0" promptText="Enter Postal Code" />
-                         <Button fx:id="custUpdateBtn" disable="true" layoutX="70.0" layoutY="535.0" mnemonicParsing="false" text="Update Customer" />
+                         <Button fx:id="custUpdateBtn" onAction="#updateCustomer" disable="true" layoutX="70.0" layoutY="535.0" mnemonicParsing="false" text="Update Customer" />
 
                         <TextField fx:id="custSearchF" layoutX="995.0" layoutY="85.0" promptText="Search by name or ID" />
                         <Button fx:id="custSearchBtn" layoutX="1171.0" layoutY="85.0" mnemonicParsing="false" text="Search" />

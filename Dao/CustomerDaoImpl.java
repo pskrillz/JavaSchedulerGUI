@@ -157,7 +157,26 @@ public class CustomerDaoImpl implements CustomerDao<Customer>{
     }
 
     @Override
-    public void updateCustomer(Customer customer, String[] params) {
+    public void updateCustomer(Customer customer, int custId) {
+        try {
+            connection = getConnection();
+            prepStatment = connection.prepareStatement(
+                    "UPDATE WJ07tms.customers set CUSTOMER_NAME = ?, ADDRESS = ?, " +
+                            "POSTAL_CODE = ?, PHONE =?, DIVISION_ID = ? WHERE CUSTOMER_ID = ?;");
+            prepStatment.setInt(6, custId);
+            prepStatment.setString(1, customer.getcName());
+            prepStatment.setString(2, customer.getcAddr());
+            prepStatment.setString(3,customer.getcZip());
+            prepStatment.setString(4, customer.getcPhone());
+            prepStatment.setInt(5, customer.getcDivId());
+            prepStatment.executeUpdate();
+            System.out.println("Customer " + customer.getcName() + " ID# " + Integer.toString(customer.getcId()) +
+                    " Updated Successfully");
+        } catch (SQLException e){
+            e.printStackTrace();
+        } finally {
+            closeConnection();
+        }
 
     }
 

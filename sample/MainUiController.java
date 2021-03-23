@@ -1,6 +1,8 @@
 package sample;
 
 import Dao.CustomerDaoImpl;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -136,6 +138,22 @@ public class MainUiController {
 
         // custCountryDrop.setValue();
         // custDivDrop.setValue(selCustomer.getcDivId());
+    }
+
+    public void updateCustomer(){
+        // just id double check
+        int id = selCustomer.getcId();
+        SimpleStringProperty name = new SimpleStringProperty(custNameF.getText());
+        SimpleStringProperty addy = new SimpleStringProperty(custAddrF.getText());
+        SimpleStringProperty zip = new SimpleStringProperty(custZipF.getText());
+        SimpleStringProperty phone = new SimpleStringProperty(custPhoneF.getText());
+        SimpleIntegerProperty divId = new SimpleIntegerProperty(custDivDrop.getSelectionModel().getSelectedItem().getDivisionId());
+
+        Customer cust = new Customer(name, addy, zip, phone, divId);
+
+        customerDao.updateCustomer(cust, id);
+
+
     }
 
 
