@@ -54,10 +54,11 @@ public class CustomerDaoImpl implements CustomerDao<Customer>{
     private final String queryDelete = "delete from " + db + " where CUSTOMER_ID=?";
 
 
-
-
-
-
+    /**
+     * Gets a specified customer
+     * @param id
+     * @return
+     */
     @Override
     public Customer getCustomer(Integer id) {
         try {
@@ -74,6 +75,11 @@ public class CustomerDaoImpl implements CustomerDao<Customer>{
         return (Customer) resultSet; // will casting work here?
     }
 
+    /**
+     * getAllCustomers()
+     * Returns an array of all customer objects.
+     * @return
+     */
     @Override
     public ObservableList<Customer> getAllCustomers() {
        ObservableList<Customer> allCustomersScoped = FXCollections.observableArrayList();
@@ -155,6 +161,10 @@ public class CustomerDaoImpl implements CustomerDao<Customer>{
 
     }
 
+    /**
+     * Deletes the customer from DB.
+     * @param customer
+     */
     @Override
     public void deleteCustomer(Customer customer) {
         try {
@@ -170,7 +180,10 @@ public class CustomerDaoImpl implements CustomerDao<Customer>{
         }
     }
 
-    // not needed for this app, just 3 countries
+    /**
+     * Returns all countries (not needed in this case because there are only 3 countries to choose from)
+     * @return
+     */
     public ObservableList<Country> getAllCountries() {
         try {
             connection = getConnection();
@@ -237,7 +250,13 @@ public class CustomerDaoImpl implements CustomerDao<Customer>{
     }
 
 
-
+    /**
+     * getSelCountryDivs(Country selCountry)
+     * Returns the specific divisions array for the specified country
+     * @param selCountry
+     * @return
+     */
+// Could be optimized for efficiency but fine for now
     public ObservableList<Division> getSelCountryDivs(Country selCountry){
         ObservableList<Division> selCountryDivs = FXCollections.observableArrayList();
         try {
@@ -245,12 +264,12 @@ public class CustomerDaoImpl implements CustomerDao<Customer>{
             prepStatment = connection.prepareStatement("SELECT * FROM WJ07tms.first_level_divisions where COUNTRY_ID = ?;");
             prepStatment.setInt(1, selCountry.getCountryId());
             resultSet = prepStatment.executeQuery();
-            System.out.println(resultSet);
+            // System.out.println(resultSet);
 
             // loop to make observable list
             while(resultSet.next()) {
-                System.out.println(resultSet.getInt(1) + "  " +
-                        resultSet.getString(2) + "  " + resultSet.getInt(7));
+//                System.out.println(resultSet.getInt(1) + "  " +
+//                        resultSet.getString(2) + "  " + resultSet.getInt(7));
                 SimpleIntegerProperty id = new SimpleIntegerProperty(resultSet.getInt(1));
                 SimpleStringProperty name = new SimpleStringProperty(resultSet.getString(2));
                 SimpleIntegerProperty countryId = new SimpleIntegerProperty(resultSet.getInt(7));

@@ -131,7 +131,8 @@ public class MainUiController {
         custZipF.setText(selCustomer.getcZip());
         custPhoneF.setText(selCustomer.getcPhone());
         customerDao.getSpecDivCountry(selCustomer.getcDivId());
-       // custCountryDrop.setValue(customerDao.selCountry);
+        custCountryDrop.setValue(findCountry(customerDao.selCountryId));
+        custDivDrop.setValue(findDivision(selCustomer.getcDivId()));
 
         // custCountryDrop.setValue();
         // custDivDrop.setValue(selCustomer.getcDivId());
@@ -139,9 +140,9 @@ public class MainUiController {
 
 
     /**
-     * Country findCountry(String countryName)
+     * Country findCountry(int countryId)
      * Finds the right country and returns it as the object
-     * @param countryName
+     * @param countryId
      */
     Country matchCountry;
    Country findCountry(int countryId){
@@ -152,6 +153,25 @@ public class MainUiController {
         }
         return matchCountry;
     }
+
+    /**
+     * Division findDivision(int divId)
+     * Returns the division object for the drop down
+     * (!) Could be rewritten for speed as its kind of slow right now.
+     * @param divId
+     * @return
+     */
+    Division findDivision(int divId){
+       for(Division division: customerDao.getSelCountryDivs(matchCountry)){
+           if( division.getDivisionId() == divId){
+               return division;
+           }
+       };
+
+       AppMethodsSingleton.generateAlert(Alert.AlertType.ERROR, "Error!");
+       return null;
+    }
+
 
 //        Country matchCountry = null;
 //        Dao.CustomerDaoImpl.getInstance().getNeededCountries().forEach((item -> {
