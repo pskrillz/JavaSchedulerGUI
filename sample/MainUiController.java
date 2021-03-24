@@ -102,15 +102,12 @@ public class MainUiController {
         custAddrCol.setCellValueFactory(new PropertyValueFactory<>("cAddr"));
         custZipCol.setCellValueFactory(new PropertyValueFactory<>("cZip"));
         custDivCol.setCellValueFactory(new PropertyValueFactory<>("cDivId"));
-        customerTableView.setItems(Dao.CustomerDaoImpl.getInstance().getAllCustomers());
+        customerTableView.setItems(customerDao.getAllCustomers());
     }
 
-    public void resetCustomerTable(){
-        Dao.CustomerDaoImpl.getInstance().getAllCustomers();
-    }
 
     public void setCountriesDrop(){
-        custCountryDrop.getItems().setAll(Dao.CustomerDaoImpl.getInstance().getNeededCountries());
+        custCountryDrop.getItems().setAll(customerDao.getNeededCountries());
     }
 
    // public Country selCountry;
@@ -142,7 +139,7 @@ public class MainUiController {
 
     public void updateCustomer(){
         // just id double check
-        int id = selCustomer.getcId();
+        int id = Integer.parseInt(custIdF.getText());
         SimpleStringProperty name = new SimpleStringProperty(custNameF.getText());
         SimpleStringProperty addy = new SimpleStringProperty(custAddrF.getText());
         SimpleStringProperty zip = new SimpleStringProperty(custZipF.getText());
@@ -151,9 +148,14 @@ public class MainUiController {
 
         Customer cust = new Customer(name, addy, zip, phone, divId);
 
-        customerDao.updateCustomer(cust, id);
-
-
+        // customerDao.updateCustomer(cust, id);
+        try {
+            customerDao.updateCustomer(cust, id);
+        } catch (RuntimeException e){
+            e.printStackTrace();
+        } finally{
+            setCustomerTableView();
+        }
     }
 
 
