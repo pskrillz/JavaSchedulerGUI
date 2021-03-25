@@ -53,7 +53,9 @@ public class MainUiController {
     Customer selCustomer;
     CustomerDaoImpl customerDao = Dao.CustomerDaoImpl.getInstance();
 
-
+    /**
+     * Important method to get everything set up
+     */
     @FXML
     private void initialize(){
     setCustomerTableView();
@@ -193,18 +195,12 @@ public class MainUiController {
     }
 
 
-//        Country matchCountry = null;
-//        Dao.CustomerDaoImpl.getInstance().getNeededCountries().forEach((item -> {
-//            if(item.getCountryName() == countryName){
-//                return
-//
-//            }
-//        }));
-
-
-
     /*
     End Customers Tab
+     */
+    // ******************************
+    /*
+    Begin Appointments Tab
      */
 
 

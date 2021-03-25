@@ -2,9 +2,9 @@ package Dao;
 
 import javafx.collections.ObservableList;
 
-interface CustomerDao<Customer> {
+public interface CustomerDao<Customer> {
 
-   public models.Customer getCustomer(Integer id);
+   public Customer getCustomer(Integer id);
 
    public ObservableList<Customer> getAllCustomers();
 

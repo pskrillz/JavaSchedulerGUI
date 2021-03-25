@@ -16,7 +16,6 @@ import java.sql.SQLException;
 
 public class CustomerDaoImpl implements CustomerDao<Customer>{
     /**
-     * Connection connection, PreparedStatement preparedStatement, ResultSet resultSet:
      * Initializing JDBC objects for future use.
      */
     Connection connection = null;
@@ -34,6 +33,8 @@ public class CustomerDaoImpl implements CustomerDao<Customer>{
         CustomerDaoImpl custDatabase = new CustomerDaoImpl();
         return custDatabase;
     }
+
+
 
     private Connection getConnection() throws SQLException {
         Connection con = DbConnectionFactory.getInstance().getConnection();
