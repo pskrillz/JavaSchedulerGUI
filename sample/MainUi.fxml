@@ -23,14 +23,14 @@
                               <TableColumn fx:id="custDateCol" prefWidth="117.0" text="Date Created" />
                           </columns>
                         </TableView>
-                        <Label layoutX="63.0" layoutY="83.0" prefHeight="30.0" prefWidth="148.0" text="Customer Info:" underline="true">
+                        <Label layoutX="63.0" layoutY="83.0" prefHeight="30.0" prefWidth="148.0" text="Customer Info:">
                            <font>
-                              <Font size="20.0" />
+                              <Font name="System Bold" size="20.0" />
                            </font>
                         </Label>
-                        <Label layoutX="532.0" layoutY="14.0" prefHeight="40.0" prefWidth="269.0" text="Manage Customers" underline="true">
+                        <Label layoutX="520.0" layoutY="14.0" prefHeight="40.0" prefWidth="269.0" text="Manage Customers">
                            <font>
-                              <Font name="System Bold" size="28.0" />
+                              <Font name="System Bold" size="25.0" />
                            </font>
                         </Label>
 
@@ -38,11 +38,11 @@
                         <TextField fx:id="custIdF" disable="true" layoutX="65.0" layoutY="150.0" promptText="Auto-Generated" />
                         <TextField fx:id="custNameF" layoutX="65.0" layoutY="201.0" promptText="Enter name" />
                          <TextField fx:id="custPhoneF" layoutX="65.0" layoutY="257.0" promptText="(999) 999-9999 format" />
-                        <TextField fx:id="custAddrF" layoutX="65.0" layoutY="306.0" prefHeight="25.0" prefWidth="239.0" promptText="Do not include first division or country" />
+                        <TextField fx:id="custAddrF" layoutX="65.0" layoutY="306.0" prefHeight="25.0" prefWidth="229.0" promptText="Do not include first division or country" />
                          <ComboBox fx:id="custCountryDrop" layoutX="65.0" layoutY="361.0" onAction="#onCountrySelected" prefWidth="150.0" promptText="Select Country" />
                          <ComboBox fx:id="custDivDrop" disable="true" layoutX="65.0" layoutY="424.0" prefWidth="157.0" promptText="Select Division" />
                          <TextField fx:id="custZipF" layoutX="65.0" layoutY="479.0" promptText="Enter Postal Code" />
-                         <Button fx:id="custUpdateBtn" onAction="#updateCustomer" disable="true" layoutX="70.0" layoutY="535.0" mnemonicParsing="false" text="Update Customer" />
+                         <Button fx:id="custUpdateBtn" disable="true" layoutX="70.0" layoutY="535.0" mnemonicParsing="false" onAction="#updateCustomer" text="Update Customer" />
 
                         <TextField fx:id="custSearchF" layoutX="995.0" layoutY="85.0" promptText="Search by name or ID" />
                         <Button fx:id="custSearchBtn" layoutX="1171.0" layoutY="85.0" mnemonicParsing="false" text="Search" />
@@ -55,6 +55,7 @@
                         <Label layoutX="65.0" layoutY="462.0" prefHeight="17.0" prefWidth="92.0" text="Postal Code:" />
                         <Label layoutX="65.0" layoutY="405.0" prefHeight="17.0" prefWidth="119.0" text="First-Level Division:" />
                         <Label layoutX="65.0" layoutY="344.0" prefHeight="17.0" prefWidth="92.0" text="Country:" />
+                        <Separator layoutX="307.0" layoutY="89.0" orientation="VERTICAL" prefHeight="606.0" prefWidth="12.0" />
 
                      </children></AnchorPane>
             </content>
@@ -63,12 +64,60 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="800.0" prefWidth="2000.0">
                      <children>
-                        <TableView layoutX="550.0" layoutY="65.0" prefHeight="650.0" prefWidth="900.0">
+                        <TableView layoutX="364.0" layoutY="66.0" prefHeight="575.0" prefWidth="900.0">
                           <columns>
                             <TableColumn prefWidth="75.0" text="C1" />
                             <TableColumn prefWidth="75.0" text="C2" />
                           </columns>
                         </TableView>
+
+                         <Label layoutX="41.0" layoutY="113.0" prefHeight="17.0" prefWidth="108.0" text="Appointment ID:" />
+                            <TextField fx:id="" disable="true" layoutX="41.0" layoutY="130.0" prefWidth="149.0" promptText="Auto-Generated" />
+                         <Label layoutX="41.0" layoutY="164.0" prefHeight="17.0" prefWidth="92.0" text="Title:" />
+                            <TextField fx:id="" layoutX="41.0" layoutY="181.0" prefHeight="25.0" prefWidth="149.0" promptText="Enter name" text="Enter title" />
+                         
+                         <TextField fx:id="" layoutX="41.0" layoutY="235.0" promptText="(999) 999-9999 format" text="Type comment" />
+                         
+                         <ComboBox fx:id="" layoutX="41.0" layoutY="290.0" onAction="#onCountrySelected" prefWidth="150.0" promptText="Select Country" />
+                         <ComboBox fx:id="" disable="true" layoutX="41.0" layoutY="345.0" prefWidth="157.0" promptText="Select Contact" />
+                         
+                         <Button fx:id="appUpdateBtn" disable="true" layoutX="96.0" layoutY="714.0" mnemonicParsing="false" text="Update Appointment" />
+
+
+
+                         <Button fx:id="apptDeleteBtn" disable="true" layoutX="1128.0" layoutY="708.0" mnemonicParsing="false" onAction="#deleteCustomer" text="Delete Selected" />
+                         <Button fx:id="appAddBtn" layoutX="1051.0" layoutY="708.0" mnemonicParsing="false" onAction="#openAddCust" text="Add New" />
+                         <Label layoutX="41.0" layoutY="216.0" prefHeight="17.0" prefWidth="92.0" text="Description:" />
+                         <Label layoutX="210.0" layoutY="164.0" prefHeight="17.0" prefWidth="80.0" text="Type:" />
+                         <Label layoutX="41.0" layoutY="325.0" prefHeight="17.0" prefWidth="119.0" text="Contact:" />
+                         <Label layoutX="41.0" layoutY="270.0" prefHeight="17.0" prefWidth="92.0" text="Location:" />
+                        <DatePicker layoutX="41.0" layoutY="430.0" />
+                         <DatePicker layoutX="41.0" layoutY="520.0" />
+                        <Label layoutX="41.0" layoutY="380.0" text="From:" />
+                        <Spinner layoutX="41.0" layoutY="400.0" prefHeight="25.0" prefWidth="60.0" />
+                        <Spinner layoutX="113.0" layoutY="400.0" prefHeight="25.0" prefWidth="58.0" />
+                        <Spinner layoutX="180.0" layoutY="400.0" prefHeight="25.0" prefWidth="58.0" />
+                        <Label layoutX="41.0" layoutY="470.0" text="To:" />
+                        <Spinner layoutX="41.0" layoutY="490.0" prefHeight="25.0" prefWidth="59.0" />
+                        <Spinner layoutX="110.0" layoutY="490.0" prefHeight="25.0" prefWidth="63.0" />
+                        <Spinner layoutX="180.0" layoutY="490.0" prefHeight="25.0" prefWidth="58.0" />
+                        <ComboBox layoutX="210.0" layoutY="181.0" prefHeight="25.0" prefWidth="111.0" promptText="Select Type" />
+                        <Label layoutX="42.0" layoutY="558.0" text="Customer ID:" />
+                        <Label layoutX="43.0" layoutY="613.0" text="User ID:" />
+                        <TextField layoutX="41.0" layoutY="575.0" />
+                        <TextField layoutX="41.0" layoutY="630.0" />
+                        <Separator layoutX="330.0" layoutY="67.0" orientation="VERTICAL" prefHeight="677.0" prefWidth="28.0" />
+                        <Label layoutX="84.0" layoutY="65.0" text="Appointment Info:">
+                           <font>
+                              <Font name="System Bold" size="20.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="489.0" layoutY="14.0" text="Manage Appointments">
+                           <font>
+                              <Font name="System Bold" size="25.0" />
+                           </font>
+                        </Label>
+
                      </children></AnchorPane>
                </content>
             </Tab>
