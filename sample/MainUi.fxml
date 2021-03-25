@@ -79,44 +79,40 @@
                         </TableView>
 
                          <Label layoutX="41.0" layoutY="113.0" prefHeight="17.0" prefWidth="108.0" text="Appointment ID:" />
-                            <TextField fx:id="" disable="true" layoutX="41.0" layoutY="130.0" prefWidth="149.0" promptText="Auto-Generated" />
+                            <TextField fx:id="appIdF" disable="true" layoutX="41.0" layoutY="130.0" prefWidth="149.0" promptText="Auto-Generated" />
                          <Label layoutX="41.0" layoutY="164.0" prefHeight="17.0" prefWidth="92.0" text="Title:" />
-                            <TextField fx:id="" layoutX="41.0" layoutY="181.0" prefHeight="25.0" prefWidth="149.0" promptText="Enter name" text="Enter title" />
+                            <TextField fx:id="appTitleF" layoutX="41.0" layoutY="181.0" prefHeight="25.0" prefWidth="149.0" promptText="Enter Title"  />
                          <ComboBox layoutX="210.0" layoutY="181.0" prefHeight="25.0" prefWidth="111.0" promptText="Select Type" />
-                         <TextField fx:id="" layoutX="41.0" layoutY="235.0" promptText="(999) 999-9999 format" text="Type comment" />
+                         <TextField fx:id="appDescF" layoutX="41.0" layoutY="235.0"  promptText="Type comment" />
                          
-                         <ComboBox fx:id="" layoutX="41.0" layoutY="290.0"  prefWidth="150.0" promptText="Select Country" />
-                         <ComboBox fx:id="" layoutX="41.0" layoutY="345.0" prefWidth="157.0" promptText="Select Contact" />
-                         <DatePicker layoutX="41.0" layoutY="398.0" />
-                         <Spinner layoutX="41.0" layoutY="451.0" prefHeight="25.0" prefWidth="58.0" />
-                         <Spinner layoutX="113.0" layoutY="451.0" prefHeight="25.0" prefWidth="58.0" />
-                         <Spinner layoutX="179.0" layoutY="451.0" prefHeight="25.0" prefWidth="60.0" />
-                         <Spinner layoutX="41.0" layoutY="503.0" prefHeight="25.0" prefWidth="59.0" />
-                         <Spinner layoutX="111.0" layoutY="503.0" prefHeight="25.0" prefWidth="63.0" />
-                         <Spinner layoutX="181.0" layoutY="503.0" prefHeight="25.0" prefWidth="58.0" />
+                         <ComboBox fx:id="appLocF" layoutX="41.0" layoutY="290.0"  prefWidth="150.0" promptText="Select Country" />
+                         <ComboBox fx:id="appContactF" layoutX="41.0" layoutY="345.0" prefWidth="157.0" promptText="Select Contact" />
+                         <DatePicker fx:id="appDateF" layoutX="41.0" layoutY="398.0" promptText="Select Date" />
+
+                         <Spinner fx:id="appStartHF" layoutX="41.0" layoutY="451.0" prefHeight="25.0" prefWidth="58.0" />
+                         <Spinner fx:id="appStartMF" layoutX="113.0" layoutY="451.0" prefHeight="25.0" prefWidth="58.0" />
+                         <Spinner fx:id="appStart12F" layoutX="179.0" layoutY="451.0" prefHeight="25.0" prefWidth="60.0" />
+
+                         <Spinner fx:id="appEndHF" layoutX="41.0" layoutY="503.0" prefHeight="25.0" prefWidth="59.0" />
+                         <Spinner fx:id="appEndMF" layoutX="111.0" layoutY="503.0" prefHeight="25.0" prefWidth="63.0" />
+                         <Spinner fx:id="appEnd12F" layoutX="181.0" layoutY="503.0" prefHeight="25.0" prefWidth="58.0" />
+                         <TextField layoutX="41.0" layoutY="562.0" promptText="Enter customer ID #" />
+                         <TextField layoutX="41.0" layoutY="617.0" promptText="Enter contact ID #"/>
+
 
                          <Button fx:id="appUpdateBtn" disable="true" layoutX="96.0" layoutY="714.0" mnemonicParsing="false" text="Update Appointment" />
-
-
-
                          <Button fx:id="appDeleteBtn" disable="true" layoutX="1128.0" layoutY="708.0" mnemonicParsing="false"  text="Delete Selected" />
                          <Button fx:id="appAddBtn" layoutX="1051.0" layoutY="708.0" mnemonicParsing="false"  text="Add New" />
+
                          <Label layoutX="41.0" layoutY="216.0" prefHeight="17.0" prefWidth="92.0" text="Description:" />
                          <Label layoutX="210.0" layoutY="164.0" prefHeight="17.0" prefWidth="80.0" text="Type:" />
                          <Label layoutX="41.0" layoutY="325.0" prefHeight="17.0" prefWidth="119.0" text="Contact:" />
                          <Label layoutX="41.0" layoutY="270.0" prefHeight="17.0" prefWidth="92.0" text="Location:" />
-
                         <Label layoutX="41.0" layoutY="380.0" text="Date:" />
-
-
-
                         <Label layoutX="41.0" layoutY="434.0" text="Start:" />
-
-
                         <Label layoutX="43.0" layoutY="545.0" text="Customer ID:" />
                         <Label layoutX="43.0" layoutY="600.0" text="User ID:" />
-                        <TextField layoutX="41.0" layoutY="562.0" />
-                        <TextField layoutX="41.0" layoutY="617.0" />
+
                         <Separator layoutX="330.0" layoutY="113.0" orientation="VERTICAL" prefHeight="631.0" prefWidth="28.0" />
                         <Label layoutX="84.0" layoutY="65.0" text="Appointment Info:">
                            <font>
