@@ -5,7 +5,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
+
 public class AppMethodsSingleton {
+
+    public static String zoneOffsetString;
 
     /**
      * void closeWindow()
@@ -29,14 +35,23 @@ public class AppMethodsSingleton {
         err.show();
     }
 
-//    public static void openWidow(String fxmlFile, String title) throws Exception{
-//        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MainUi.fxml"));
-//        Parent root = (Parent) fxmlLoader.load();
-//        Stage stage = new Stage();
-//        stage.setTitle("uSchedule Main UI");
-//        stage.setScene(new Scene(root));
-//        stage.show();
-  //  }
+    /**
+     * getLocalTimezoneOffset()
+     * Returns the string offset for use in sql queries to normalize it's display
+     * for the local user.
+     * @return
+     */
+    public static String getLocalTimezoneOffset(){
+
+        LocalDateTime now = LocalDateTime.now();
+        ZoneId zone = ZoneId.of(String.valueOf(ZoneId.systemDefault()));
+        ZoneOffset zoneOffset = zone.getRules().getOffset(now);
+        System.out.println(zoneOffset);
+        zoneOffsetString = String.valueOf(zoneOffset);
+        return zoneOffsetString;
+
+    }
+
 
 
 }

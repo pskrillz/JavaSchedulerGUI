@@ -27,10 +27,12 @@ public class Main extends Application {
         /**
          * Run a test query to make sure the DbConnectionFactory is working.
          */
+        AppMethodsSingleton.getLocalTimezoneOffset();
         DbConnectionFactory.fireTestQuery();
         Dao.CustomerDaoImpl custDatabase = new CustomerDaoImpl();
      //   custDatabase.getAllCustomers();
         launch(args);
+
 
     }
 }
