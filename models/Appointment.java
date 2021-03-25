@@ -148,4 +148,16 @@ public class Appointment {
     public void setAppContactId(int appContactId) {
         this.appContactId.set(appContactId);
     }
+
+    public String getAppType() {
+        return appType.get();
+    }
+
+    public SimpleStringProperty appTypeProperty() {
+        return appType;
+    }
+
+    public void setAppType(String appType) {
+        this.appType.set(appType);
+    }
 }

@@ -1,5 +1,6 @@
 package sample;
 
+import Dao.AppDaoImpl;
 import Dao.CustomerDaoImpl;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -12,6 +13,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import models.Appointment;
 import models.Country;
 import models.Customer;
 import models.Division;
@@ -31,10 +33,8 @@ public class MainUiController {
     @FXML private TableColumn<Customer, String> custNameCol;
     @FXML private TableColumn<Customer, String> custPhoneCol;
     @FXML private TableColumn<Customer, String> custAddrCol;
-    @FXML private TableColumn<Customer, String> custCountryCol;
     @FXML private TableColumn<Customer, String> custZipCol;
     @FXML private TableColumn<Customer, String> custDivCol;
-   // @FXML private TableColumn<Customer, (Date?)> custDateCol;
 
 
     @FXML private TextField custIdF;
@@ -42,10 +42,8 @@ public class MainUiController {
     @FXML private TextField custAddrF;
     @FXML private TextField custZipF;
     @FXML private TextField custPhoneF;
-    @FXML private TextField custSearchF;
     @FXML private ComboBox<Country> custCountryDrop;
     @FXML private ComboBox<Division> custDivDrop;
-    @FXML private Button custSearchBtn;
     @FXML private Button custDeleteBtn;
     @FXML private Button custAddBtn;
     @FXML private Button custUpdateBtn;
@@ -58,9 +56,11 @@ public class MainUiController {
      */
     @FXML
     private void initialize(){
-    setCustomerTableView();
+    setCustomerTableView(); // Sets up customers table
+    setAppTable(); // Sets up appointments table
     setCountriesDrop();
-    Dao.CustomerDaoImpl.getInstance().getNeededCountries();
+    customerDao.getNeededCountries();
+
 
         customerTableView.setOnMouseClicked((MouseEvent event) -> {
             selCustomer = customerTableView.getSelectionModel().getSelectedItem();
@@ -74,6 +74,8 @@ public class MainUiController {
 
             }
         });
+
+
     }
 
     public void deleteCustomer(){
@@ -96,8 +98,6 @@ public class MainUiController {
 
 
     public void setCustomerTableView(){
-       // resetCustomerTable();
-
         custIdCol.setCellValueFactory(new PropertyValueFactory<>("cId"));
         custNameCol.setCellValueFactory(new PropertyValueFactory<>("cName"));
         custPhoneCol.setCellValueFactory(new PropertyValueFactory<>("cPhone"));
@@ -203,7 +203,39 @@ public class MainUiController {
     Begin Appointments Tab
      */
 
+    public static AppDaoImpl appDao = Dao.AppDaoImpl.getInstance();
 
+    /**
+     * Appointment Table Elements
+     */
+    @FXML private TableView<Appointment> appTable;
+    @FXML private TableColumn<Appointment, Integer> appIdC;
+    @FXML private TableColumn<Appointment, String> appTitleC;
+    @FXML private TableColumn<Appointment, String> appDescC;
+    @FXML private TableColumn<Appointment, String> appLocC;
+    @FXML private TableColumn<Appointment, String> appContactC;
+    @FXML private TableColumn<Appointment, String> appTypeC;
+    @FXML private TableColumn<Appointment, String> appStartC;
+    @FXML private TableColumn<Appointment, String> appEndC;
+    @FXML private TableColumn<Appointment, Integer> appCustIdC;
+
+
+
+@FXML
+    public void setAppTable(){
+        appIdC.setCellValueFactory(new PropertyValueFactory<>("appId"));
+        appTitleC.setCellValueFactory(new PropertyValueFactory<>("appTitle"));
+        appDescC.setCellValueFactory(new PropertyValueFactory<>("appDesc"));
+        appLocC.setCellValueFactory(new PropertyValueFactory<>("appLocation"));
+        appTypeC.setCellValueFactory(new PropertyValueFactory<>("appType"));
+        appStartC.setCellValueFactory(new PropertyValueFactory<>("appStart"));
+        appEndC.setCellValueFactory(new PropertyValueFactory<>("appEnd"));
+        appCustIdC.setCellValueFactory(new PropertyValueFactory<>("appCustId"));
+        appContactC.setCellValueFactory(new PropertyValueFactory<>("appContactId"));
+        appTable.setItems(appDao.getAllApps());
+
+
+    }
 
 
 }

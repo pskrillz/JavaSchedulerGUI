@@ -10,33 +10,36 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class AppDaoImpl implements AppDao{
+public class AppDaoImpl implements AppDao<Appointment>{
 
     PreparedStatement prepStatment = null;
     ResultSet resultSet = null;
-    Connection con = null;
+    Connection connection = null;
+
 
     // why keep closing connection?
-    private void getConnection() throws SQLException {
-        con = DbConnectionFactory.getInstance().getConnection();
+    private Connection getConnection() throws SQLException {
+        connection = DbConnectionFactory.getInstance().getConnection();
+        return connection;
     }
 
-    @Override
-    public Appointment getApp(Integer id) {
-        return null;
-    }
+//    @Override
+//    public Appointment getApp(Integer id) {
+//        return null;
+//    }
 
-    @Override
-    public AppDaoImpl getInstance() {
+
+    public static AppDaoImpl getInstance() {
         AppDaoImpl appDao = new AppDaoImpl();
         return appDao;
     }
 
     @Override
-    public ObservableList getAllApps() {
+    public ObservableList<Appointment> getAllApps() {
         ObservableList<Appointment> allApps = FXCollections.observableArrayList();
         try {
-            String query = "select * from WJ07TMS.appointments";
+            String query = "select * from WJ07tms.appointments";
+            Connection con = getConnection();
             prepStatment = con.prepareStatement(query);
             resultSet = prepStatment.executeQuery();
 
@@ -52,27 +55,40 @@ public class AppDaoImpl implements AppDao{
         } catch (SQLException e){
             e.printStackTrace();
         } finally {
-            return allApps;
+            closeConnection();
         }
-
+        return allApps;
     }
 
+//    @Override
+//    public void addApp(Appointment app) {
+//
+//    }
+//
+//    @Override
+//    public void updateApp(Appointment app, int appId) {
+//
+//    }
+//
+//
+//
+//    @Override
+//    public void deleteApp(Object app) {
+//
+//    }
 
-    @Override
-    public void addApp(Object app) {
-
+    public void closeConnection(){
+        try {
+            if (prepStatment != null)
+                prepStatment.close();
+            if (connection != null)
+                connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
-
-    @Override
-    public void updateApp(Object app, int appId) {
-
-    }
-
-    @Override
-    public void deleteApp(Object app) {
-
-    }
-
 
 
 }
