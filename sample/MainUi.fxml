@@ -64,10 +64,17 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="800.0" prefWidth="2000.0">
                      <children>
-                        <TableView layoutX="364.0" layoutY="66.0" prefHeight="575.0" prefWidth="900.0">
+                        <TableView layoutX="368.0" layoutY="113.0" prefHeight="575.0" prefWidth="900.0">
                           <columns>
-                            <TableColumn prefWidth="75.0" text="C1" />
-                            <TableColumn prefWidth="75.0" text="C2" />
+                            <TableColumn prefWidth="54.0" text="App ID" />
+                            <TableColumn prefWidth="97.0" text="Title" />
+                              <TableColumn prefWidth="151.0" text="Description" />
+                              <TableColumn prefWidth="113.0" text="Location" />
+                              <TableColumn prefWidth="92.0" text="Contact" />
+                              <TableColumn prefWidth="104.0" text="Type" />
+                              <TableColumn prefWidth="110.0" text="Start" />
+                              <TableColumn prefWidth="98.0" text="End" />
+                              <TableColumn text="Customer ID" />
                           </columns>
                         </TableView>
 
@@ -91,22 +98,21 @@
                          <Label layoutX="210.0" layoutY="164.0" prefHeight="17.0" prefWidth="80.0" text="Type:" />
                          <Label layoutX="41.0" layoutY="325.0" prefHeight="17.0" prefWidth="119.0" text="Contact:" />
                          <Label layoutX="41.0" layoutY="270.0" prefHeight="17.0" prefWidth="92.0" text="Location:" />
-                        <DatePicker layoutX="41.0" layoutY="430.0" />
-                         <DatePicker layoutX="41.0" layoutY="520.0" />
-                        <Label layoutX="41.0" layoutY="380.0" text="From:" />
-                        <Spinner layoutX="41.0" layoutY="400.0" prefHeight="25.0" prefWidth="60.0" />
-                        <Spinner layoutX="113.0" layoutY="400.0" prefHeight="25.0" prefWidth="58.0" />
-                        <Spinner layoutX="180.0" layoutY="400.0" prefHeight="25.0" prefWidth="58.0" />
-                        <Label layoutX="41.0" layoutY="470.0" text="To:" />
-                        <Spinner layoutX="41.0" layoutY="490.0" prefHeight="25.0" prefWidth="59.0" />
-                        <Spinner layoutX="110.0" layoutY="490.0" prefHeight="25.0" prefWidth="63.0" />
-                        <Spinner layoutX="180.0" layoutY="490.0" prefHeight="25.0" prefWidth="58.0" />
+                        <DatePicker layoutX="41.0" layoutY="398.0" />
+                        <Label layoutX="41.0" layoutY="380.0" text="Date:" />
+                        <Spinner layoutX="179.0" layoutY="451.0" prefHeight="25.0" prefWidth="60.0" />
+                        <Spinner layoutX="41.0" layoutY="451.0" prefHeight="25.0" prefWidth="58.0" />
+                        <Spinner layoutX="113.0" layoutY="451.0" prefHeight="25.0" prefWidth="58.0" />
+                        <Label layoutX="41.0" layoutY="434.0" text="Start:" />
+                        <Spinner layoutX="41.0" layoutY="503.0" prefHeight="25.0" prefWidth="59.0" />
+                        <Spinner layoutX="111.0" layoutY="503.0" prefHeight="25.0" prefWidth="63.0" />
+                        <Spinner layoutX="181.0" layoutY="503.0" prefHeight="25.0" prefWidth="58.0" />
                         <ComboBox layoutX="210.0" layoutY="181.0" prefHeight="25.0" prefWidth="111.0" promptText="Select Type" />
-                        <Label layoutX="42.0" layoutY="558.0" text="Customer ID:" />
-                        <Label layoutX="43.0" layoutY="613.0" text="User ID:" />
-                        <TextField layoutX="41.0" layoutY="575.0" />
-                        <TextField layoutX="41.0" layoutY="630.0" />
-                        <Separator layoutX="330.0" layoutY="67.0" orientation="VERTICAL" prefHeight="677.0" prefWidth="28.0" />
+                        <Label layoutX="43.0" layoutY="545.0" text="Customer ID:" />
+                        <Label layoutX="43.0" layoutY="600.0" text="User ID:" />
+                        <TextField layoutX="41.0" layoutY="562.0" />
+                        <TextField layoutX="41.0" layoutY="617.0" />
+                        <Separator layoutX="330.0" layoutY="113.0" orientation="VERTICAL" prefHeight="631.0" prefWidth="28.0" />
                         <Label layoutX="84.0" layoutY="65.0" text="Appointment Info:">
                            <font>
                               <Font name="System Bold" size="20.0" />
@@ -117,6 +123,11 @@
                               <Font name="System Bold" size="25.0" />
                            </font>
                         </Label>
+                        <Label layoutX="41.0" layoutY="486.0" text="End:" />
+                        <RadioButton layoutX="1157.0" layoutY="42.0" mnemonicParsing="false" text="Month" />
+                        <RadioButton layoutX="1217.0" layoutY="42.0" mnemonicParsing="false" text="Week" />
+                        <Label layoutX="1106.0" layoutY="42.0" text="Filter By:" />
+                        <ComboBox layoutX="1106.0" layoutY="68.0" prefHeight="25.0" prefWidth="155.0" />
 
                      </children></AnchorPane>
                </content>
