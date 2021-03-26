@@ -3,6 +3,7 @@ package Dao;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import models.Appointment;
+import sample.AppMethodsSingleton;
 import sample.DbConnectionFactory;
 
 import java.sql.Connection;
@@ -38,9 +39,11 @@ public class AppDaoImpl implements AppDao<Appointment>{
     public ObservableList<Appointment> getAllApps() {
         ObservableList<Appointment> allApps = FXCollections.observableArrayList();
         try {
-            String query = "select * from WJ07tms.appointments";
+            String query = "SELECT Appointment_ID, TITLE, DESCRIPTION, LOCATION, TYPE, convert_tz(START, \"+00:00\", ?), convert_tz(END, \"+00:00\", ?), CUSTOMER_ID, CONTACT_ID FROM WJ07tms.appointments;";
             Connection con = getConnection();
             prepStatment = con.prepareStatement(query);
+            prepStatment.setString(1, AppMethodsSingleton.getLocalTimezoneOffset());
+            prepStatment.setString(2, AppMethodsSingleton.getLocalTimezoneOffset());
             resultSet = prepStatment.executeQuery();
 
             // loop to make observable list
@@ -48,7 +51,7 @@ public class AppDaoImpl implements AppDao<Appointment>{
 
                 Appointment currApp = new Appointment(resultSet.getInt(1), resultSet.getString(2),
                         resultSet.getString(3), resultSet.getString(4), resultSet.getString(5),
-                        resultSet.getString(6), resultSet.getString(7), resultSet.getInt(12), resultSet.getInt(14));
+                        resultSet.getString(6), resultSet.getString(7), resultSet.getInt(8), resultSet.getInt(9));
 
                 allApps.add(currApp);
             }

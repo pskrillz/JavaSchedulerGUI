@@ -215,6 +215,7 @@ public class MainUiController {
     @FXML private TableColumn<Appointment, String> appLocC;
     @FXML private TableColumn<Appointment, String> appContactC;
     @FXML private TableColumn<Appointment, String> appTypeC;
+    @FXML private TableColumn<Appointment, String> appDateC;
     @FXML private TableColumn<Appointment, String> appStartC;
     @FXML private TableColumn<Appointment, String> appEndC;
     @FXML private TableColumn<Appointment, Integer> appCustIdC;
@@ -262,6 +263,7 @@ public class MainUiController {
         appDescC.setCellValueFactory(new PropertyValueFactory<>("appDesc"));
         appLocC.setCellValueFactory(new PropertyValueFactory<>("appLocation"));
         appTypeC.setCellValueFactory(new PropertyValueFactory<>("appType"));
+        appDateC.setCellValueFactory(new PropertyValueFactory<>("appDate"));
         appStartC.setCellValueFactory(new PropertyValueFactory<>("appStart"));
         appEndC.setCellValueFactory(new PropertyValueFactory<>("appEnd"));
         appCustIdC.setCellValueFactory(new PropertyValueFactory<>("appCustId"));

@@ -4,8 +4,6 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Appointment {
@@ -16,11 +14,13 @@ public class Appointment {
     private SimpleStringProperty appType;
    // private ZonedDateTime appStart;
     private LocalDateTime appStartLocal;
+    private LocalDateTime appEndLocal;
+    private SimpleStringProperty appDate;
     private SimpleStringProperty appStart;
-    private ZonedDateTime appEnd;
+    private SimpleStringProperty appEnd;
     private SimpleIntegerProperty appCustId;
     private SimpleIntegerProperty appContactId;
-  //  private SimpleStringProperty
+
 
    // private SimpleStringProperty appStartString;
 
@@ -44,8 +44,10 @@ public class Appointment {
         this.appType = new SimpleStringProperty(appType);
        // this.appStart = ZonedDateTime.of(LocalDateTime.parse(appStart, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")), ZoneId.of("UTC+0"));
         this.appStartLocal = LocalDateTime.parse(appStart, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-        this.appStart = new SimpleStringProperty(appStartLocal.format(DateTimeFormatter.ofPattern("HH:mm:ss MM-dd-yyyy")));
-        this.appEnd = ZonedDateTime.of(LocalDateTime.parse(appEnd, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")), ZoneId.of("UTC+0"));
+        this.appEndLocal = LocalDateTime.parse(appEnd, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        this.appDate = new SimpleStringProperty(appStartLocal.format(DateTimeFormatter.ofPattern("MM-dd-yyyy")));
+        this.appStart = new SimpleStringProperty(appStartLocal.format(DateTimeFormatter.ofPattern("hh:mm a")));
+        this.appEnd = new SimpleStringProperty(appEndLocal.format(DateTimeFormatter.ofPattern("hh:mm a")));
         this.appCustId = new SimpleIntegerProperty(appCustId) ;
         this.appContactId = new SimpleIntegerProperty(appContactId) ;
       //  this.appStartString = new SimpleStringProperty(appStartLocal.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))) ;
@@ -68,11 +70,23 @@ public class Appointment {
         this.appLocation = new SimpleStringProperty(appLocation) ;
         this.appType = new SimpleStringProperty(appType);
       //  this.appStart = ZonedDateTime.of(LocalDateTime.parse(appStart, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")), ZoneId.of("UTC+0"));
-        this.appEnd = ZonedDateTime.of(LocalDateTime.parse(appEnd, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")), ZoneId.of("UTC+0"));
+        this.appEnd = new SimpleStringProperty(appStartLocal.format(DateTimeFormatter.ofPattern("hh:mm a")));
         this.appCustId = new SimpleIntegerProperty(appCustId) ;
         this.appContactId = new SimpleIntegerProperty(appContactId) ;
     }
 
+
+    public String getAppDate() {
+        return appDate.get();
+    }
+
+    public SimpleStringProperty appDateProperty() {
+        return appDate;
+    }
+
+    public void setAppDate(String appDate) {
+        this.appDate.set(appDate);
+    }
 
     public int getAppId() {
         return appId.get();
@@ -164,11 +178,15 @@ public class Appointment {
 //        this.appStart = appStart;
 //    }
 
-    public ZonedDateTime getAppEnd() {
+    public String getAppEnd() {
+        return appEnd.get();
+    }
+
+    public SimpleStringProperty appEndProperty(){
         return appEnd;
     }
 
-    public void setAppEnd(ZonedDateTime appEnd) {
+    public void setAppEnd(SimpleStringProperty appEnd) {
         this.appEnd = appEnd;
     }
 
