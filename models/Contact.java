@@ -127,7 +127,7 @@ public class Contact {
             while(resultSet.next()) {
                 SimpleIntegerProperty id = new SimpleIntegerProperty(resultSet.getInt(1));
                 SimpleStringProperty name = new SimpleStringProperty(resultSet.getString(2));
-                SimpleStringProperty email = new SimpleStringProperty(resultSet.getString(2));
+                SimpleStringProperty email = new SimpleStringProperty(resultSet.getString(3));
                 Contact currContact = new Contact(id, name, email);
                 allContacts.add(currContact.getConName());
             }
@@ -141,7 +141,34 @@ public class Contact {
         return allContacts;
     }
 
+    public static String getSpecificContactEmail(int appContactId){
+        String contactEmail = "";
+        try {
+            connection = getConnection();
+            prepStatment = connection.prepareStatement(
+                    "select Email from WJ07tms.contacts where Contact_ID = ?;");
+            prepStatment.setInt(1, appContactId);
+            resultSet = prepStatment.executeQuery();
 
+            while(resultSet.next()) {
+                SimpleIntegerProperty id = new SimpleIntegerProperty(resultSet.getInt(1));
+                SimpleStringProperty name = new SimpleStringProperty(resultSet.getString(2));
+                SimpleStringProperty email = new SimpleStringProperty(resultSet.getString(3));
+                Contact currContact = new Contact(id, name, email);
+                contactEmail = currContact.getConEmail();
+            }
+
+          //  contactEmail = resultSet.getString(1);
+
+
+        } catch (SQLException e){
+            e.printStackTrace();
+        } finally {
+            closeConnection();
+        }
+
+        return contactEmail;
+    }
 
 
 

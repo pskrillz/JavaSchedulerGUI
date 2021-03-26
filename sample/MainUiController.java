@@ -272,7 +272,7 @@ public class MainUiController {
         appStartC.setCellValueFactory(new PropertyValueFactory<>("appStart"));
         appEndC.setCellValueFactory(new PropertyValueFactory<>("appEnd"));
         appCustIdC.setCellValueFactory(new PropertyValueFactory<>("appCustId"));
-        appContactC.setCellValueFactory(new PropertyValueFactory<>("appContactId"));
+        appContactC.setCellValueFactory(new PropertyValueFactory<>("appContactEmail"));
         appTable.setItems(appDao.getAllApps());
     }
 

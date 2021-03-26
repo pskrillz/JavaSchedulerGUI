@@ -20,6 +20,7 @@ public class Appointment {
     private SimpleStringProperty appEnd;
     private SimpleIntegerProperty appCustId;
     private SimpleIntegerProperty appContactId;
+    private SimpleStringProperty appContactEmail;
 
 
    // private SimpleStringProperty appStartString;
@@ -49,6 +50,8 @@ public class Appointment {
         this.appEnd = new SimpleStringProperty(appEndLocal.format(DateTimeFormatter.ofPattern("hh:mm a")));
         this.appCustId = new SimpleIntegerProperty(appCustId) ;
         this.appContactId = new SimpleIntegerProperty(appContactId) ;
+
+        this.appContactEmail = new SimpleStringProperty(models.Contact.getSpecificContactEmail(appContactId));
     }
 
     // Overloaded without ID for when creating locally
@@ -223,5 +226,18 @@ public class Appointment {
 
     public void setAppType(String appType) {
         this.appType.set(appType);
+    }
+
+
+    public String getAppContactEmail() {
+        return appContactEmail.get();
+    }
+
+    public SimpleStringProperty appContactEmailProperty() {
+        return appContactEmail;
+    }
+
+    public void setAppContactEmail(String appContactEmail) {
+        this.appContactEmail.set(appContactEmail);
     }
 }
