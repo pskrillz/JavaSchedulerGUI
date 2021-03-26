@@ -72,8 +72,8 @@ public class AppDaoImpl implements AppDao<Appointment>{
                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
             prepStatment = connection.prepareStatement(query);
             // Timezone handling params
-            prepStatment.setString(1, AppMethodsSingleton.zoneOffsetString);
-            prepStatment.setString(2, AppMethodsSingleton.zoneOffsetString);
+            prepStatment.setString(1, AppMethodsSingleton.getLocalTimezoneOffset());
+            prepStatment.setString(2, AppMethodsSingleton.getLocalTimezoneOffset());
 
             // Object Params
             prepStatment.setString(3, app.getAppTitle());

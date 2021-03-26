@@ -12,6 +12,7 @@ import java.time.ZoneOffset;
 public class AppMethodsSingleton {
 
     public static String zoneOffsetString;
+    public static String easternOffsetString;
 
     /**
      * void closeWindow()
@@ -49,6 +50,16 @@ public class AppMethodsSingleton {
       //  System.out.println(zoneOffset);
         zoneOffsetString = String.valueOf(zoneOffset);
         return zoneOffsetString;
+
+    }
+
+    public static String getEasterntOffset(){
+        LocalDateTime now = LocalDateTime.now();
+        ZoneId zone = ZoneId.of("America/New_York");
+        ZoneOffset easternOffset = zone.getRules().getOffset(now);
+        System.out.println(easternOffset);
+        easternOffsetString = String.valueOf(easternOffset);
+        return easternOffsetString;
 
     }
 
