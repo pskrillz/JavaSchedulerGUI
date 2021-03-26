@@ -66,7 +66,7 @@
                             <TableColumn fx:id="appTitleC" prefWidth="112.0" text="Title" />
                               <TableColumn fx:id="appDescC" prefWidth="124.0" text="Description" />
                               <TableColumn fx:id="appLocC" prefWidth="166.0" text="Location" />
-                              <TableColumn fx:id="appContactC" prefWidth="71.0" text="Contact" />
+                              <TableColumn fx:id="appContactC" prefWidth="71.0" text="Contact ID" />
                               <TableColumn fx:id="appTypeC" prefWidth="65.0" text="Type" />
                               <TableColumn fx:id="appDateC" prefWidth="85.0" text="Date" />
                               <TableColumn fx:id="appStartC" prefWidth="66.0" text="Start" />
@@ -82,7 +82,7 @@
                          <TextField fx:id="appTypeF" layoutX="210.0" layoutY="181.0" prefHeight="25.0" prefWidth="111.0" promptText="Enter Type" />
                          <TextField fx:id="appDescF" layoutX="41.0" layoutY="235.0" promptText="Enter comment" />
                          
-                         <ComboBox fx:id="appLocF" layoutX="41.0" layoutY="290.0" prefWidth="150.0" promptText="Select Country" />
+                         <ComboBox fx:id="appLocF" layoutX="41.0" layoutY="290.0" prefWidth="150.0" promptText="Choose location" />
                          <ComboBox fx:id="appContactF" layoutX="41.0" layoutY="345.0" prefWidth="157.0" promptText="Select Contact" />
                          <DatePicker fx:id="appDateF" layoutX="41.0" layoutY="398.0" promptText="Select Date" />
 
@@ -99,7 +99,7 @@
 
                          <Button fx:id="appUpdateBtn" disable="true" layoutX="96.0" layoutY="714.0" mnemonicParsing="false" text="Update Appointment" />
                          <Button fx:id="appDeleteBtn" disable="true" layoutX="1128.0" layoutY="708.0" mnemonicParsing="false" text="Delete Selected" />
-                         <Button fx:id="appAddBtn" layoutX="1051.0" layoutY="708.0" mnemonicParsing="false" text="Add New" />
+                         <Button fx:id="appAddBtn" layoutX="1051.0" layoutY="708.0" mnemonicParsing="false" onAction="#openAddAppView" text="Add New" />
 
                          <Label layoutX="41.0" layoutY="216.0" prefHeight="17.0" prefWidth="92.0" text="Description:" />
                          <Label layoutX="210.0" layoutY="164.0" prefHeight="17.0" prefWidth="80.0" text="Type:" />

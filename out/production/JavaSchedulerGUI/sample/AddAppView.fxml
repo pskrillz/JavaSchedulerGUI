@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="616.0" prefWidth="459.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.AddNewCustomerContr">
+    <children>
+        <Label layoutX="146.0" layoutY="47.0" text="Add Appointment" underline="true">
+            <font>
+                <Font size="20.0" />
+            </font>
+        </Label>
+
+        <Label layoutX="117.0" layoutY="118.0" prefHeight="17.0" prefWidth="108.0" text="Appointment ID:" />
+        <TextField fx:id="appIdF" disable="true" layoutX="117.0" layoutY="135.0" prefWidth="149.0" promptText="Auto-Generated" />
+        <Label layoutX="117.0" layoutY="172.0" prefHeight="17.0" prefWidth="92.0" text="Title:" />
+        <TextField fx:id="appTitleF" layoutX="117.0" layoutY="189.0" prefHeight="25.0" prefWidth="149.0" promptText="Enter Title" />
+        <TextField fx:id="appTypeF" layoutX="117.0" layoutY="242.0" prefHeight="25.0" prefWidth="111.0" promptText="Enter Type" />
+        <TextField fx:id="appDescF" layoutX="117.0" layoutY="292.0" promptText="Enter comment" />
+
+        <ComboBox fx:id="appLocF" layoutX="117.0" layoutY="343.0" prefWidth="150.0" promptText="Select Country" />
+        <ComboBox fx:id="appContactF" layoutX="117.0" layoutY="395.0" prefWidth="157.0" promptText="Select Contact" />
+        <DatePicker fx:id="appDateF" layoutX="117.0" layoutY="455.0" promptText="Select Date" />
+
+        <Spinner fx:id="appStartHF" layoutX="117.0" layoutY="503.0" prefHeight="25.0" prefWidth="58.0" />
+        <Spinner fx:id="appStartMF" layoutX="186.0" layoutY="503.0" prefHeight="25.0" prefWidth="58.0" />
+        <Spinner fx:id="appStart12F" layoutX="253.0" layoutY="503.0" prefHeight="25.0" prefWidth="60.0" />
+
+        <Spinner fx:id="appEndHF" layoutX="117.0" layoutY="545.0" prefHeight="25.0" prefWidth="59.0" />
+        <Spinner fx:id="appEndMF" layoutX="184.0" layoutY="545.0" prefHeight="25.0" prefWidth="63.0" />
+        <Spinner fx:id="appEnd12F" layoutX="254.0" layoutY="545.0" prefHeight="25.0" prefWidth="58.0" />
+        <TextField layoutX="117.0" layoutY="593.0" promptText="Enter customer ID #" />
+        <TextField layoutX="117.0" layoutY="643.0" promptText="Enter contact ID #" />
+
+
+        <Button fx:id="appAddBtn" disable="true" layoutX="174.0" layoutY="705.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="112.0" text="Add Appointment" />
+
+        <Label layoutX="114.0" layoutY="275.0" prefHeight="17.0" prefWidth="92.0" text="Description:" />
+        <Label layoutX="117.0" layoutY="225.0" prefHeight="17.0" prefWidth="80.0" text="Type:" />
+        <Label layoutX="120.0" layoutY="378.0" prefHeight="17.0" prefWidth="119.0" text="Contact:" />
+        <Label layoutX="117.0" layoutY="326.0" prefHeight="17.0" prefWidth="92.0" text="Location:" />
+        <Label layoutX="117.0" layoutY="438.0" text="Date:" />
+        <Label layoutX="117.0" layoutY="486.0" text="Start Time: " />
+        <Label layoutX="117.0" layoutY="576.0" text="Customer ID:" />
+        <Label layoutX="117.0" layoutY="626.0" text="User ID:" />
+      <Label layoutX="117.0" layoutY="528.0" text="End Time:" />
+
+    </children>
+</AnchorPane>

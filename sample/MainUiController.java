@@ -13,10 +13,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import models.Appointment;
-import models.Country;
-import models.Customer;
-import models.Division;
+import models.*;
 
 import java.sql.SQLException;
 
@@ -58,7 +55,9 @@ public class MainUiController {
     private void initialize(){
     setCustomerTableView(); // Sets up customers table
     setAppTable(); // Sets up appointments table
-    setCountriesDrop();
+    setCountriesDrop(); // Sets up countries/location drop down (combo boxes)
+    setContactF(); // Sets up contact drop down/combo box.
+
     customerDao.getNeededCountries();
 
 
@@ -107,9 +106,15 @@ public class MainUiController {
         customerTableView.setItems(customerDao.getAllCustomers());
     }
 
-
+    /**
+     * setCountriesDrop()
+     * Used on init
+     * Gets and sets the country objects to the drop down fields(combo box)
+     * on both customer tab and appointment tab
+     */
     public void setCountriesDrop(){
         custCountryDrop.getItems().setAll(customerDao.getNeededCountries());
+        appLocF.setItems(customerDao.getNeededCountries());
     }
 
    // public Country selCountry;
@@ -228,7 +233,7 @@ public class MainUiController {
     @FXML private TextField appTypeF;
     @FXML private TextField appDescF;
     @FXML private ComboBox<Country> appLocF;
-    // @FXML private ComboBox<Contact> appContactF;
+    @FXML private ComboBox<String> appContactF;
     @FXML private DatePicker appDateF;
     @FXML private Spinner appStartHF;
     @FXML private Spinner appStartMF;
@@ -269,9 +274,29 @@ public class MainUiController {
         appCustIdC.setCellValueFactory(new PropertyValueFactory<>("appCustId"));
         appContactC.setCellValueFactory(new PropertyValueFactory<>("appContactId"));
         appTable.setItems(appDao.getAllApps());
-
-
     }
 
+    @FXML
+    public void setContactF(){
+        appContactF.setItems(models.Contact.getAllContacts());
+    }
+
+
+    /**
+     * openAddAppView()
+     * Used by the appointment Tab
+     * Opens the view to add an appointment through a pop up form
+     * @throws Exception
+     */
+    public void openAddAppView() throws Exception{
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("AddAppView.fxml"));
+        Parent root = (Parent) fxmlLoader.load();
+        Stage stage = new Stage();
+        stage.setTitle("Add Appointment");
+        stage.setScene(new Scene(root));
+        stage.show();
+        stage.setOnHiding(event -> setAppTable()); // reset table after adding
+
+    }
 
 }

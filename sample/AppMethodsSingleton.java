@@ -63,6 +63,12 @@ public class AppMethodsSingleton {
 
     }
 
+// Not needed when only really need db for one more object class.
+//    private Connection getConnection() throws SQLException {
+//        Connection con = DbConnectionFactory.getInstance().getConnection();
+//        return con;
+//    }
+
 
 
 }

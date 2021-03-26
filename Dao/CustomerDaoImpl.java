@@ -34,8 +34,6 @@ public class CustomerDaoImpl implements CustomerDao<Customer>{
         return custDatabase;
     }
 
-
-
     private Connection getConnection() throws SQLException {
         Connection con = DbConnectionFactory.getInstance().getConnection();
         return con;
