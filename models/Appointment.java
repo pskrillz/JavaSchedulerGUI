@@ -42,7 +42,6 @@ public class Appointment {
         this.appDesc = new SimpleStringProperty(appDesc) ;
         this.appLocation = new SimpleStringProperty(appLocation) ;
         this.appType = new SimpleStringProperty(appType);
-       // this.appStart = ZonedDateTime.of(LocalDateTime.parse(appStart, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")), ZoneId.of("UTC+0"));
         this.appStartLocal = LocalDateTime.parse(appStart, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         this.appEndLocal = LocalDateTime.parse(appEnd, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         this.appDate = new SimpleStringProperty(appStartLocal.format(DateTimeFormatter.ofPattern("MM-dd-yyyy")));
@@ -50,9 +49,6 @@ public class Appointment {
         this.appEnd = new SimpleStringProperty(appEndLocal.format(DateTimeFormatter.ofPattern("hh:mm a")));
         this.appCustId = new SimpleIntegerProperty(appCustId) ;
         this.appContactId = new SimpleIntegerProperty(appContactId) ;
-      //  this.appStartString = new SimpleStringProperty(appStartLocal.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))) ;
-    //    this.appStart.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-
     }
 
     // Overloaded without ID for when creating locally
@@ -61,7 +57,7 @@ public class Appointment {
                        String appDesc,
                        String appLocation,
                        String appType,
-                     //  String appStart,
+                       String appStart,
                        String appEnd,
                        int appCustId,
                        int appContactId) {
@@ -69,8 +65,11 @@ public class Appointment {
         this.appDesc = new SimpleStringProperty(appDesc) ;
         this.appLocation = new SimpleStringProperty(appLocation) ;
         this.appType = new SimpleStringProperty(appType);
-      //  this.appStart = ZonedDateTime.of(LocalDateTime.parse(appStart, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")), ZoneId.of("UTC+0"));
-        this.appEnd = new SimpleStringProperty(appStartLocal.format(DateTimeFormatter.ofPattern("hh:mm a")));
+        this.appStartLocal = LocalDateTime.parse(appStart, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        this.appEndLocal = LocalDateTime.parse(appEnd, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        this.appDate = new SimpleStringProperty(appStartLocal.format(DateTimeFormatter.ofPattern("MM-dd-yyyy")));
+        this.appStart = new SimpleStringProperty(appStartLocal.format(DateTimeFormatter.ofPattern("hh:mm a")));
+        this.appEnd = new SimpleStringProperty(appEndLocal.format(DateTimeFormatter.ofPattern("hh:mm a")));
         this.appCustId = new SimpleIntegerProperty(appCustId) ;
         this.appContactId = new SimpleIntegerProperty(appContactId) ;
     }

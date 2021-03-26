@@ -63,10 +63,37 @@ public class AppDaoImpl implements AppDao<Appointment>{
         return allApps;
     }
 
-//    @Override
-//    public void addApp(Appointment app) {
-//
-//    }
+    @Override
+    public void addApp(Appointment app) {
+
+        try {
+            connection = getConnection();
+            String query = "insert into WJ07tms.appointments (TITLE, DESCRIPTION, LOCATION, TYPE, convert_tz(START, ?, \"+00:00\"), convert_tz(END, ?, \"+00:00\"), CUSTOMER_ID, CONTACT_ID) \n" +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
+            prepStatment = connection.prepareStatement(query);
+            // Timezone handling params
+            prepStatment.setString(1, AppMethodsSingleton.zoneOffsetString);
+            prepStatment.setString(2, AppMethodsSingleton.zoneOffsetString);
+
+            // Object Params
+            prepStatment.setString(3, app.getAppTitle());
+            prepStatment.setString(4, app.getAppDesc());
+            prepStatment.setString(5, app.getAppLocation());
+            prepStatment.setString(6, app.getAppType());
+            prepStatment.setString(7, app.getAppStart());
+            prepStatment.setString(8, app.getAppEnd());
+            prepStatment.setInt(9, app.getAppCustId());
+            prepStatment.setInt(10, app.getAppContactId());
+
+            prepStatment.executeUpdate();
+            System.out.println("Appointment " + "\" " + app.getAppTitle() + " \"" +  " Added Successfully!");
+        } catch (SQLException e){
+            e.printStackTrace();
+        } finally {
+            closeConnection();
+        }
+
+    }
 //
 //    @Override
 //    public void updateApp(Appointment app, int appId) {

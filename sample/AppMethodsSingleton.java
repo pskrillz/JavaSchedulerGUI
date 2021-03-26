@@ -46,7 +46,7 @@ public class AppMethodsSingleton {
         LocalDateTime now = LocalDateTime.now();
         ZoneId zone = ZoneId.of(String.valueOf(ZoneId.systemDefault()));
         ZoneOffset zoneOffset = zone.getRules().getOffset(now);
-        System.out.println(zoneOffset);
+      //  System.out.println(zoneOffset);
         zoneOffsetString = String.valueOf(zoneOffset);
         return zoneOffsetString;
 

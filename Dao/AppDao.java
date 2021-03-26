@@ -8,7 +8,7 @@ public interface AppDao<Appointment> {
 
     public ObservableList<Appointment> getAllApps();
 
-//    public void addApp(Appointment app);
+    public void addApp(Appointment app);
 
 //    public void updateApp(Appointment app, int appId);
 //
