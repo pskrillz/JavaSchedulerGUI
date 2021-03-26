@@ -219,9 +219,43 @@ public class MainUiController {
     @FXML private TableColumn<Appointment, String> appEndC;
     @FXML private TableColumn<Appointment, Integer> appCustIdC;
 
+    /**
+     * Appointment Form Elements
+     */
+    @FXML private TextField appIdF;
+    @FXML private TextField appTitleF;
+    @FXML private TextField appTypeF;
+    @FXML private TextField appDescF;
+    @FXML private ComboBox<Country> appLocF;
+    // @FXML private ComboBox<Contact> appContactF;
+    @FXML private DatePicker appDateF;
+    @FXML private Spinner appStartHF;
+    @FXML private Spinner appStartMF;
+    @FXML private Spinner appStart12F;
+    @FXML private Spinner appEndHF;
+    @FXML private Spinner appEndMF;
+    @FXML private Spinner appEnd12F;
+    @FXML private Button appUpdateBtn;
+
+    /**
+     * Filter control Elements
+     */
+    @FXML private RadioButton appMonthR;
+    @FXML private RadioButton appWeekR;
+    @FXML private ComboBox<String> appFilterDrop;
+
+    /**
+     * Other Controls
+     */
+    @FXML private Button appDeleteBtn;
+    @FXML private Button appAddBtn;
 
 
-@FXML
+    /**
+     * setAppTable()
+     * Fills appointment table view with Appointment objects from the db.
+     */
+    @FXML
     public void setAppTable(){
         appIdC.setCellValueFactory(new PropertyValueFactory<>("appId"));
         appTitleC.setCellValueFactory(new PropertyValueFactory<>("appTitle"));
