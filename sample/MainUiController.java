@@ -253,7 +253,7 @@ public class MainUiController {
     @FXML private TextField appTypeF;
     @FXML private TextField appDescF;
     @FXML private ComboBox<Country> appLocF;
-    @FXML private ComboBox<String> appContactF;
+    @FXML private ComboBox<Contact> appContactF;
     @FXML private DatePicker appDateF;
     @FXML private Spinner appStartHF;
     @FXML private Spinner appStartMF;

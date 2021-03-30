@@ -31,6 +31,12 @@ public class Contact {
         this.conEmail = conEmail;
     }
 
+    @Override
+    public String toString() {
+        return  this.getConName();
+    }
+
+
     /**
      * Contact getters
      */
@@ -116,8 +122,8 @@ public class Contact {
      * Grabs all contacts for populating the contact dropdown combo box on main UI init.
      * @return
      */
-    public static ObservableList<String> getAllContacts() {
-        ObservableList<String> allContacts = FXCollections.observableArrayList();
+    public static ObservableList<Contact> getAllContacts() {
+        ObservableList<Contact> allContacts = FXCollections.observableArrayList();
         try {
             connection = getConnection();
             prepStatment = connection.prepareStatement(
@@ -129,7 +135,7 @@ public class Contact {
                 SimpleStringProperty name = new SimpleStringProperty(resultSet.getString(2));
                 SimpleStringProperty email = new SimpleStringProperty(resultSet.getString(2));
                 Contact currContact = new Contact(id, name, email);
-                allContacts.add(currContact.getConName());
+                allContacts.add(currContact);
             }
 
 

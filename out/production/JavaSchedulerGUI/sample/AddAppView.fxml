@@ -19,8 +19,8 @@
         <TextField fx:id="appTypeF" layoutX="117.0" layoutY="242.0" prefHeight="25.0" prefWidth="111.0" promptText="Enter Type" />
         <TextField fx:id="appDescF" layoutX="117.0" layoutY="292.0" promptText="Enter comment" />
 
-        <ComboBox fx:id="appLocF" layoutX="117.0" layoutY="343.0" prefWidth="150.0" promptText="Select Country" />
-        <ComboBox fx:id="appContactF" layoutX="117.0" layoutY="395.0" prefWidth="157.0" promptText="Select Contact" />
+        <ComboBox fx:id="appLocCB" layoutX="117.0" layoutY="343.0" prefWidth="150.0" promptText="Select Country" />
+        <ComboBox fx:id="appContactCB" layoutX="117.0" layoutY="395.0" prefWidth="157.0" promptText="Select Contact" />
         <DatePicker fx:id="appDateF" layoutX="117.0" layoutY="455.0" promptText="Select Date" />
 
         <Spinner fx:id="appStartHF" layoutX="117.0" layoutY="503.0" prefHeight="25.0" prefWidth="58.0" />
