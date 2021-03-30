@@ -4,6 +4,8 @@ import Dao.AppDaoImpl;
 import Dao.CustomerDaoImpl;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -59,6 +61,8 @@ public class MainUiController {
     setAppTable(); // Sets up appointments table
     setCountriesDrop(); // Sets up countries/location drop down (combo boxes)
     setContactF(); // Sets up contact drop down/combo box.
+    initSpinners();
+
 
     customerDao.getNeededCountries();
 
@@ -324,6 +328,38 @@ public class MainUiController {
             appDao.deleteApp(selApp);
             setAppTable();
             sample.AppMethodsSingleton.generateAlert(Alert.AlertType.INFORMATION, "Appointment " + "ID # " + selApp.getAppId()  + " deleted successfully!" );
+    }
+
+
+    /**
+     * Initializes the spinners with the values needed to track time.
+     */
+
+    private void initSpinners() {
+        ObservableList<String> str = FXCollections.observableArrayList();
+        str.add("AM");
+        str.add("PM");
+
+        appStartHF.setValueFactory(
+                new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 12)
+        );
+        appStartMF.setValueFactory(
+                new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 60)
+        );
+        appStart12F.setValueFactory(
+                new SpinnerValueFactory.ListSpinnerValueFactory<String>(str)
+        );
+
+        appEndHF.setValueFactory(
+                new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 12)
+        );
+        appEndMF.setValueFactory(
+                new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 60)
+        );
+        appEnd12F.setValueFactory(
+                new SpinnerValueFactory.ListSpinnerValueFactory<String>(str)
+        );
+
     }
 
 
