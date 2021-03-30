@@ -93,8 +93,8 @@
                          <Spinner fx:id="appEndHF" editable="true" layoutX="41.0" layoutY="503.0" prefHeight="25.0" prefWidth="59.0" />
                          <Spinner fx:id="appEndMF" editable="true" layoutX="111.0" layoutY="503.0" prefHeight="25.0" prefWidth="63.0" />
                          <Spinner fx:id="appEnd12F" layoutX="181.0" layoutY="503.0" prefHeight="25.0" prefWidth="58.0" />
-                         <TextField layoutX="41.0" layoutY="562.0" promptText="Enter customer ID #" />
-                         <TextField layoutX="41.0" layoutY="617.0" promptText="Enter contact ID #" />
+                         <TextField fx:id="appCustIdF" layoutX="41.0" layoutY="562.0" promptText="Enter customer ID #" />
+                         <TextField fx:id="appUserIdF" layoutX="41.0" layoutY="617.0" promptText="Enter User ID #" />
 
 
                          <Button fx:id="appUpdateBtn" disable="true" layoutX="96.0" layoutY="714.0" mnemonicParsing="false" text="Update Appointment" />

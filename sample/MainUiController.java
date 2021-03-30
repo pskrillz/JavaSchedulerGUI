@@ -112,7 +112,7 @@ public class MainUiController {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("AddNewCustomer.fxml"));
         Parent root = (Parent) fxmlLoader.load();
         Stage stage = new Stage();
-        stage.setTitle("uSchedule Main UI");
+        stage.setTitle("Add Customer");
         stage.setScene(new Scene(root));
         stage.show();
         stage.setOnHiding(event -> setCustomerTableView()); // reset table after adding

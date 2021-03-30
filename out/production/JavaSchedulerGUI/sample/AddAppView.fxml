@@ -30,11 +30,11 @@
         <Spinner fx:id="appEndHF" layoutX="117.0" layoutY="545.0" prefHeight="25.0" prefWidth="59.0" />
         <Spinner fx:id="appEndMF" layoutX="184.0" layoutY="545.0" prefHeight="25.0" prefWidth="63.0" />
         <Spinner fx:id="appEnd12F" layoutX="254.0" layoutY="545.0" prefHeight="25.0" prefWidth="58.0" />
-        <TextField layoutX="117.0" layoutY="593.0" promptText="Enter customer ID #" />
-        <TextField layoutX="117.0" layoutY="643.0" promptText="Enter contact ID #" />
+        <TextField fx:id="appCustIdF" layoutX="117.0" layoutY="593.0" promptText="Enter customer ID #" />
+        <TextField  fx:id="appUserIdF" layoutX="117.0" layoutY="643.0" promptText="Enter User ID #" />
 
 
-        <Button fx:id="appAddBtn" disable="true" layoutX="174.0" layoutY="705.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="112.0" text="Add Appointment" />
+        <Button fx:id="appAddBtn" onAction="#addApp" layoutX="174.0" layoutY="705.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="112.0" text="Add Appointment" />
 
         <Label layoutX="114.0" layoutY="275.0" prefHeight="17.0" prefWidth="92.0" text="Description:" />
         <Label layoutX="117.0" layoutY="225.0" prefHeight="17.0" prefWidth="80.0" text="Type:" />

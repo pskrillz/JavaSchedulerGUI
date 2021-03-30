@@ -39,7 +39,7 @@ public class AppDaoImpl implements AppDao<Appointment>{
     public ObservableList<Appointment> getAllApps() {
         ObservableList<Appointment> allApps = FXCollections.observableArrayList();
         try {
-            String query = "SELECT Appointment_ID, TITLE, DESCRIPTION, LOCATION, TYPE, convert_tz(START, \"+00:00\", ?), convert_tz(END, \"+00:00\", ?), CUSTOMER_ID, CONTACT_ID FROM WJ07tms.appointments;";
+            String query = "SELECT Appointment_ID, TITLE, DESCRIPTION, LOCATION, TYPE, convert_tz(START, \"+00:00\", ?), convert_tz(END, \"+00:00\", ?), CUSTOMER_ID, CONTACT_ID, USER_ID FROM WJ07tms.appointments;";
             Connection con = getConnection();
             prepStatment = con.prepareStatement(query);
             prepStatment.setString(1, AppMethodsSingleton.getLocalTimezoneOffset());
@@ -51,7 +51,7 @@ public class AppDaoImpl implements AppDao<Appointment>{
 
                 Appointment currApp = new Appointment(resultSet.getInt(1), resultSet.getString(2),
                         resultSet.getString(3), resultSet.getString(4), resultSet.getString(5),
-                        resultSet.getString(6), resultSet.getString(7), resultSet.getInt(8), resultSet.getInt(9));
+                        resultSet.getString(6), resultSet.getString(7), resultSet.getInt(8), resultSet.getInt(9), resultSet.getInt(10));
 
                 allApps.add(currApp);
             }
@@ -68,25 +68,28 @@ public class AppDaoImpl implements AppDao<Appointment>{
 
         try {
             connection = getConnection();
-            String query = "insert into WJ07tms.appointments (TITLE, DESCRIPTION, LOCATION, TYPE, convert_tz(START, ?, \"+00:00\"), convert_tz(END, ?, \"+00:00\"), CUSTOMER_ID, CONTACT_ID) \n" +
-                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
+            String query = "insert into WJ07tms.appointments (TITLE, DESCRIPTION, LOCATION, TYPE, START, END, CUSTOMER_ID, CONTACT_ID) \n" +
+                    "VALUES (?, ?, ?, ?, convert_tz(?, ?, \"+00:00\"), convert_tz(?, ?, \"+00:00\"), ?, ?);";
             prepStatment = connection.prepareStatement(query);
-            // Timezone handling params
-            prepStatment.setString(1, AppMethodsSingleton.getLocalTimezoneOffset());
-            prepStatment.setString(2, AppMethodsSingleton.getLocalTimezoneOffset());
 
             // Object Params
-            prepStatment.setString(3, app.getAppTitle());
-            prepStatment.setString(4, app.getAppDesc());
-            prepStatment.setString(5, app.getAppLocation());
-            prepStatment.setString(6, app.getAppType());
-            prepStatment.setString(7, app.getAppStart());
-            prepStatment.setString(8, app.getAppEnd());
+            prepStatment.setString(1, app.getAppTitle());
+            prepStatment.setString(2, app.getAppDesc());
+            prepStatment.setString(3, app.getAppLocation());
+            prepStatment.setString(4, app.getAppType());
+
+
+            prepStatment.setString(5, app.getAppStartLocalString());
+            prepStatment.setString(6, AppMethodsSingleton.getLocalTimezoneOffset());
+
+            prepStatment.setString(7, app.getAppEndLocalString());
+            prepStatment.setString(8, AppMethodsSingleton.getLocalTimezoneOffset());
+
             prepStatment.setInt(9, app.getAppCustId());
             prepStatment.setInt(10, app.getAppContactId());
 
             prepStatment.executeUpdate();
-            System.out.println("Appointment " + "\" " + app.getAppTitle() + " \"" +  " Added Successfully!");
+            System.out.println("Appointment " + "\"" + app.getAppTitle() + "\"" +  " Added Successfully!");
         } catch (SQLException e){
             e.printStackTrace();
         } finally {

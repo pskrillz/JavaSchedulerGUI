@@ -20,6 +20,7 @@ public class Appointment {
     private SimpleStringProperty appEnd;
     private SimpleIntegerProperty appCustId;
     private SimpleIntegerProperty appContactId;
+    private SimpleIntegerProperty appUserId;
 
 
    // private SimpleStringProperty appStartString;
@@ -33,7 +34,8 @@ public class Appointment {
                        String appStart,
                        String appEnd,
                        int appCustId,
-                       int appContactId
+                       int appContactId,
+                   int appUserId
 
                    //    String appStartLocal
                         ) {
@@ -49,6 +51,7 @@ public class Appointment {
         this.appEnd = new SimpleStringProperty(appEndLocal.format(DateTimeFormatter.ofPattern("hh:mm a")));
         this.appCustId = new SimpleIntegerProperty(appCustId) ;
         this.appContactId = new SimpleIntegerProperty(appContactId) ;
+        this.appUserId = new SimpleIntegerProperty(appUserId);
     }
 
     // Overloaded without ID for when creating locally
@@ -60,7 +63,8 @@ public class Appointment {
                        String appStart,
                        String appEnd,
                        int appCustId,
-                       int appContactId) {
+                       int appContactId,
+                       int appUserId) {
         this.appTitle = new SimpleStringProperty(appTitle) ;
         this.appDesc = new SimpleStringProperty(appDesc) ;
         this.appLocation = new SimpleStringProperty(appLocation) ;
@@ -72,11 +76,28 @@ public class Appointment {
         this.appEnd = new SimpleStringProperty(appEndLocal.format(DateTimeFormatter.ofPattern("hh:mm a")));
         this.appCustId = new SimpleIntegerProperty(appCustId) ;
         this.appContactId = new SimpleIntegerProperty(appContactId) ;
+        this.appUserId = new SimpleIntegerProperty(appUserId);
     }
 
 
     public String getAppDate() {
         return appDate.get();
+    }
+
+    public String getAppStartLocalString() {
+        return appStartLocal.toString();
+    }
+
+    public void setAppStartLocal(LocalDateTime appStartLocal) {
+        this.appStartLocal = appStartLocal;
+    }
+
+    public String getAppEndLocalString() {
+        return appEndLocal.toString();
+    }
+
+    public void setAppEndLocal(LocalDateTime appEndLocal) {
+        this.appEndLocal = appEndLocal;
     }
 
     public SimpleStringProperty appDateProperty() {
