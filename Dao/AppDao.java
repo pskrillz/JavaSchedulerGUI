@@ -12,6 +12,6 @@ public interface AppDao<Appointment> {
 
 //    public void updateApp(Appointment app, int appId);
 //
-//    public void deleteApp(Appointment app);
+    public void deleteApp(Appointment app);
 
 }

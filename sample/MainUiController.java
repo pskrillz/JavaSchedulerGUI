@@ -47,6 +47,8 @@ public class MainUiController {
 
     Customer selCustomer;
     CustomerDaoImpl customerDao = Dao.CustomerDaoImpl.getInstance();
+    Appointment selApp;
+   // AppDaoImpl appDao = Dao.AppDaoImpl.getInstance();
 
     /**
      * Important method to get everything set up
@@ -60,7 +62,9 @@ public class MainUiController {
 
     customerDao.getNeededCountries();
 
-
+        /**
+         * Creates event handler that enables buttons only when a customer is selected
+         */
         customerTableView.setOnMouseClicked((MouseEvent event) -> {
             selCustomer = customerTableView.getSelectionModel().getSelectedItem();
             if(event.getButton().equals(MouseButton.PRIMARY)){
@@ -74,12 +78,28 @@ public class MainUiController {
             }
         });
 
+        /**
+         * Creates event handler that enables buttons only when a appointment is selected in the table
+         */
+        appTable.setOnMouseClicked((MouseEvent event) -> {
+            selApp = appTable.getSelectionModel().getSelectedItem();
+            if(event.getButton().equals(MouseButton.PRIMARY)){
+                if (selApp != null) {
+                    // modify and delete buttons are only enabled if an item is selected
+                    appDeleteBtn.setDisable(false);
+                    appUpdateBtn.setDisable(false);
+
+                }
+
+            }
+        });
+
 
     }
 
     public void deleteCustomer(){
         Customer selectedCust = customerTableView.getSelectionModel().getSelectedItem();
-        Dao.CustomerDaoImpl.getInstance().deleteCustomer(selectedCust);
+        customerDao.deleteCustomer(selectedCust);
         setCustomerTableView();
         sample.AppMethodsSingleton.generateAlert(Alert.AlertType.INFORMATION, "Customer " + selectedCust.getcName() + " deleted successfully!" );
     }
@@ -298,5 +318,14 @@ public class MainUiController {
         stage.setOnHiding(event -> setAppTable()); // reset table after adding
 
     }
+
+    public void deleteApp(){
+            selApp = appTable.getSelectionModel().getSelectedItem();
+            appDao.deleteApp(selApp);
+            setAppTable();
+            sample.AppMethodsSingleton.generateAlert(Alert.AlertType.INFORMATION, "Appointment " + "ID # " + selApp.getAppId()  + " deleted successfully!" );
+    }
+
+
 
 }

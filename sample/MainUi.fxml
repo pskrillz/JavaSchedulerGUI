@@ -98,7 +98,7 @@
 
 
                          <Button fx:id="appUpdateBtn" disable="true" layoutX="96.0" layoutY="714.0" mnemonicParsing="false" text="Update Appointment" />
-                         <Button fx:id="appDeleteBtn" disable="true" layoutX="1128.0" layoutY="708.0" mnemonicParsing="false" text="Delete Selected" />
+                         <Button fx:id="appDeleteBtn" onAction="#deleteApp" disable="true" layoutX="1128.0" layoutY="708.0" mnemonicParsing="false" text="Delete Selected" />
                          <Button fx:id="appAddBtn" layoutX="1051.0" layoutY="708.0" mnemonicParsing="false" onAction="#openAddAppView" text="Add New" />
 
                          <Label layoutX="41.0" layoutY="216.0" prefHeight="17.0" prefWidth="92.0" text="Description:" />

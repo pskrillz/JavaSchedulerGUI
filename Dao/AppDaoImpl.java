@@ -102,10 +102,23 @@ public class AppDaoImpl implements AppDao<Appointment>{
 //
 //
 //
-//    @Override
-//    public void deleteApp(Object app) {
-//
-//    }
+    @Override
+    public void deleteApp(Appointment app) {
+        try {
+            connection = getConnection();
+            String sql = "delete from WJ07tms.appointments where Appointment_ID = ?";
+            prepStatment = connection.prepareStatement(sql);
+            prepStatment.setInt(1, app.getAppId());
+            prepStatment.executeUpdate();
+            System.out.println("Appointment " + app.getAppTitle() + "ID # " + app.getAppId()  +  " deleted Successfully");
+        } catch (SQLException e){
+            e.printStackTrace();
+        } finally {
+            closeConnection();
+        }
+    }
+
+
 
     public void closeConnection(){
         try {
