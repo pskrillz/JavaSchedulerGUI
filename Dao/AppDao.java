@@ -10,8 +10,8 @@ public interface AppDao<Appointment> {
 
     public void addApp(Appointment app);
 
-//    public void updateApp(Appointment app, int appId);
-//
+    public void updateApp(Appointment app, int appId);
+
     public void deleteApp(Appointment app);
 
 }

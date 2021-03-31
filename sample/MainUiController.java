@@ -327,6 +327,61 @@ public class MainUiController {
 
     }
 
+    /**
+     * void updateCustomer()
+     * Uses the DAO to send the query that updates the customer on the mysql server
+     */
+    public void updateApp(){
+        // just id double check
+        int id = Integer.parseInt(appIdF.getText());
+        String title = appTitleF.getText();
+        String desc = appDescF.getText();
+        String loc = appLocF.getSelectionModel().getSelectedItem().getCountryName();
+        String type = appTypeF.getText();
+
+
+        String appDate = appDateF.getValue().toString();
+        System.out.println(appDate);
+
+        String startHours = appStartHF.getValue();
+        if(appStart12F.getValue().toString() == "PM"){
+            startHours = Integer.toString(Integer.parseInt(startHours) + 12);
+        }
+
+        String startMinutes = appStartMF.getValue();
+
+//   *     // this is the actual start parameter
+        String appStartDateTimeString = appDate + " " + startHours + ":" + startMinutes + ":00";
+
+        String endHours = appEndHF.getValue().toString();
+        if(appEnd12F.getValue().toString() == "PM"){
+            endHours = Integer.toString(Integer.parseInt(endHours) + 12);
+        }
+
+
+
+        String endMinutes = appEndMF.getValue().toString();
+
+//   *      // the actual formed end parameter
+        String appEndDateTimeString = appDate + " " + endHours + ":" + endMinutes + ":00";
+
+        int custId = Integer.parseInt(appCustIdF.getText());
+        int userId = Integer.parseInt(appUserIdF.getText());
+        int contactId = appContactF.getSelectionModel().getSelectedItem().getConID();
+
+
+        Appointment app = new Appointment(id, title, desc, loc, type, appStartDateTimeString, appEndDateTimeString,
+                custId, contactId, userId);
+
+        try {
+            appDao.updateApp(app, id);
+        } catch (RuntimeException e){
+            e.printStackTrace();
+        } finally{
+            setAppTable();
+        }
+    }
+
     public void deleteApp(){
             selApp = appTable.getSelectionModel().getSelectedItem();
             appDao.deleteApp(selApp);
