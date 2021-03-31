@@ -74,6 +74,13 @@ public class Appointment {
         this.appUserId = new SimpleIntegerProperty(appUserId);
     }
 
+    public LocalDateTime getAppStartLocal() {
+        return appStartLocal;
+    }
+
+    public LocalDateTime getAppEndLocal() {
+        return appEndLocal;
+    }
 
     public int getAppUserId() {
         return appUserId.get();

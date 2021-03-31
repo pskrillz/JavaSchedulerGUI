@@ -60,7 +60,7 @@ public class MainUiController {
     @FXML
     private void initialize(){
     setCustomerTableView(); // Sets up customers table
-    setAppTable(); // Sets up appointments table
+    setAppTable(refreshTable()); // Sets up appointments table
     setCountriesDrop(); // Sets up countries/location drop down (combo boxes)
     setContactF(); // Sets up contact drop down/combo box.
     initSpinners();
@@ -277,6 +277,7 @@ public class MainUiController {
     @FXML private RadioButton appMonthR;
     @FXML private RadioButton appWeekR;
     @FXML private ComboBox<String> appFilterDrop;
+    @FXML private Button appFilterBtn;
 
     /**
      * Other Controls
@@ -285,12 +286,14 @@ public class MainUiController {
     @FXML private Button appAddBtn;
 
 
+//    ObservableList<Appointment> allApps = appDao.getAllApps();
+
     /**
      * setAppTable()
      * Fills appointment table view with Appointment objects from the db.
      */
     @FXML
-    public void setAppTable(){
+    public void setAppTable(ObservableList<Appointment> appList){
         appIdC.setCellValueFactory(new PropertyValueFactory<>("appId"));
         appTitleC.setCellValueFactory(new PropertyValueFactory<>("appTitle"));
         appDescC.setCellValueFactory(new PropertyValueFactory<>("appDesc"));
@@ -301,7 +304,12 @@ public class MainUiController {
         appEndC.setCellValueFactory(new PropertyValueFactory<>("appEnd"));
         appCustIdC.setCellValueFactory(new PropertyValueFactory<>("appCustId"));
         appContactC.setCellValueFactory(new PropertyValueFactory<>("appContactId"));
-        appTable.setItems(appDao.getAllApps());
+        appTable.setItems(appList);
+    }
+
+    public ObservableList<Appointment> refreshTable(){
+        ObservableList<Appointment> allApps = appDao.getAllApps();
+        return allApps;
     }
 
     @FXML
@@ -323,7 +331,7 @@ public class MainUiController {
         stage.setTitle("Add Appointment");
         stage.setScene(new Scene(root));
         stage.show();
-        stage.setOnHiding(event -> setAppTable()); // reset table after adding
+        stage.setOnHiding(event -> setAppTable(refreshTable())); // reset table after adding
 
     }
 
@@ -378,14 +386,14 @@ public class MainUiController {
         } catch (RuntimeException e){
             e.printStackTrace();
         } finally{
-            setAppTable();
+            setAppTable(refreshTable());
         }
     }
 
     public void deleteApp(){
             selApp = appTable.getSelectionModel().getSelectedItem();
             appDao.deleteApp(selApp);
-            setAppTable();
+            setAppTable(refreshTable());
             sample.AppMethodsSingleton.generateAlert(Alert.AlertType.INFORMATION,  "Appointment type: " + selApp.getAppType() + ", ID #" + selApp.getAppId()  +  " canceled successfully!" );
     }
 
@@ -499,18 +507,26 @@ public class MainUiController {
         );
     }
 
-    public void fillMonths(){
+    public ObservableList<String> createMonthsList(){
         ObservableList<String> months = FXCollections.observableArrayList();
-        months.add("Janurary"); months.add("February"); months.add("March");
+        months.add("January"); months.add("February"); months.add("March");
         months.add("April"); months.add("May"); months.add("June"); months.add("July");
         months.add("August"); months.add("September"); months.add("October"); months.add("November");
         months.add("December");
 
-        appFilterDrop.setValue("Select Month");
-        appFilterDrop.setItems(months);
+        return months;
     }
 
-    public void fillWeeks(){
+    public void fillMonths(){
+        ObservableList<String> months = createMonthsList();
+
+     //   appFilterDrop.setValue("Select Month");
+        appFilterDrop.setItems(months);
+
+    }
+
+
+    public ObservableList<String> createWeeksList(){
         DateTimeFormatter selFormat = DateTimeFormatter.ofPattern("MM-dd-yy");
         ObservableList<String> weeks = FXCollections.observableArrayList();
         LocalDate firstWeekStart = LocalDate.of(2021, 1, 4);
@@ -523,8 +539,79 @@ public class MainUiController {
             firstWeekEnd = firstWeekEnd.plusDays(7);
             weeks.add(firstWeekStart.format(selFormat) + " - " + firstWeekEnd.format(selFormat));
         }
-        appFilterDrop.setValue("Select Week");
+
+        return weeks;
+    }
+
+
+
+    public ObservableList<String> fillWeeks(){
+        DateTimeFormatter selFormat = DateTimeFormatter.ofPattern("MM-dd-yy");
+        ObservableList<String> weeks = createWeeksList();
+     //   appFilterDrop.setValue("Select Week");
         appFilterDrop.setItems(weeks);
+
+        return weeks;
+    }
+
+    public void checkSelection(){
+        if(appFilterDrop.getSelectionModel().getSelectedItem() == null){
+            System.out.println("Not valid selection");
+            return;
+        }
+        appFilterBtn.setDisable(false);
+    }
+
+    public void setFilteredApps(){
+        if(appFilterDrop.getSelectionModel().getSelectedItem() == null){
+            System.out.println("not valid selection");
+            return;
+        }
+
+        String selectedItem = appFilterDrop.getSelectionModel().getSelectedItem().toString();
+
+        ObservableList<Appointment> filteredApps = FXCollections.observableArrayList();
+
+//        if(appFilterDrop.ge){
+//            return;
+//        }
+
+
+        // if it equals months
+        if(appFilterDrop.getItems().get(1) == createMonthsList().get(1)){
+            for(Appointment app : appDao.getAllApps()){
+                String checkMonth = app.getAppStartLocal().format(DateTimeFormatter.ofPattern("MMMM"));
+                System.out.println(selectedItem);
+                if(checkMonth.equals(selectedItem)){
+                    filteredApps.add(app);
+                }
+            }
+            if(filteredApps.isEmpty()){
+                AppMethodsSingleton.generateAlert(Alert.AlertType.ERROR, "No matching appointments found!");
+            } else {
+                setAppTable(filteredApps);
+                AppMethodsSingleton.generateAlert(Alert.AlertType.INFORMATION, "Success! " + filteredApps.size() + " appointments found." );
+                return;
+            }
+        } else
+
+        if(appFilterDrop.getItems() == createWeeksList()){
+            for(Appointment app : appDao.getAllApps()){
+                int selDay = LocalDate.parse(selectedItem, DateTimeFormatter.ofPattern("MM-dd-yy")).getDayOfYear();
+                int checkDay = LocalDate.parse(app.getAppStart(), DateTimeFormatter.ofPattern("MM-dd-yy")).getDayOfYear();
+                if(checkDay == selDay){
+                    filteredApps.add(app);
+                }
+            }
+            setAppTable(filteredApps);
+            return;
+        }
+
+//        else {
+//            AppMethodsSingleton.generateAlert(Alert.AlertType.ERROR, "No matching appointments found!");
+//        }
+
+
 
     }
 
