@@ -80,6 +80,18 @@ public class Appointment {
     }
 
 
+    public int getAppUserId() {
+        return appUserId.get();
+    }
+
+    public SimpleIntegerProperty appUserIdProperty() {
+        return appUserId;
+    }
+
+    public void setAppUserId(int appUserId) {
+        this.appUserId.set(appUserId);
+    }
+
     public String getAppDate() {
         return appDate.get();
     }

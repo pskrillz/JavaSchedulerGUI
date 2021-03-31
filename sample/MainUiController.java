@@ -18,6 +18,8 @@ import javafx.stage.Stage;
 import models.*;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class MainUiController {
 
@@ -259,12 +261,14 @@ public class MainUiController {
     @FXML private ComboBox<Country> appLocF;
     @FXML private ComboBox<Contact> appContactF;
     @FXML private DatePicker appDateF;
-    @FXML private Spinner appStartHF;
-    @FXML private Spinner appStartMF;
-    @FXML private Spinner appStart12F;
-    @FXML private Spinner appEndHF;
-    @FXML private Spinner appEndMF;
-    @FXML private Spinner appEnd12F;
+    @FXML private Spinner<String> appStartHF;
+    @FXML private Spinner<String> appStartMF;
+    @FXML private Spinner<String> appStart12F;
+    @FXML private Spinner<String> appEndHF;
+    @FXML private Spinner<String> appEndMF;
+    @FXML private Spinner<String> appEnd12F;
+    @FXML private TextField appCustIdF;
+    @FXML private TextField appUserIdF;
     @FXML private Button appUpdateBtn;
 
     /**
@@ -327,9 +331,67 @@ public class MainUiController {
             selApp = appTable.getSelectionModel().getSelectedItem();
             appDao.deleteApp(selApp);
             setAppTable();
-            sample.AppMethodsSingleton.generateAlert(Alert.AlertType.INFORMATION, "Appointment " + "ID # " + selApp.getAppId()  + " deleted successfully!" );
+            sample.AppMethodsSingleton.generateAlert(Alert.AlertType.INFORMATION,  "Appointment type: " + selApp.getAppType() + ", ID #" + selApp.getAppId()  +  " canceled successfully!" );
     }
 
+    @FXML
+    public void fillAppUpdateForm() throws SQLException {
+
+
+        selApp = appTable.getSelectionModel().getSelectedItem();
+        System.out.println(selApp.getAppTitle());
+        appIdF.setText(Integer.toString(selApp.getAppId()));
+        appTitleF.setText(selApp.getAppTitle());
+        appTypeF.setText(selApp.getAppType());
+        appDescF.setText(selApp.getAppDesc());
+        appLocF.setValue(getCountry(selApp.getAppLocation()));
+        appContactF.setValue(getContact(selApp.getAppContactId()));
+        appDateF.setValue(LocalDate.parse(selApp.getAppDate(), DateTimeFormatter.ofPattern("MM-dd-yyyy")));
+        appStartHF.getValueFactory().setValue((selApp.getAppStart().substring(0,2)));
+        appStartMF.getValueFactory().setValue((selApp.getAppStart().substring(3,5)));
+        appStart12F.getValueFactory().setValue(selApp.getAppStart().substring(6, 8));
+        appEndHF.getValueFactory().setValue((selApp.getAppEnd().substring(0,2)));
+        appEndMF.getValueFactory().setValue((selApp.getAppEnd().substring(3,5)));
+        appEnd12F.getValueFactory().setValue(selApp.getAppEnd().substring(6, 8));
+        appCustIdF.setText(Integer.toString(selApp.getAppCustId()));
+        appUserIdF.setText(Integer.toString(selApp.getAppUserId()));
+
+        // custCountryDrop.setValue();
+        // custDivDrop.setValue(selCustomer.getcDivId());
+    }
+
+    /**
+     * Country getCountry()
+     * Returns the country object with the specified string title.
+     * @param countryStr
+     * @return
+     */
+    public Country getCountry(String countryStr){
+        Country foundCountry;
+        for(Country item : customerDao.getNeededCountries()){
+            if(item.getCountryName().contains(countryStr)){
+                foundCountry = item;
+                return foundCountry;
+            }
+        }
+            return null;
+    }
+
+    /**
+     * Contact getContact()
+     * Returns the contact object using the contact Id param.
+     * @param contactId
+     * @return
+     */
+    public Contact getContact(int contactId){
+        Contact foundContact;
+        for(Contact item : Contact.getAllContacts()){
+            if(item.getConID() == contactId){
+                return item;
+            }
+        }
+        return null;
+    }
 
     /**
      * Initializes the spinners with the values needed to track time.
@@ -340,21 +402,39 @@ public class MainUiController {
         str.add("AM");
         str.add("PM");
 
+        ObservableList<String> hours = FXCollections.observableArrayList();
+        hours.add("01");
+        hours.add("02"); hours.add("03"); hours.add("04"); hours.add("05"); hours.add("06");
+        hours.add("07"); hours.add("08"); hours.add("09"); hours.add("10"); hours.add("11");
+        hours.add("12");
+
+        ObservableList<String> minutes = FXCollections.observableArrayList();
+
+        for (int i = 0; i <= 60; i++) {
+            if (i < 10) {
+                minutes.add("0" + Integer.toString(i));
+            } else {
+                minutes.add(Integer.toString(i));
+            }
+        }
+
+
+
         appStartHF.setValueFactory(
-                new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 12)
+                new SpinnerValueFactory.ListSpinnerValueFactory<String>(hours)
         );
         appStartMF.setValueFactory(
-                new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 60)
+                new SpinnerValueFactory.ListSpinnerValueFactory<String>(minutes)
         );
         appStart12F.setValueFactory(
                 new SpinnerValueFactory.ListSpinnerValueFactory<String>(str)
         );
 
         appEndHF.setValueFactory(
-                new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 12)
+                new SpinnerValueFactory.ListSpinnerValueFactory<String>(hours)
         );
         appEndMF.setValueFactory(
-                new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 60)
+                new SpinnerValueFactory.ListSpinnerValueFactory<String>(minutes)
         );
         appEnd12F.setValueFactory(
                 new SpinnerValueFactory.ListSpinnerValueFactory<String>(str)
