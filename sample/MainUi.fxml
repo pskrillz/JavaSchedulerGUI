@@ -129,8 +129,8 @@
                          <RadioButton fx:id="appWeekR" onAction="#fillWeeks" layoutX="1217.0" layoutY="42.0" mnemonicParsing="false" text="Week" toggleGroup="$filterType" />
 
                         <Label layoutX="1106.0" layoutY="42.0" text="Filter By:" />
-                        <ComboBox fx:id="appFilterDrop" onAction="#checkSelection" layoutX="1106.0" layoutY="68.0" prefHeight="25.0" prefWidth="155.0" />
-                         <Button fx:id="appFilterBtn" disable="true" onAction="#setFilteredApps" layoutX="1106.0" layoutY="85.0" text="Filter"></Button>
+                        <ComboBox fx:id="appFilterDrop" onAction="#checkSelection" layoutX="1106.0" layoutY="68.0" prefHeight="25.0" prefWidth="110.0" />
+                         <Button fx:id="appFilterBtn" disable="true" onAction="#setFilteredApps" layoutX="1220.0" layoutY="68.0" text="Filter"></Button>
 
 
                      </children></AnchorPane>

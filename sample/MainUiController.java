@@ -28,7 +28,7 @@ public class MainUiController {
      * All the FXML elements for the Customers Tab
      */
 
-
+    // Customer Table
     @FXML private TableView<Customer> customerTableView;
     @FXML private TableColumn<Customer, Integer> custIdCol;
     @FXML private TableColumn<Customer, String> custNameCol;
@@ -37,7 +37,7 @@ public class MainUiController {
     @FXML private TableColumn<Customer, String> custZipCol;
     @FXML private TableColumn<Customer, String> custDivCol;
 
-
+    // Customer Update Form.
     @FXML private TextField custIdF;
     @FXML private TextField custNameF;
     @FXML private TextField custAddrF;
@@ -49,13 +49,14 @@ public class MainUiController {
     @FXML private Button custAddBtn;
     @FXML private Button custUpdateBtn;
 
+    // Global variables for accessing the customer Data Access Object,
+    // current selected customer and current selected appointment.
     Customer selCustomer;
     CustomerDaoImpl customerDao = Dao.CustomerDaoImpl.getInstance();
     Appointment selApp;
-   // AppDaoImpl appDao = Dao.AppDaoImpl.getInstance();
 
     /**
-     * Important method to get everything set up
+     * Important method to instantiate UI components.
      */
     @FXML
     private void initialize(){
@@ -63,10 +64,7 @@ public class MainUiController {
     setAppTable(refreshTable()); // Sets up appointments table
     setCountriesDrop(); // Sets up countries/location drop down (combo boxes)
     setContactF(); // Sets up contact drop down/combo box.
-    initSpinners();
-
-
-    customerDao.getNeededCountries();
+    initSpinners(); // initializes spinner values
 
         /**
          * Creates event handler that enables buttons only when a customer is selected
@@ -78,11 +76,10 @@ public class MainUiController {
                     // modify and delete buttons are only enabled if an item is selected
                     custDeleteBtn.setDisable(false);
                     custUpdateBtn.setDisable(false);
-
                 }
-
             }
         });
+
 
         /**
          * Creates event handler that enables buttons only when a appointment is selected in the table
@@ -94,22 +91,30 @@ public class MainUiController {
                     // modify and delete buttons are only enabled if an item is selected
                     appDeleteBtn.setDisable(false);
                     appUpdateBtn.setDisable(false);
-
                 }
-
             }
         });
-
-
     }
 
+    /**
+     * deleteCustomer()
+     * Used by the customer tab's delete button.
+     * Deletes the selected customer from the db.
+     */
     public void deleteCustomer(){
         Customer selectedCust = customerTableView.getSelectionModel().getSelectedItem();
         customerDao.deleteCustomer(selectedCust);
         setCustomerTableView();
-        sample.AppMethodsSingleton.generateAlert(Alert.AlertType.INFORMATION, "Customer " + selectedCust.getcName() + " deleted successfully!" );
+        sample.AppMethodsSingleton.generateAlert(Alert.AlertType.INFORMATION, "Customer " +
+                selectedCust.getcName() + " deleted successfully!" );
     }
 
+    /**
+     * openAddCust()
+     * Used by customer tab's add button.
+     * Opens the add customer window.
+     * @throws Exception
+     */
     public void openAddCust() throws Exception{
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("AddNewCustomer.fxml"));
         Parent root = (Parent) fxmlLoader.load();
@@ -118,10 +123,13 @@ public class MainUiController {
         stage.setScene(new Scene(root));
         stage.show();
         stage.setOnHiding(event -> setCustomerTableView()); // reset table after adding
-
     }
 
-
+    /**
+     * setCustomerTableView()
+     * Used by initialize()
+     * Populates the customer table with all customers in the database.
+     */
     public void setCustomerTableView(){
         custIdCol.setCellValueFactory(new PropertyValueFactory<>("cId"));
         custNameCol.setCellValueFactory(new PropertyValueFactory<>("cName"));
@@ -134,7 +142,7 @@ public class MainUiController {
 
     /**
      * setCountriesDrop()
-     * Used on init
+     * Used by initialize()
      * Gets and sets the country objects to the drop down fields(combo box)
      * on both customer tab and appointment tab
      */
@@ -143,7 +151,11 @@ public class MainUiController {
         appLocF.setItems(customerDao.getNeededCountries());
     }
 
-   // public Country selCountry;
+    /**
+     * onCountrySelected()
+     * Triggered by the location combo box when a value is selected
+     * and then both enables and populates the division combo box
+     */
     public void onCountrySelected(){
            Country selCountry = custCountryDrop.getSelectionModel().getSelectedItem();
             custDivDrop.setDisable(false);
@@ -151,9 +163,15 @@ public class MainUiController {
 
     }
 
+    /**
+     * fillUpdateForm()
+     * Triggered by the customer tab's customer table on mouse click to populate the form
+     * with attributes of the selected customer on valid selection.
+     * @throws SQLException
+     */
     @FXML
     public void fillUpdateForm() throws SQLException {
-
+        // Checks that there is a valid selection before running the rest.
         if(customerTableView.getSelectionModel().getSelectedItem() == null){
             return;
         }
@@ -170,6 +188,11 @@ public class MainUiController {
         custDivDrop.setValue(findDivision(selCustomer.getcDivId()));
     }
 
+    /**
+     * updateCustomer()
+     * Used by the update button on the customer tab.
+     * Collects form data and uses it to update the specified customer on the db.
+     */
     public void updateCustomer(){
         // just id double check
         int id = Integer.parseInt(custIdF.getText());
@@ -286,11 +309,11 @@ public class MainUiController {
     @FXML private Button appAddBtn;
 
 
-//    ObservableList<Appointment> allApps = appDao.getAllApps();
-
     /**
      * setAppTable()
      * Fills appointment table view with Appointment objects from the db.
+     * @param appList
+     * Takes an ObservableList<Appointment> to set the table up with.
      */
     @FXML
     public void setAppTable(ObservableList<Appointment> appList){
@@ -307,11 +330,22 @@ public class MainUiController {
         appTable.setItems(appList);
     }
 
+    /**
+     * refreshTable()
+     * Gets the most current list of all apps from the database.
+     * Used by the setAppTable() function to set the table.
+     * @return
+     */
     public ObservableList<Appointment> refreshTable(){
         ObservableList<Appointment> allApps = appDao.getAllApps();
         return allApps;
     }
 
+    /**
+     * setContactF()
+     * Used by initialize()
+     * Sets the contact combo-box values.
+     */
     @FXML
     public void setContactF(){
         appContactF.setItems(models.Contact.getAllContacts());
@@ -320,7 +354,7 @@ public class MainUiController {
 
     /**
      * openAddAppView()
-     * Used by the appointment Tab
+     * Used by the appointment Tab's add button.
      * Opens the view to add an appointment through a pop up form
      * @throws Exception
      */
@@ -332,12 +366,14 @@ public class MainUiController {
         stage.setScene(new Scene(root));
         stage.show();
         stage.setOnHiding(event -> setAppTable(refreshTable())); // reset table after adding
-
     }
 
     /**
      * void updateCustomer()
-     * Uses the DAO to send the query that updates the customer on the mysql server
+     * Used by the update button.
+     * Captures the data in the form and
+     * constructs an appointment object that the appointment DAO uses
+     * to update the appointment on the mysql server.
      */
     public void updateApp(){
         // just id double check
@@ -346,37 +382,28 @@ public class MainUiController {
         String desc = appDescF.getText();
         String loc = appLocF.getSelectionModel().getSelectedItem().getCountryName();
         String type = appTypeF.getText();
-
-
         String appDate = appDateF.getValue().toString();
-        System.out.println(appDate);
 
+// Get start time values from spinners
         String startHours = appStartHF.getValue();
         if(appStart12F.getValue().toString() == "PM"){
             startHours = Integer.toString(Integer.parseInt(startHours) + 12);
         }
-
         String startMinutes = appStartMF.getValue();
-
 //   *     // this is the actual start parameter
         String appStartDateTimeString = appDate + " " + startHours + ":" + startMinutes + ":00";
-
+// Gets end time values from spinners
         String endHours = appEndHF.getValue().toString();
         if(appEnd12F.getValue().toString() == "PM"){
             endHours = Integer.toString(Integer.parseInt(endHours) + 12);
         }
-
-
-
         String endMinutes = appEndMF.getValue().toString();
-
-//   *      // the actual formed end parameter
+//   *      // the actual actual end parameter
         String appEndDateTimeString = appDate + " " + endHours + ":" + endMinutes + ":00";
 
         int custId = Integer.parseInt(appCustIdF.getText());
         int userId = Integer.parseInt(appUserIdF.getText());
         int contactId = appContactF.getSelectionModel().getSelectedItem().getConID();
-
 
         Appointment app = new Appointment(id, title, desc, loc, type, appStartDateTimeString, appEndDateTimeString,
                 custId, contactId, userId);
@@ -390,6 +417,11 @@ public class MainUiController {
         }
     }
 
+    /**
+     * deleteApp()
+     * Used by the delete button.
+     * Deletes the selected appointment and refreshes the table
+     */
     public void deleteApp(){
             selApp = appTable.getSelectionModel().getSelectedItem();
             appDao.deleteApp(selApp);
@@ -397,14 +429,19 @@ public class MainUiController {
             sample.AppMethodsSingleton.generateAlert(Alert.AlertType.INFORMATION,  "Appointment type: " + selApp.getAppType() + ", ID #" + selApp.getAppId()  +  " canceled successfully!" );
     }
 
+    /**
+     * fillAppUpdateForm()
+     * Triggered on mouse click on the appointment table,
+     * If a valid appointment is selected, it populates the form with specified appointment attributes.
+     * @throws SQLException
+     */
     @FXML
     public void fillAppUpdateForm() throws SQLException {
-
         try {
+            // checks to see a valid item from the table is selected before running the rest
             if(appTable.getSelectionModel().getSelectedItem() == null){
                 return;
             }
-
             selApp = appTable.getSelectionModel().getSelectedItem();
             System.out.println(selApp.getAppTitle());
             appIdF.setText(Integer.toString(selApp.getAppId()));
@@ -425,10 +462,6 @@ public class MainUiController {
         } catch( NullPointerException e){
             e.printStackTrace();
         }
-
-
-        // custCountryDrop.setValue();
-        // custDivDrop.setValue(selCustomer.getcDivId());
     }
 
     /**
@@ -462,22 +495,26 @@ public class MainUiController {
     }
 
     /**
+     * initSpinners()
+     * Used by initialize()
      * Initializes the spinners with the values needed to track time.
      */
 
     private void initSpinners() {
+        // Creates the AM PM list
         ObservableList<String> str = FXCollections.observableArrayList();
         str.add("AM");
         str.add("PM");
 
+        // Creates the list of hours
         ObservableList<String> hours = FXCollections.observableArrayList();
         hours.add("01");
         hours.add("02"); hours.add("03"); hours.add("04"); hours.add("05"); hours.add("06");
         hours.add("07"); hours.add("08"); hours.add("09"); hours.add("10"); hours.add("11");
         hours.add("12");
 
+        //Creates the minutes list in string type
         ObservableList<String> minutes = FXCollections.observableArrayList();
-
         for (int i = 0; i <= 60; i++) {
             if (i < 10) {
                 minutes.add("0" + Integer.toString(i));
@@ -507,25 +544,38 @@ public class MainUiController {
         );
     }
 
+
+    /**
+     * createMonthsList()
+     * Creates and returns an array list of Month names.
+     * Used by fillMonths()
+     * @return ObservableList<String>
+     */
     public ObservableList<String> createMonthsList(){
         ObservableList<String> months = FXCollections.observableArrayList();
         months.add("January"); months.add("February"); months.add("March");
         months.add("April"); months.add("May"); months.add("June"); months.add("July");
         months.add("August"); months.add("September"); months.add("October"); months.add("November");
         months.add("December");
-
         return months;
     }
 
+    /**
+     * fillMonths()
+     * Triggered by the months radio button selection to set the filter combo box
+     * with the months list.
+     */
     public void fillMonths(){
         ObservableList<String> months = createMonthsList();
-
-     //   appFilterDrop.setValue("Select Month");
         appFilterDrop.setItems(months);
-
     }
 
 
+    /**
+     * createWeeksList()
+     * Used by fillWeeks() to return the weeks array list in the desired format.
+     * @return ObservableList<String>
+     */
     public ObservableList<String> createWeeksList(){
         DateTimeFormatter selFormat = DateTimeFormatter.ofPattern("MM-dd-yy");
         ObservableList<String> weeks = FXCollections.observableArrayList();
@@ -539,81 +589,88 @@ public class MainUiController {
             firstWeekEnd = firstWeekEnd.plusDays(7);
             weeks.add(firstWeekStart.format(selFormat) + " - " + firstWeekEnd.format(selFormat));
         }
-
         return weeks;
     }
 
 
-
-    public ObservableList<String> fillWeeks(){
-        DateTimeFormatter selFormat = DateTimeFormatter.ofPattern("MM-dd-yy");
+    /**
+     * fillWeeks()
+     * Used by the week radio button to fill the filter combobox on selection.
+     */
+    public void fillWeeks(){
         ObservableList<String> weeks = createWeeksList();
-     //   appFilterDrop.setValue("Select Week");
         appFilterDrop.setItems(weeks);
-
-        return weeks;
     }
 
+    /**
+     * void checkSelection()
+     * Event triggered by a change in the combobox to make sure
+     * an item is selected before enabling filter button.
+     */
     public void checkSelection(){
-        if(appFilterDrop.getSelectionModel().getSelectedItem() == null){
+        if(!(appMonthR.isSelected()) && !(appWeekR.isSelected()) ){
             System.out.println("Not valid selection");
+            appFilterDrop.setDisable(true);
             return;
         }
-        appFilterBtn.setDisable(false);
+
+        if(appFilterDrop.getSelectionModel().getSelectedItem() != null) {
+            appFilterBtn.setDisable(false);
+        }
     }
 
+    /**
+     * setFilteredApps()
+     * Parses the string data in the appointment filter combo box
+     * to update the appointment table with the matching appointments.
+     */
     public void setFilteredApps(){
+        // Checks for valid selection before running the rest of the function
         if(appFilterDrop.getSelectionModel().getSelectedItem() == null){
             System.out.println("not valid selection");
             return;
         }
 
-        String selectedItem = appFilterDrop.getSelectionModel().getSelectedItem().toString();
-
         ObservableList<Appointment> filteredApps = FXCollections.observableArrayList();
+        String selectedItem = appFilterDrop.getSelectionModel().getSelectedItem();
 
-//        if(appFilterDrop.ge){
-//            return;
-//        }
-
-
-        // if it equals months
+        // Filter by Month
         if(appFilterDrop.getItems().get(1) == createMonthsList().get(1)){
             for(Appointment app : appDao.getAllApps()){
                 String checkMonth = app.getAppStartLocal().format(DateTimeFormatter.ofPattern("MMMM"));
-                System.out.println(selectedItem);
                 if(checkMonth.equals(selectedItem)){
                     filteredApps.add(app);
                 }
             }
             if(filteredApps.isEmpty()){
-                AppMethodsSingleton.generateAlert(Alert.AlertType.ERROR, "No matching appointments found!");
+                AppMethodsSingleton.generateAlert(Alert.AlertType.INFORMATION, "There are no appointments in that month");
             } else {
                 setAppTable(filteredApps);
                 AppMethodsSingleton.generateAlert(Alert.AlertType.INFORMATION, "Success! " + filteredApps.size() + " appointments found." );
                 return;
             }
-        } else
 
-        if(appFilterDrop.getItems() == createWeeksList()){
-            for(Appointment app : appDao.getAllApps()){
-                int selDay = LocalDate.parse(selectedItem, DateTimeFormatter.ofPattern("MM-dd-yy")).getDayOfYear();
-                int checkDay = LocalDate.parse(app.getAppStart(), DateTimeFormatter.ofPattern("MM-dd-yy")).getDayOfYear();
-                if(checkDay == selDay){
-                    filteredApps.add(app);
-                }
+            // Filter by Week
+        } else if(appFilterDrop.getItems()  != createMonthsList()){
+            filteredApps = appDao.getAppsByWeek(selectedItem);
+            if(filteredApps.isEmpty() != true){
+                setAppTable(filteredApps);
+                AppMethodsSingleton.generateAlert(Alert.AlertType.INFORMATION, "Success! " + filteredApps.size() + " appointments found." );
+                return;
+            } else {
+                AppMethodsSingleton.generateAlert(Alert.AlertType.INFORMATION, "There are no appointments in that week");
+                return;
             }
-            setAppTable(filteredApps);
-            return;
+        }
+        AppMethodsSingleton.generateAlert(Alert.AlertType.ERROR, "No matching appointments found!");
+        return;
         }
 
-//        else {
-//            AppMethodsSingleton.generateAlert(Alert.AlertType.ERROR, "No matching appointments found!");
-//        }
 
 
 
-    }
+
+
 
 
 }
