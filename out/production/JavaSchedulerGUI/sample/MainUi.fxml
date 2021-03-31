@@ -122,11 +122,11 @@
                            </font>
                         </Label>
                         <Label layoutX="41.0" layoutY="486.0" text="End Time:" />
-                         <RadioButton fx:id="appMonthR" layoutX="1157.0" layoutY="42.0" mnemonicParsing="false" text="Month">
+                         <RadioButton fx:id="appMonthR" onAction="#fillMonths" layoutX="1157.0" layoutY="42.0" mnemonicParsing="false" text="Month">
                            <toggleGroup>
                               <ToggleGroup fx:id="filterType" />
                            </toggleGroup></RadioButton>
-                         <RadioButton fx:id="appWeekR" layoutX="1217.0" layoutY="42.0" mnemonicParsing="false" text="Week" toggleGroup="$filterType" />
+                         <RadioButton fx:id="appWeekR" onAction="#fillWeeks" layoutX="1217.0" layoutY="42.0" mnemonicParsing="false" text="Week" toggleGroup="$filterType" />
 
                         <Label layoutX="1106.0" layoutY="42.0" text="Filter By:" />
                         <ComboBox fx:id="appFilterDrop" layoutX="1106.0" layoutY="68.0" prefHeight="25.0" prefWidth="155.0" />

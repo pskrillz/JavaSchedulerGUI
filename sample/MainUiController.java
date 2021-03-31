@@ -478,8 +478,6 @@ public class MainUiController {
             }
         }
 
-
-
         appStartHF.setValueFactory(
                 new SpinnerValueFactory.ListSpinnerValueFactory<String>(hours)
         );
@@ -499,9 +497,36 @@ public class MainUiController {
         appEnd12F.setValueFactory(
                 new SpinnerValueFactory.ListSpinnerValueFactory<String>(str)
         );
-
     }
 
+    public void fillMonths(){
+        ObservableList<String> months = FXCollections.observableArrayList();
+        months.add("Janurary"); months.add("February"); months.add("March");
+        months.add("April"); months.add("May"); months.add("June"); months.add("July");
+        months.add("August"); months.add("September"); months.add("October"); months.add("November");
+        months.add("December");
+
+        appFilterDrop.setValue("Select Month");
+        appFilterDrop.setItems(months);
+    }
+
+    public void fillWeeks(){
+        DateTimeFormatter selFormat = DateTimeFormatter.ofPattern("MM-dd-yy");
+        ObservableList<String> weeks = FXCollections.observableArrayList();
+        LocalDate firstWeekStart = LocalDate.of(2021, 1, 4);
+        LocalDate firstWeekEnd = LocalDate.of(2021, 1, 10);
+        weeks.add(firstWeekStart.format(selFormat) + " - " +
+                firstWeekEnd.format(selFormat));
+
+        for(int i = 0; i < 52; i++){
+            firstWeekStart = firstWeekStart.plusDays(7);
+            firstWeekEnd = firstWeekEnd.plusDays(7);
+            weeks.add(firstWeekStart.format(selFormat) + " - " + firstWeekEnd.format(selFormat));
+        }
+        appFilterDrop.setValue("Select Week");
+        appFilterDrop.setItems(weeks);
+
+    }
 
 
 }
