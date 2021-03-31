@@ -12,7 +12,6 @@ public class Appointment {
     private SimpleStringProperty appDesc;
     private SimpleStringProperty appLocation;
     private SimpleStringProperty appType;
-   // private ZonedDateTime appStart;
     private LocalDateTime appStartLocal;
     private LocalDateTime appEndLocal;
     private SimpleStringProperty appDate;
@@ -22,8 +21,6 @@ public class Appointment {
     private SimpleIntegerProperty appContactId;
     private SimpleIntegerProperty appUserId;
 
-
-   // private SimpleStringProperty appStartString;
 
 
     public Appointment(int appId,
@@ -36,8 +33,6 @@ public class Appointment {
                        int appCustId,
                        int appContactId,
                    int appUserId
-
-                   //    String appStartLocal
                         ) {
         this.appId = new SimpleIntegerProperty(appId);
         this.appTitle = new SimpleStringProperty(appTitle) ;
@@ -148,23 +143,6 @@ public class Appointment {
     public String getAppStart(){
         return this.appStart.get();
     }
-
-//    public String getAppStartString() {
-//        return this.appStartString.get();
-
-       // return appStartString.toString()
-      //  appStartLocal = LocalDateTime.parse("yyyy-MM-dd HH:mm:ss");
-      //  return appStartLocal.toString();
-//     // return new SimpleStringProperty(this.appStartLocal.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))  ;
-//    }
-
-//    public void setAppStartString(String appStartString) {
-//        this.appStartString.set(appStartString);
-//    }
-//
-//    public SimpleStringProperty AppStartStringProperty(){
-//        return appStartString;
-//    }
 
     public SimpleStringProperty appTitleProperty() {
         return appTitle;

@@ -51,21 +51,39 @@ public class AddAppContr {
         str.add("AM");
         str.add("PM");
 
+        ObservableList<String> hours = FXCollections.observableArrayList();
+        hours.add("01");
+        hours.add("02"); hours.add("03"); hours.add("04"); hours.add("05"); hours.add("06");
+        hours.add("07"); hours.add("08"); hours.add("09"); hours.add("10"); hours.add("11");
+        hours.add("12");
+
+        ObservableList<String> minutes = FXCollections.observableArrayList();
+
+        for (int i = 0; i <= 60; i++) {
+            if (i < 10) {
+                minutes.add("0" + Integer.toString(i));
+            } else {
+                minutes.add(Integer.toString(i));
+            }
+        }
+
+
+
         appStartHF.setValueFactory(
-                new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 12)
+                new SpinnerValueFactory.ListSpinnerValueFactory<String>(hours)
         );
         appStartMF.setValueFactory(
-                new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 60)
+                new SpinnerValueFactory.ListSpinnerValueFactory<String>(minutes)
         );
         appStart12F.setValueFactory(
                 new SpinnerValueFactory.ListSpinnerValueFactory<String>(str)
         );
 
         appEndHF.setValueFactory(
-                new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 12)
+                new SpinnerValueFactory.ListSpinnerValueFactory<String>(hours)
         );
         appEndMF.setValueFactory(
-                new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 60)
+                new SpinnerValueFactory.ListSpinnerValueFactory<String>(minutes)
         );
         appEnd12F.setValueFactory(
                 new SpinnerValueFactory.ListSpinnerValueFactory<String>(str)
@@ -90,15 +108,11 @@ public class AddAppContr {
         if(appStart12F.getValue().toString() == "PM"){
             startHours = Integer.toString(Integer.parseInt(startHours) + 12);
         }
-        if (Integer.parseInt(startHours)  < 10) {
-            startHours = "0" + startHours;
-        }
+
 
 
         String startMinutes = appStartMF.getValue().toString();
-        if (Integer.parseInt(startMinutes)  < 10) {
-            startMinutes = "0" + startMinutes;
-        }
+
 
         String appStartDateTimeString = appDate + " " + startHours + ":" + startMinutes + ":00";
         System.out.println(appStartDateTimeString);
@@ -107,15 +121,11 @@ public class AddAppContr {
         if(appEnd12F.getValue().toString() == "PM"){
             endHours = Integer.toString(Integer.parseInt(endHours) + 12);
         }
-        if (Integer.parseInt(endHours)  < 10) {
-            endHours = "0" + endHours;
-        }
+
 
 
         String endMinutes = appEndMF.getValue().toString();
-        if (Integer.parseInt(endMinutes)  < 10) {
-            endMinutes = "0" + endMinutes;
-        }
+
 
         String appEndDateTimeString = appDate + " " + endHours + ":" + endMinutes + ":00";
         System.out.println(appEndDateTimeString);

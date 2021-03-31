@@ -154,6 +154,9 @@ public class MainUiController {
     @FXML
     public void fillUpdateForm() throws SQLException {
 
+        if(customerTableView.getSelectionModel().getSelectedItem() == null){
+            return;
+        }
 
         selCustomer = customerTableView.getSelectionModel().getSelectedItem();
         System.out.println(selCustomer.getcName());
@@ -165,9 +168,6 @@ public class MainUiController {
         customerDao.getSpecDivCountry(selCustomer.getcDivId());
         custCountryDrop.setValue(findCountry(customerDao.selCountryId));
         custDivDrop.setValue(findDivision(selCustomer.getcDivId()));
-
-        // custCountryDrop.setValue();
-        // custDivDrop.setValue(selCustomer.getcDivId());
     }
 
     public void updateCustomer(){
@@ -337,24 +337,32 @@ public class MainUiController {
     @FXML
     public void fillAppUpdateForm() throws SQLException {
 
+        try {
+            if(appTable.getSelectionModel().getSelectedItem() == null){
+                return;
+            }
 
-        selApp = appTable.getSelectionModel().getSelectedItem();
-        System.out.println(selApp.getAppTitle());
-        appIdF.setText(Integer.toString(selApp.getAppId()));
-        appTitleF.setText(selApp.getAppTitle());
-        appTypeF.setText(selApp.getAppType());
-        appDescF.setText(selApp.getAppDesc());
-        appLocF.setValue(getCountry(selApp.getAppLocation()));
-        appContactF.setValue(getContact(selApp.getAppContactId()));
-        appDateF.setValue(LocalDate.parse(selApp.getAppDate(), DateTimeFormatter.ofPattern("MM-dd-yyyy")));
-        appStartHF.getValueFactory().setValue((selApp.getAppStart().substring(0,2)));
-        appStartMF.getValueFactory().setValue((selApp.getAppStart().substring(3,5)));
-        appStart12F.getValueFactory().setValue(selApp.getAppStart().substring(6, 8));
-        appEndHF.getValueFactory().setValue((selApp.getAppEnd().substring(0,2)));
-        appEndMF.getValueFactory().setValue((selApp.getAppEnd().substring(3,5)));
-        appEnd12F.getValueFactory().setValue(selApp.getAppEnd().substring(6, 8));
-        appCustIdF.setText(Integer.toString(selApp.getAppCustId()));
-        appUserIdF.setText(Integer.toString(selApp.getAppUserId()));
+            selApp = appTable.getSelectionModel().getSelectedItem();
+            System.out.println(selApp.getAppTitle());
+            appIdF.setText(Integer.toString(selApp.getAppId()));
+            appTitleF.setText(selApp.getAppTitle());
+            appTypeF.setText(selApp.getAppType());
+            appDescF.setText(selApp.getAppDesc());
+            appLocF.setValue(getCountry(selApp.getAppLocation()));
+            appContactF.setValue(getContact(selApp.getAppContactId()));
+            appDateF.setValue(LocalDate.parse(selApp.getAppDate(), DateTimeFormatter.ofPattern("MM-dd-yyyy")));
+            appStartHF.getValueFactory().setValue((selApp.getAppStart().substring(0, 2)));
+            appStartMF.getValueFactory().setValue((selApp.getAppStart().substring(3, 5)));
+            appStart12F.getValueFactory().setValue(selApp.getAppStart().substring(6, 8));
+            appEndHF.getValueFactory().setValue((selApp.getAppEnd().substring(0, 2)));
+            appEndMF.getValueFactory().setValue((selApp.getAppEnd().substring(3, 5)));
+            appEnd12F.getValueFactory().setValue(selApp.getAppEnd().substring(6, 8));
+            appCustIdF.setText(Integer.toString(selApp.getAppCustId()));
+            appUserIdF.setText(Integer.toString(selApp.getAppUserId()));
+        } catch( NullPointerException e){
+            e.printStackTrace();
+        }
+
 
         // custCountryDrop.setValue();
         // custDivDrop.setValue(selCustomer.getcDivId());
@@ -367,11 +375,9 @@ public class MainUiController {
      * @return
      */
     public Country getCountry(String countryStr){
-        Country foundCountry;
         for(Country item : customerDao.getNeededCountries()){
             if(item.getCountryName().contains(countryStr)){
-                foundCountry = item;
-                return foundCountry;
+                return item;
             }
         }
             return null;
@@ -384,7 +390,6 @@ public class MainUiController {
      * @return
      */
     public Contact getContact(int contactId){
-        Contact foundContact;
         for(Contact item : Contact.getAllContacts()){
             if(item.getConID() == contactId){
                 return item;
