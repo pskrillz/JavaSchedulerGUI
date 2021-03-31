@@ -69,6 +69,10 @@ public class MainUiController {
     setContactF(); // Sets up contact drop down/combo box.
     initSpinners(); // initializes spinner values//
 
+    // report tab
+    rTotalL.setText(CategoryCount.getTotalApps());
+
+    // Checks if there's an appointment within 15 minutes or not and notifies the user.
     checkUpcomingAppointments();
 
         /**
@@ -686,8 +690,9 @@ public class MainUiController {
      */
         public void checkUpcomingAppointments() {
             for (Appointment app : appDao.getAllApps()) {
-                if ((app.getAppStartLocal().minusMinutes(15).isBefore(LocalDateTime.now()))
-                        && app.getAppStartLocal().getDayOfYear() == LocalDateTime.now().getDayOfYear()) {
+                if ((app.getAppStartLocal().plusMinutes(15).isAfter(LocalDateTime.now()))
+
+                        && (app.getAppStartLocal().getDayOfYear() == LocalDateTime.now().getDayOfYear())) {
                     Alert alert = AppMethodsSingleton.generateAlertObject(Alert.AlertType.INFORMATION,
                             "Upcoming Appointment! \n" +
                                     "Appointment ID #" + app.getAppId() + " starting within 15 minutes at \n" +
@@ -711,8 +716,14 @@ public class MainUiController {
     }
 
 
+    /* End of Appointments tab ***********
+     */
 
+    /* ***** Start of Reports Tab
+     */
 
+    @FXML Label rTotalL;
+    @FXML TableView<CategoryCount> rCountTable;
 
 
 

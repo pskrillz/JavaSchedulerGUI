@@ -122,14 +122,14 @@
                            </font>
                         </Label>
                         <Label layoutX="41.0" layoutY="486.0" text="End Time:" />
-                         <RadioButton fx:id="appMonthR" layoutX="1157.0" layoutY="42.0" mnemonicParsing="false" onAction="#fillMonths" text="Month">
+                         <RadioButton fx:id="appMonthR" layoutX="1093.0" layoutY="43.0" mnemonicParsing="false" onAction="#fillMonths" text="Month">
                            <toggleGroup>
                               <ToggleGroup fx:id="filterType" />
                            </toggleGroup></RadioButton>
-                         <RadioButton fx:id="appWeekR" layoutX="1217.0" layoutY="42.0" mnemonicParsing="false" onAction="#fillWeeks" text="Week" toggleGroup="$filterType" />
+                         <RadioButton fx:id="appWeekR" layoutX="1153.0" layoutY="43.0" mnemonicParsing="false" onAction="#fillWeeks" text="Week" toggleGroup="$filterType" />
 
-                        <Label layoutX="1106.0" layoutY="42.0" text="Filter By:" />
-                        <ComboBox fx:id="appFilterDrop" layoutX="1106.0" layoutY="68.0" onAction="#checkSelection" prefHeight="25.0" prefWidth="110.0" />
+                        <Label layoutX="1042.0" layoutY="43.0" text="Filter By:" />
+                        <ComboBox fx:id="appFilterDrop" layoutX="1042.0" layoutY="69.0" onAction="#checkSelection" prefHeight="25.0" prefWidth="173.0" />
                          <Button fx:id="appFilterBtn" disable="true" layoutX="1220.0" layoutY="68.0" onAction="#setFilteredApps" text="Filter" />
 
 
@@ -161,13 +161,14 @@
                            </font>
                         </Label>
                         <Label layoutX="80.0" layoutY="66.0" text="Total # of Appointments:" />
-                        <TableView layoutY="106.0" prefHeight="392.0" prefWidth="411.0">
+                         <Label fx:id="rTotalL" layoutX="217.0" layoutY="66.0" text="Total" />
+                        <TableView fx:id="rCountTable" layoutY="106.0" prefHeight="392.0" prefWidth="411.0">
                           <columns>
-                            <TableColumn prefWidth="133.0" text="Filtered by:" />
-                            <TableColumn prefWidth="142.0" text="Total" />
+                            <TableColumn prefWidth="199.0" text="Filtered by:" />
+                            <TableColumn prefWidth="211.0" text="Total" />
                           </columns>
                         </TableView>
-                        <Label layoutX="217.0" layoutY="66.0" text="Total" />
+
                         <Separator layoutX="404.0" layoutY="-3.0" orientation="VERTICAL" prefHeight="771.0" prefWidth="14.0" />
                         <Label layoutX="643.0" layoutY="22.0" text="Generate Appointment Schedule:" underline="true">
                            <font>

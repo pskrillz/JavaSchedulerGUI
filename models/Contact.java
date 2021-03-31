@@ -81,14 +81,6 @@ public class Contact {
 
 
 
-    /**
-     * Database objects
-     */
-
-    //Connection connection = null;
-  //  PreparedStatement prepStatment = null;
-   // ResultSet resultSet = null;
-
 
     /**
      * DB methods
@@ -133,7 +125,7 @@ public class Contact {
             while(resultSet.next()) {
                 SimpleIntegerProperty id = new SimpleIntegerProperty(resultSet.getInt(1));
                 SimpleStringProperty name = new SimpleStringProperty(resultSet.getString(2));
-                SimpleStringProperty email = new SimpleStringProperty(resultSet.getString(2));
+                SimpleStringProperty email = new SimpleStringProperty(resultSet.getString(3));
                 Contact currContact = new Contact(id, name, email);
                 allContacts.add(currContact);
             }
