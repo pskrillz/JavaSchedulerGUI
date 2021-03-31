@@ -36,6 +36,10 @@ public class AppMethodsSingleton {
         err.show();
     }
 
+    public static Alert generateAlertObject(Alert.AlertType alertType, String message){
+        return new Alert(alertType, message, ButtonType.OK);
+    }
+
     /**
      * getLocalTimezoneOffset()
      * Returns the string offset for use in sql queries to normalize it's display
@@ -53,7 +57,7 @@ public class AppMethodsSingleton {
 
     }
 
-    public static String getEasterntOffset(){
+    public static String getEasternOffset(){
         LocalDateTime now = LocalDateTime.now();
         ZoneId zone = ZoneId.of("America/New_York");
         ZoneOffset easternOffset = zone.getRules().getOffset(now);

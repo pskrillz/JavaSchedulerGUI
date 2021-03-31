@@ -54,7 +54,11 @@ public class AppDaoImpl implements AppDao<Appointment>{
     public ObservableList<Appointment> getAllApps() {
         ObservableList<Appointment> allApps = FXCollections.observableArrayList();
         try {
-            String query = "SELECT Appointment_ID, TITLE, DESCRIPTION, LOCATION, TYPE, convert_tz(START, \"+00:00\", ?), convert_tz(END, \"+00:00\", ?), CUSTOMER_ID, CONTACT_ID, USER_ID FROM WJ07tms.appointments;";
+            String query = "SELECT Appointment_ID, TITLE, DESCRIPTION, LOCATION, TYPE, " +
+                    "convert_tz(START, \"+00:00\", ?), convert_tz(END, \"+00:00\", ?), " +
+                    "CUSTOMER_ID, CONTACT_ID, USER_ID " +
+                    "FROM WJ07tms.appointments " +
+                    "ORDER BY START;";
             Connection con = getConnection();
             prepStatment = con.prepareStatement(query);
             prepStatment.setString(1, AppMethodsSingleton.getLocalTimezoneOffset());

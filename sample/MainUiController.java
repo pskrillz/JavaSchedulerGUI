@@ -2,6 +2,7 @@ package sample;
 
 import Dao.AppDaoImpl;
 import Dao.CustomerDaoImpl;
+import javafx.animation.PauseTransition;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -15,10 +16,12 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import models.*;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class MainUiController {
@@ -59,12 +62,14 @@ public class MainUiController {
      * Important method to instantiate UI components.
      */
     @FXML
-    private void initialize(){
+    private void initialize() throws InterruptedException {
     setCustomerTableView(); // Sets up customers table
     setAppTable(refreshTable()); // Sets up appointments table
     setCountriesDrop(); // Sets up countries/location drop down (combo boxes)
     setContactF(); // Sets up contact drop down/combo box.
-    initSpinners(); // initializes spinner values
+    initSpinners(); // initializes spinner values//
+
+    checkUpcomingAppointments();
 
         /**
          * Creates event handler that enables buttons only when a customer is selected
@@ -95,6 +100,9 @@ public class MainUiController {
             }
         });
     }
+
+
+
 
     /**
      * deleteCustomer()
@@ -665,6 +673,44 @@ public class MainUiController {
         AppMethodsSingleton.generateAlert(Alert.AlertType.ERROR, "No matching appointments found!");
         return;
         }
+
+
+    /**
+     * checkUpcomingAppointments()
+     * Used by initialiaze()
+     * Displays an alert a few seconds after log in.
+     *If an appointment is within 15 minute of the user's login,
+     * it provides the appointment ID, start time, and date.
+     *If there are none, it displays "no upcoming appointments"
+     *
+     */
+        public void checkUpcomingAppointments() {
+            for (Appointment app : appDao.getAllApps()) {
+                if ((app.getAppStartLocal().minusMinutes(15).isBefore(LocalDateTime.now()))
+                        && app.getAppStartLocal().getDayOfYear() == LocalDateTime.now().getDayOfYear()) {
+                    Alert alert = AppMethodsSingleton.generateAlertObject(Alert.AlertType.INFORMATION,
+                            "Upcoming Appointment! \n" +
+                                    "Appointment ID #" + app.getAppId() + " starting within 15 minutes at \n" +
+                                    app.getAppStart() + " on " + app.getAppDate());
+                    PauseTransition delay = new PauseTransition(Duration.seconds(5));
+                    delay.setOnFinished(e -> alert.show());
+                    delay.play();
+                    Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+                    stage.setAlwaysOnTop(true);
+                    return;
+                }
+            }
+            Alert noAlert = AppMethodsSingleton.generateAlertObject(Alert.AlertType.INFORMATION,
+                    "You have no upcoming appointments.");
+            PauseTransition delay = new PauseTransition(Duration.seconds(5));
+            delay.setOnFinished(e -> noAlert.show());
+            delay.play();
+            Stage stage = (Stage) noAlert.getDialogPane().getScene().getWindow();
+            stage.setAlwaysOnTop(true);
+            return;
+    }
+
+
 
 
 
