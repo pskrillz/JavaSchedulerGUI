@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class CategoryCount {
+
     private SimpleStringProperty categoryTitle;
     private SimpleIntegerProperty categoryCount;
 
@@ -83,7 +84,7 @@ public class CategoryCount {
      */
     public static String getSqlString(String categoryType) {
         String sqlQuery = "";
-        if (categoryType == "month") {
+        if (categoryType == "Month") {
             sqlQuery = "SELECT DATE_FORMAT(start, \"%M\") \"Month\"," +
                     "count(start) \"Total\"\n" +
                     "from WJ07tms.appointments\n" +
@@ -139,8 +140,8 @@ public class CategoryCount {
             resultSet = prepStatment.executeQuery();
 
             while(resultSet.next()) {
-                SimpleStringProperty name = new SimpleStringProperty(resultSet.getString(2));
-                SimpleIntegerProperty count = new SimpleIntegerProperty(resultSet.getInt(1));
+                SimpleStringProperty name = new SimpleStringProperty(resultSet.getString(1));
+                SimpleIntegerProperty count = new SimpleIntegerProperty(resultSet.getInt(2));
 
                 CategoryCount newItem = new CategoryCount(name, count);
                 categoryList.add(newItem);

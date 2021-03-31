@@ -70,7 +70,11 @@ public class MainUiController {
     initSpinners(); // initializes spinner values//
 
     // report tab
-    rTotalL.setText(CategoryCount.getTotalApps());
+    rTotalL.setText(CategoryCount.getTotalApps()); // sets total appointment number
+
+    // Sets the stats table with month by default.
+    filterCountMonth();
+    // setCountTable(CategoryCount.getStats(CategoryCount.getSqlString("Month")));
 
     // Checks if there's an appointment within 15 minutes or not and notifies the user.
     checkUpcomingAppointments();
@@ -722,12 +726,30 @@ public class MainUiController {
     /* ***** Start of Reports Tab
      */
 
-    @FXML Label rTotalL;
+    @FXML Label rTotalL; // total number of all appointments
     @FXML TableView<CategoryCount> rCountTable;
+    @FXML TableColumn<CategoryCount, String> rCategoryNameCol;
+    @FXML TableColumn<CategoryCount, Integer> rCountCol;
 
+    @FXML
+    public void setCountTable(ObservableList<CategoryCount> objects){
+        if (objects == CategoryCount.getStats(CategoryCount.getSqlString("Month"))){
+            rCategoryNameCol.setText("By Month");
+        } else if(objects == CategoryCount.getStats(CategoryCount.getSqlString("Type"))){
+            rCategoryNameCol.setText("By Type");
+        }
+        rCategoryNameCol.setCellValueFactory(new PropertyValueFactory<>("categoryTitle"));
+        rCountCol.setCellValueFactory(new PropertyValueFactory<>("categoryCount"));
+        rCountTable.setItems(objects);
+    }
 
+    public void filterCountMonth(){
+        setCountTable(CategoryCount.getStats(CategoryCount.getSqlString("Month")));
+    }
 
-
+    public void filterCountType(){
+        setCountTable(CategoryCount.getStats(CategoryCount.getSqlString("Type")));
+    }
 
 
 }
