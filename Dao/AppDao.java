@@ -4,7 +4,8 @@ import javafx.collections.ObservableList;
 
 
 public interface AppDao<Appointment> {
-//    public models.Appointment getApp(Integer id);
+
+    public ObservableList<models.Appointment> getAppListByContact(int contactId);
 
     public ObservableList<Appointment> getAllApps();
 

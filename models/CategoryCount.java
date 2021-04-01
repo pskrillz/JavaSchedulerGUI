@@ -116,7 +116,7 @@ public class CategoryCount {
      */
     public static String getSqlString(){
         System.out.println("Total number of appointments");
-            String sqlQuery = "select count(*) from WJ07tms.appointments";
+            String sqlQuery = "select count(*) from WJ07tms.appointments ";
             return sqlQuery;
         }
 

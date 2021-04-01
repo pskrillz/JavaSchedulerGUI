@@ -71,6 +71,11 @@ public class MainUiController {
 
     // report tab
     rTotalL.setText(CategoryCount.getTotalApps()); // sets total appointment number
+    rMonthCB.setItems(createMonthsList()); // cal total filter combo box/ drop down
+    rTypeCB.setItems(appDao.getTypesList()); // cal total filter combo box
+    rContactCB.setItems(Contact.getAllContacts()); // the contact drop down for build schedule
+
+
 
     // Sets the stats table with month by default.
     filterCountMonth();
@@ -583,7 +588,8 @@ public class MainUiController {
      */
     public void fillMonths(){
         ObservableList<String> months = createMonthsList();
-        appFilterDrop.setItems(months);
+        appFilterDrop.setItems(months); // appointment tab filter controls
+        rMonthCB.setItems(months); // reports tab calculator controls
     }
 
 
@@ -726,12 +732,37 @@ public class MainUiController {
     /* ***** Start of Reports Tab
      */
     @FXML Label rTotalL; // total number of all appointments
+
+
+    // calculators elements
+    @FXML CheckBox rMonthCheckbox;
+    @FXML ComboBox<String> rMonthCB;
+    @FXML CheckBox rTypeCheckbox;
+    @FXML ComboBox<String> rTypeCB;
     @FXML Button calTotalSubmitBtn; // Get specified total
+    @FXML Label specTotalResult;
+
 
     // Count Report Table elements
     @FXML TableView<CategoryCount> rCountTable;
     @FXML TableColumn<CategoryCount, String> rCategoryNameCol;
     @FXML TableColumn<CategoryCount, Integer> rCountCol;
+
+    // Generate schedule elements
+    @FXML ComboBox<Contact> rContactCB;
+    @FXML Button genScheduleBtn;
+
+    // // schedule table
+    @FXML TableView<Appointment> scheduleTable;
+    @FXML TableColumn<Appointment, Integer> sIdC;
+    @FXML TableColumn<Appointment, String> sTitleC;
+    @FXML TableColumn<Appointment, String> sTypeC;
+    @FXML TableColumn<Appointment, String> sDescC;
+    @FXML TableColumn<Appointment, String> sDateC;
+    @FXML TableColumn<Appointment, String> sStartC;
+    @FXML TableColumn<Appointment, String> sEndC;
+    @FXML TableColumn<Appointment, String> sCustIdC;
+
 
     /**
      * setCountTable()
@@ -763,14 +794,97 @@ public class MainUiController {
         setCountTable(CategoryCount.getStats(CategoryCount.getSqlString("Type")));
     }
 
-    public void enableSubmit(){
+
+    /**
+     * Specific Total Calculator methods
+     */
+
+    /**
+     * enableCalSubmit()
+     * Used by the combo box's to enable the submit button.
+     */
+    public void enableCalSubmit(){
         calTotalSubmitBtn.setDisable(false);
     }
 
-    public void getCalResults(){
-
+    /**
+     * enableMonthsCB()
+     * Used by checkbox to enable months drop down
+     */
+    public void enableMonthCB(){
+        rMonthCB.setDisable(false);
     }
 
+    /**
+     * enableTypeCB()
+     * Used by checkbox to enable type drow down
+     */
+    public void enableTypeCB(){
+        rTypeCB.setDisable(false);
+    }
+
+    /**
+     * enableGenBtn()
+     * Used by select contact dropdown  for schedule builder
+     * to enable the submit button on selection.
+     */
+    public void enableGenBtn(){
+        genScheduleBtn.setDisable(false);
+    }
+
+    /**
+     * My third report type:
+     * Get a quick total of appointments that meet certain conditions.
+     *
+     *
+     * getCalResults()
+     * Calculates how many appointments are in the specified month,
+     * of the specified type, or both and displays.
+     */
+    public void getCalResults(){
+        String month = ""; String type = "";
+        if (rMonthCheckbox.isSelected() && rTypeCheckbox.isSelected()){
+            month = rMonthCB.getSelectionModel().getSelectedItem();
+            type = rTypeCB.getSelectionModel().getSelectedItem();
+            String filteredAppsTotal = CategoryCount.getTotalApps(
+                    "where DATE_FORMAT(start, \"%M\") = \"" + month + "\" and " +
+                            "type = " + "\"" + type + "\"");
+            specTotalResult.setText(filteredAppsTotal);
+        }else if (rMonthCheckbox.isSelected() && rTypeCheckbox.isSelected() == false){
+            month = rMonthCB.getSelectionModel().getSelectedItem();
+            String filteredAppsTotal = CategoryCount.getTotalApps(
+                    "where DATE_FORMAT(start, \"%M\") = \"" + month + "\"");
+            specTotalResult.setText(filteredAppsTotal);
+        } else if(rTypeCheckbox.isSelected() && rMonthCheckbox.isSelected() == false){
+            type = rTypeCB.getSelectionModel().getSelectedItem();
+            String filteredAppsTotal = CategoryCount.getTotalApps(
+                    "where type = " + "\"" + type + "\"");
+            specTotalResult.setText(filteredAppsTotal);
+        } else {
+            AppMethodsSingleton.generateAlert(Alert.AlertType.ERROR, "Something went wrong!");
+        }
+        if (specTotalResult.getText().equals("0")){
+            AppMethodsSingleton.generateAlert(Alert.AlertType.INFORMATION, "No appointments found!");
+        }
+    }
+
+    @FXML
+    public void generateScheduleTable(){
+        ObservableList<Appointment> appList = appDao.getAppListByContact(rContactCB.getSelectionModel().getSelectedItem().getConID());
+        if (appList.isEmpty()){
+            AppMethodsSingleton.generateAlert(Alert.AlertType.INFORMATION, "Contact has no appointments");
+            return;
+        }
+        sIdC.setCellValueFactory(new PropertyValueFactory<>("appId"));
+        sTitleC.setCellValueFactory(new PropertyValueFactory<>("appTitle"));
+        sTypeC.setCellValueFactory(new PropertyValueFactory<>("appType"));
+        sDescC.setCellValueFactory(new PropertyValueFactory<>("appDesc"));
+        sDateC.setCellValueFactory(new PropertyValueFactory<>("appDate"));
+        sStartC.setCellValueFactory(new PropertyValueFactory<>("appStart"));
+        sEndC.setCellValueFactory(new PropertyValueFactory<>("appEnd"));
+        sCustIdC.setCellValueFactory(new PropertyValueFactory<>("appCustId"));
+        scheduleTable.setItems(appList);
+    }
 
 
 

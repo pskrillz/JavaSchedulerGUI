@@ -21,6 +21,9 @@ public class AppDaoImpl implements AppDao<Appointment>{
     Connection connection = null;
 
 
+    public AppDaoImpl() {
+    }
+
     /**
      * getConnection()
      * Returns an instance of a database connection for
@@ -81,6 +84,42 @@ public class AppDaoImpl implements AppDao<Appointment>{
         }
         return allApps;
     }
+
+    @Override
+    public ObservableList<Appointment> getAppListByContact(int contactId) {
+        ObservableList<Appointment> allApps = FXCollections.observableArrayList();
+        try {
+            String query = "SELECT Appointment_ID, TITLE, DESCRIPTION, LOCATION, TYPE, " +
+                    "convert_tz(START, \"+00:00\", ?), convert_tz(END, \"+00:00\", ?), " +
+                    "CUSTOMER_ID, CONTACT_ID, USER_ID " +
+                    "FROM WJ07tms.appointments " +
+                    "WHERE CONTACT_ID = "  + contactId +
+                    " ORDER BY START;";
+            Connection con = getConnection();
+            prepStatment = con.prepareStatement(query);
+            prepStatment.setString(1, AppMethodsSingleton.getLocalTimezoneOffset());
+            prepStatment.setString(2, AppMethodsSingleton.getLocalTimezoneOffset());
+            resultSet = prepStatment.executeQuery();
+
+            // loop to make observable list
+            while(resultSet.next()) {
+
+                Appointment currApp = new Appointment(resultSet.getInt(1), resultSet.getString(2),
+                        resultSet.getString(3), resultSet.getString(4), resultSet.getString(5),
+                        resultSet.getString(6), resultSet.getString(7), resultSet.getInt(8), resultSet.getInt(9), resultSet.getInt(10));
+
+                allApps.add(currApp);
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        } finally {
+            closeConnection();
+        }
+        return allApps;
+    }
+
+
+
 
     /**
      * addApp()
@@ -221,6 +260,29 @@ public class AppDaoImpl implements AppDao<Appointment>{
             closeConnection();
         }
     }
+
+
+    /**
+     *
+     */
+    public ObservableList<String> getTypesList(){
+        ObservableList<String> types = FXCollections.observableArrayList();
+        try {
+            connection = getConnection();
+            String sql = "SELECT distinct type FROM WJ07tms.appointments";
+            prepStatment = connection.prepareStatement(sql);
+            resultSet = prepStatment.executeQuery();
+            while (resultSet.next()){
+                types.add(resultSet.getString(1));
+            }
+        } catch(SQLException e ){
+            e.printStackTrace();
+        }
+    return types;
+    }
+
+
+
 
 
     /**
