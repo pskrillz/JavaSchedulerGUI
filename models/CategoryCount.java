@@ -79,21 +79,31 @@ public class CategoryCount {
      * getSqlString()
      * Used by the reports tab's category stats table.
      * Takes a string parameter and returns the sql query string based on that.
-     * @param categoryType
+     * @param queryType
      * @return
      */
-    public static String getSqlString(String categoryType) {
+    public static String getSqlString(String queryType) {
         String sqlQuery = "";
-        if (categoryType == "Month") {
+        if (queryType == "Month") {
             sqlQuery = "SELECT DATE_FORMAT(start, \"%M\") \"Month\"," +
                     "count(start) \"Total\"\n" +
                     "from WJ07tms.appointments\n" +
                     "group by 1;";
-        } else if (categoryType == "Type") {
+        } else if (queryType == "Type") {
             sqlQuery = "SELECT type," +
                     "count(type) \"Total\"\n" +
                     "from WJ07tms.appointments\n" +
                     "group by 1;";
+        } else if (queryType == "filterType"){
+            sqlQuery = "SELECT count(*) FROM WJ07tms.appointments" +
+                    "where type = ?";
+        } else if (queryType == "filterMonth"){
+            sqlQuery = "SELECT count(*) FROM WJ07tms.appointments" +
+                    "where DATE_FORMAT(start, \"%M\") = ?";
+        } else if (queryType == "filterBoth"){
+            sqlQuery = "SELECT count(*) FROM WJ07tms.appointments" +
+                    "where DATE_FORMAT(start, \"%M\") = ? " +
+                    "and type = ?";
         }
         return sqlQuery;
     }

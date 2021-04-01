@@ -153,11 +153,11 @@
                              </columns>
                          </TableView>
                         <ComboBox disable="true" layoutX="112.0" layoutY="628.0" prefHeight="6.0" prefWidth="137.0" promptText="Type" />
-                        <RadioButton layoutX="212.0" layoutY="491.0" mnemonicParsing="false" text="Type" onAction="#filterCountMonth" >
+                        <RadioButton layoutX="212.0" layoutY="491.0" mnemonicParsing="false" text="Type" onAction="#filterCountType" >
                          <toggleGroup>
                              <ToggleGroup fx:id="filterRType" />
                          </toggleGroup></RadioButton>
-                        <RadioButton layoutX="145.0" onAction="#filterCountType" toggleGroup="$filterRType" layoutY="491.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="63.0" selected="true" text="Month" />
+                        <RadioButton layoutX="145.0" onAction="#filterCountMonth" toggleGroup="$filterRType" layoutY="491.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="63.0" selected="true" text="Month" />
                         <Label layoutX="35.0" layoutY="22.0" prefHeight="35.0" prefWidth="265.0" text="Appointment Statistics:" underline="true">
                            <font>
                               <Font size="24.0" />
