@@ -122,7 +122,7 @@ public class CategoryCount {
 
     /**
      * Returns the total number of appointments from db
-     * @return
+     * @return String count
      */
     public static String getTotalApps() {
         String count = "";
@@ -141,6 +141,33 @@ public class CategoryCount {
         }
         return count;
     }
+
+    /**
+     * getTotalApps()
+     * Overloaded to include the result restriction based on filters.
+     * @param where String
+     * @return String count
+     */
+    public static String getTotalApps(String where) {
+        String count = "";
+        try {
+            connection = getConnection();
+            prepStatment = connection.prepareStatement(getSqlString() + where);
+            resultSet = prepStatment.executeQuery();
+
+            while(resultSet.next()) {
+                count = resultSet.getString(1);
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        } finally {
+            closeConnection();
+        }
+        return count;
+    }
+
+
+
 
     public static ObservableList<CategoryCount> getStats(String sql) {
         ObservableList<CategoryCount> categoryList = FXCollections.observableArrayList();
@@ -166,6 +193,66 @@ public class CategoryCount {
         return categoryList;
     }
 
+//
+//    public static String getFilterMonthCount(String sql, String month) {
+//        ObservableList<CategoryCount> categoryList = FXCollections.observableArrayList();
+//        try {
+//            connection = getConnection();
+//            prepStatment = connection.prepareStatement(sql);
+//            resultSet = prepStatment.executeQuery();
+//            while(resultSet.next()) {
+//                SimpleStringProperty name = new SimpleStringProperty(resultSet.getString(1));
+//                SimpleIntegerProperty count = new SimpleIntegerProperty(resultSet.getInt(2));
+//                CategoryCount newItem = new CategoryCount(name, count);
+//                categoryList.add(newItem);
+//            }
+//        } catch (SQLException e){
+//            e.printStackTrace();
+//        } finally {
+//            closeConnection();
+//        }
+//
+//    }
+//
+//    public static String getFilterTypeCount(String sql, String type) {
+//        ObservableList<CategoryCount> categoryList = FXCollections.observableArrayList();
+//        try {
+//            connection = getConnection();
+//            prepStatment = connection.prepareStatement(sql);
+//            resultSet = prepStatment.executeQuery();
+//            while(resultSet.next()) {
+//                SimpleStringProperty name = new SimpleStringProperty(resultSet.getString(1));
+//                SimpleIntegerProperty count = new SimpleIntegerProperty(resultSet.getInt(2));
+//                CategoryCount newItem = new CategoryCount(name, count);
+//                categoryList.add(newItem);
+//            }
+//        } catch (SQLException e){
+//            e.printStackTrace();
+//        } finally {
+//            closeConnection();
+//        }
+//
+//    }
+//
+//    public static String getFilteredbyBothCount(String sql) {
+//        ObservableList<CategoryCount> categoryList = FXCollections.observableArrayList();
+//        try {
+//            connection = getConnection();
+//            prepStatment = connection.prepareStatement(sql);
+//            resultSet = prepStatment.executeQuery();
+//            while(resultSet.next()) {
+//                SimpleStringProperty name = new SimpleStringProperty(resultSet.getString(1));
+//                SimpleIntegerProperty count = new SimpleIntegerProperty(resultSet.getInt(2));
+//                CategoryCount newItem = new CategoryCount(name, count);
+//                categoryList.add(newItem);
+//            }
+//        } catch (SQLException e){
+//            e.printStackTrace();
+//        } finally {
+//            closeConnection();
+//        }
+//
+//    }
 
 
 }

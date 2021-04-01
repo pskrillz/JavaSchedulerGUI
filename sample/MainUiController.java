@@ -726,6 +726,7 @@ public class MainUiController {
     /* ***** Start of Reports Tab
      */
     @FXML Label rTotalL; // total number of all appointments
+    @FXML Button calTotalSubmitBtn; // Get specified total
 
     // Count Report Table elements
     @FXML TableView<CategoryCount> rCountTable;
@@ -761,6 +762,16 @@ public class MainUiController {
         rCategoryNameCol.setText("By Type");
         setCountTable(CategoryCount.getStats(CategoryCount.getSqlString("Type")));
     }
+
+    public void enableSubmit(){
+        calTotalSubmitBtn.setDisable(false);
+    }
+
+    public void getCalResults(){
+
+    }
+
+
 
 
 }
