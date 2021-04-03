@@ -2,6 +2,7 @@ package Dao;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
 import models.Appointment;
 import sample.AppMethodsSingleton;
 import sample.DbConnectionFactory;
@@ -129,6 +130,10 @@ public class AppDaoImpl implements AppDao<Appointment>{
      */
     @Override
     public void addApp(Appointment app) {
+        if(checkAppOverlap(app) == true){
+            AppMethodsSingleton.generateAlert(Alert.AlertType.ERROR, "Appointment overlaps with another appointment!");
+            return;
+        }
         try {
             connection = getConnection();
             String query = "insert into WJ07tms.appointments (TITLE, DESCRIPTION, LOCATION, TYPE, START, END, CUSTOMER_ID, CONTACT_ID) \n" +
@@ -281,7 +286,65 @@ public class AppDaoImpl implements AppDao<Appointment>{
     return types;
     }
 
+    public boolean checkAppOverlap(Appointment app){
+        boolean overlap = false;
+        try {
+            ObservableList<String> results = FXCollections.observableArrayList();
+            connection = getConnection();
+            String query = "SELECT * FROM WJ07tms.appointments\n" +
+                    " WHERE ( \n" +
+                    " (start between convert_tz(str_to_date( ? , \"%Y-%m-%d %T\"), ?, \"+00:00\")  and convert_tz(str_to_date( ? , \"%Y-%m-%d %T\"), ?, \"+00:00\")  ) \n" +
+                    " or (end between convert_tz(str_to_date( ? , \"%Y-%m-%d %T\"), ?, \"+00:00\") and convert_tz(str_to_date( ? , \"%Y-%m-%d %T\"), ?, \"+00:00\")  )\n" +
+                    " ) AND CUSTOMER_ID = ?;";
+            prepStatment = connection.prepareStatement(query);
 
+            // Object Params
+            prepStatment.setString(1, app.getAppStartLocalString());
+            prepStatment.setString(2, AppMethodsSingleton.getLocalTimezoneOffset());
+            prepStatment.setString(3, app.getAppEndLocalString());
+            prepStatment.setString(4, AppMethodsSingleton.getLocalTimezoneOffset());;
+
+            prepStatment.setString(5, app.getAppStartLocalString());
+            prepStatment.setString(6, AppMethodsSingleton.getLocalTimezoneOffset());
+            prepStatment.setString(7, app.getAppEndLocalString());
+            prepStatment.setString(8, AppMethodsSingleton.getLocalTimezoneOffset());;
+            prepStatment.setInt(9, app.getAppCustId());
+
+            resultSet = prepStatment.executeQuery();
+
+            System.out.println(resultSet);
+
+
+            while(resultSet.next()){
+                results.add("something");
+            }
+
+
+
+            System.out.println(results);
+
+            if(results.isEmpty()){
+                System.out.println("return false");
+                overlap = false;
+                return false;
+            }
+
+            if(!results.isEmpty()){
+                System.out.println("return true");
+                overlap = true;
+                return overlap;
+            }
+
+
+
+        } catch (SQLException e){
+            e.printStackTrace();
+        } finally {
+            closeConnection();
+
+        }
+        return overlap;
+    }
 
 
 

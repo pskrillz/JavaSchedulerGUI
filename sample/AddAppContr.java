@@ -10,7 +10,6 @@ import models.Contact;
 import models.Country;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -139,23 +138,14 @@ public class AddAppContr {
         String appStartDateTimeString = appDate + " " + startHours + ":" + startMinutes + ":00";
 
         LocalDateTime appStartLocal = LocalDateTime.parse(appStartDateTimeString, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-        ZonedDateTime appstartZoned = ZonedDateTime.of(appStartLocal, ZoneId.of(String.valueOf(ZoneId.systemDefault())));
+        ZonedDateTime appstartLocalZoned = ZonedDateTime.of(appStartLocal, ZoneId.of(String.valueOf(ZoneId.systemDefault())));
 
-
-        /**
-         * Normalizes the localdatetime to a localtime in UTC to check if within business hours.
-         */
-        ZoneId utcZone = ZoneId.of("UTC");
-        ZonedDateTime utcZoned = appstartZoned.withZoneSameInstant(utcZone);
-        String time = utcZoned.format(DateTimeFormatter.ofPattern("HH:mm"));
-        LocalTime time1 = LocalTime.parse(time);
 
 
         /**
-         * Validation check to see if local appointment time is within business hours.
+         * Validation check to see if local appointment time is within business hours and not on weekends.
          */
-        if (AppMethodsSingleton.businessHoursChecker(time1) == false ){
-            AppMethodsSingleton.generateAlert(Alert.AlertType.ERROR, "Not within business hours!");
+        if (AppMethodsSingleton.businessHoursChecker(appstartLocalZoned) == false ){
             return;
         }
 
@@ -182,11 +172,21 @@ public class AddAppContr {
                appCustId, contactId, appUserId);
        AppDaoImpl.getInstance().addApp(newApp);
 
+
+
         //close window
         sample.AppMethodsSingleton.closeWindow(appAddBtn);
     }
 
 
+//
+//    public void getAllAppTimes(){
+//        ObservableList<LocalTime> appStarts = FXCollections.observableArrayList();
+//
+//        for(Appointment app : Dao.AppDaoImpl.getInstance().getAllApps()){
+//
+//        }
+//    }
 
 
 

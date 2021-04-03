@@ -15,4 +15,6 @@ public interface AppDao<Appointment> {
 
     public void deleteApp(Appointment app);
 
+    public boolean checkAppOverlap(Appointment app);
+
 }

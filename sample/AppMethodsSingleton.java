@@ -6,6 +6,7 @@ import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 
 import java.time.*;
+import java.time.format.DateTimeFormatter;
 
 public class AppMethodsSingleton {
 
@@ -73,24 +74,40 @@ public class AppMethodsSingleton {
 
     /**
      * businessHoursChecker()
-     * Takes a time standardized to local UTC and return true or false
-     * if it its within business hours.
-     * @param time
+     * Takes a time standardized to local UTC and return true
+     * if it its within business hours and not on weekend or else
+     * provide alerts.
+     * @param zonedDateTime
      * @return boolean
      */
-    public static boolean businessHoursChecker(LocalTime time){
+    public static boolean businessHoursChecker(ZonedDateTime zonedDateTime){
+        /**
+         * Normalizes the users datetime to a localtime in UTC to check if within business hours.
+         */
+        ZoneId utcZone = ZoneId.of("UTC");
+        ZonedDateTime utcZoned = zonedDateTime.withZoneSameInstant(utcZone);
+        String timeString = utcZoned.format(DateTimeFormatter.ofPattern("HH:mm"));
+        LocalTime timeNorm = LocalTime.parse(timeString);
+        System.out.println("UTC time is " + timeNorm);
+
         LocalTime startBizHours = LocalTime.of(4, 00);
         LocalTime endBizHours = LocalTime.of(18, 00);
-    if(time.isAfter(startBizHours) && time.isBefore(endBizHours)){
-        return true;
-    } else if(time.isAfter(endBizHours)){
-        return false;
-    } else if (time.isBefore(startBizHours)){
-        return false;
-    }
 
-    return true;
+        if (zonedDateTime.getDayOfWeek() == DayOfWeek.SATURDAY || zonedDateTime.getDayOfWeek() == DayOfWeek.SUNDAY) {
+            AppMethodsSingleton.generateAlert(Alert.AlertType.ERROR, "Appointment cannot be on weekends!");
+            return false;
+        } else if(timeNorm.isAfter(startBizHours) && timeNorm.isBefore(endBizHours)){
+                return true;
+            } else if(timeNorm.isAfter(endBizHours)){
+            AppMethodsSingleton.generateAlert(Alert.AlertType.ERROR, "Appointment is after business hours!");
+                return false;
+            } else if (timeNorm.isBefore(startBizHours)){
+            AppMethodsSingleton.generateAlert(Alert.AlertType.ERROR, "Appointment is before business hours!");
+                return false;
+            }
 
+
+        return false;
     }
 
 

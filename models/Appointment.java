@@ -99,7 +99,7 @@ public class Appointment {
     }
 
     public String getAppStartLocalString() {
-        return appStartLocal.toString();
+        return appStartLocal.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
     }
 
     public void setAppStartLocal(LocalDateTime appStartLocal) {
@@ -107,7 +107,7 @@ public class Appointment {
     }
 
     public String getAppEndLocalString() {
-        return appEndLocal.toString();
+        return appEndLocal.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
     }
 
     public void setAppEndLocal(LocalDateTime appEndLocal) {
