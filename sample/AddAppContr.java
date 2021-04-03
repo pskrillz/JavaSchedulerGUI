@@ -9,9 +9,18 @@ import models.Appointment;
 import models.Contact;
 import models.Country;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+
 
 public class AddAppContr {
 
+    /**
+     * FXML elements of the add app form;
+     */
     @FXML TextField appIdF;
     @FXML TextField appTitleF;
     @FXML TextField appTypeF;
@@ -30,7 +39,10 @@ public class AddAppContr {
     @FXML Button appAddBtn;
 
 
-
+    /**
+     * initialize()
+     * Initializes the UI for the add app form;
+     */
     @FXML
     private void initialize(){
         setLocationDrop();
@@ -38,14 +50,26 @@ public class AddAppContr {
         initSpinners();
     }
 
+    /**
+     * setLocationDrop()
+     * sets the location combo box value to the add app form;
+     */
     public void setLocationDrop(){
         appLocCB.setItems(Dao.CustomerDaoImpl.getInstance().getNeededCountries());
     }
 
+    /**
+     * setContactDrop()
+     * Sets the contact combo box values to the add app form
+     */
     public void setContactDrop(){
         appContactCB.setItems(Contact.getAllContacts());
     }
 
+    /**
+     * initSpinners()
+     * Sets the spinner values to the add app form
+     */
     private void initSpinners() {
         ObservableList<String> str = FXCollections.observableArrayList();
         str.add("AM");
@@ -91,31 +115,50 @@ public class AddAppContr {
 
     }
 
+    /**
+     * addApp()
+     * Adds appointment to the DB.
+     */
     public void addApp(){
         String title = appTitleF.getText();
         String type = appTypeF.getText();
         String desc = appDescF.getText();
         String location = appLocCB.getSelectionModel().getSelectedItem().getCountryName();
-        System.out.println(location);
         int contactId = appContactCB.getSelectionModel().getSelectedItem().getConID();
-        System.out.println(contactId);
-
         // for date
         String appDate = appDateF.getValue().toString();
-        System.out.println(appDate);
 
         String startHours = appStartHF.getValue().toString();
         if(appStart12F.getValue().toString() == "PM"){
             startHours = Integer.toString(Integer.parseInt(startHours) + 12);
         }
 
-
-
         String startMinutes = appStartMF.getValue().toString();
 
 
         String appStartDateTimeString = appDate + " " + startHours + ":" + startMinutes + ":00";
-        System.out.println(appStartDateTimeString);
+
+        LocalDateTime appStartLocal = LocalDateTime.parse(appStartDateTimeString, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        ZonedDateTime appstartZoned = ZonedDateTime.of(appStartLocal, ZoneId.of(String.valueOf(ZoneId.systemDefault())));
+
+
+        /**
+         * Normalizes the localdatetime to a localtime in UTC to check if within business hours.
+         */
+        ZoneId utcZone = ZoneId.of("UTC");
+        ZonedDateTime utcZoned = appstartZoned.withZoneSameInstant(utcZone);
+        String time = utcZoned.format(DateTimeFormatter.ofPattern("HH:mm"));
+        LocalTime time1 = LocalTime.parse(time);
+
+
+        /**
+         * Validation check to see if local appointment time is within business hours.
+         */
+        if (AppMethodsSingleton.businessHoursChecker(time1) == false ){
+            AppMethodsSingleton.generateAlert(Alert.AlertType.ERROR, "Not within business hours!");
+            return;
+        }
+
 
         String endHours = appEndHF.getValue().toString();
         if(appEnd12F.getValue().toString() == "PM"){
@@ -128,7 +171,7 @@ public class AddAppContr {
 
 
         String appEndDateTimeString = appDate + " " + endHours + ":" + endMinutes + ":00";
-        System.out.println(appEndDateTimeString);
+
 
         int appCustId = Integer.parseInt(appCustIdF.getText());
         int appUserId = Integer.parseInt(appCustIdF.getText());

@@ -5,9 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZoneOffset;
+import java.time.*;
 
 public class AppMethodsSingleton {
 
@@ -61,11 +59,41 @@ public class AppMethodsSingleton {
         LocalDateTime now = LocalDateTime.now();
         ZoneId zone = ZoneId.of("America/New_York");
         ZoneOffset easternOffset = zone.getRules().getOffset(now);
-        System.out.println(easternOffset);
+     //   System.out.println(easternOffset);
         easternOffsetString = String.valueOf(easternOffset);
         return easternOffsetString;
 
     }
+
+    public static String getLocalToEasternOffset(){
+        int OffsetConvert = Integer.parseInt(String.valueOf(AppMethodsSingleton.getLocalTimezoneOffset().charAt(2))) - Integer.parseInt(String.valueOf(AppMethodsSingleton.getEasternOffset().charAt(2)));
+        String offsetString = "-0" + OffsetConvert + ":00";
+        return offsetString;
+    }
+
+    /**
+     * businessHoursChecker()
+     * Takes a time standardized to local UTC and return true or false
+     * if it its within business hours.
+     * @param time
+     * @return boolean
+     */
+    public static boolean businessHoursChecker(LocalTime time){
+        LocalTime startBizHours = LocalTime.of(4, 00);
+        LocalTime endBizHours = LocalTime.of(18, 00);
+    if(time.isAfter(startBizHours) && time.isBefore(endBizHours)){
+        return true;
+    } else if(time.isAfter(endBizHours)){
+        return false;
+    } else if (time.isBefore(startBizHours)){
+        return false;
+    }
+
+    return true;
+
+    }
+
+
 
 // Not needed when only really need db for one more object class.
 //    private Connection getConnection() throws SQLException {
