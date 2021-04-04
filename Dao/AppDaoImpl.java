@@ -286,6 +286,16 @@ public class AppDaoImpl implements AppDao<Appointment>{
     return types;
     }
 
+    /**
+     * checkAppOverlap()
+     * Used by addApp()
+     * Uses the start and end times of the proposed appointment object parameter
+     * to check the db and see if there are any existing appointments with start and end
+     * times that overlap.
+     * Returns true if overlaps are detected and false if there are no conflicts.
+     * @param app
+     * @return boolean
+     */
     public boolean checkAppOverlap(Appointment app){
         boolean overlap = false;
         try {
@@ -298,45 +308,31 @@ public class AppDaoImpl implements AppDao<Appointment>{
                     " ) AND CUSTOMER_ID = ?;";
             prepStatment = connection.prepareStatement(query);
 
-            // Object Params
+            // Query Params
             prepStatment.setString(1, app.getAppStartLocalString());
             prepStatment.setString(2, AppMethodsSingleton.getLocalTimezoneOffset());
             prepStatment.setString(3, app.getAppEndLocalString());
             prepStatment.setString(4, AppMethodsSingleton.getLocalTimezoneOffset());;
-
             prepStatment.setString(5, app.getAppStartLocalString());
             prepStatment.setString(6, AppMethodsSingleton.getLocalTimezoneOffset());
             prepStatment.setString(7, app.getAppEndLocalString());
             prepStatment.setString(8, AppMethodsSingleton.getLocalTimezoneOffset());;
             prepStatment.setInt(9, app.getAppCustId());
-
             resultSet = prepStatment.executeQuery();
-
-            System.out.println(resultSet);
-
 
             while(resultSet.next()){
                 results.add("something");
             }
-
-
-
-            System.out.println(results);
-
             if(results.isEmpty()){
                 System.out.println("return false");
                 overlap = false;
                 return false;
             }
-
             if(!results.isEmpty()){
                 System.out.println("return true");
                 overlap = true;
                 return overlap;
             }
-
-
-
         } catch (SQLException e){
             e.printStackTrace();
         } finally {

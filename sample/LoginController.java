@@ -28,7 +28,7 @@ public class LoginController {
     @FXML
     public void initialize(){
         translateText();
-
+        Log.createLog(); // create the log for the first time.
     }
 
     /**
@@ -68,22 +68,35 @@ public class LoginController {
         String un = usernameField.getText();
         String pw = passwordField.getText();
         String correct = "test";
+        boolean userVerified = false;
 
-       if ( !un.equals(correct) && !pw.equals(correct)) {
+
+            userVerified = Dao.CustomerDaoImpl.getInstance().verifyUser(un, pw);
+
+
+
+       if ( !(un.equals(correct)) && !(pw.equals(correct)) && !userVerified) {
            System.out.println(un + pw);
            generateError(langBundle.getString("ErrorBoth"));
+           Log.write(un + "'s Login failed");
            return;
-        }else if (!un.equals(correct)){
-            generateError(langBundle.getString("ErrorUn"));
-            return;
-        } else if (!pw.equals(correct)){
-           generateError(langBundle.getString("ErrorPw"));
-           return;
-        } else if (pw.equals(correct) && un.equals(correct)){
+        }
+//       else if (!un.equals(correct)){
+//           Log.write(un + "'s Login failed");
+//            generateError(langBundle.getString("ErrorUn"));
+//            return;
+//        } else if (!pw.equals(correct)){
+//           Log.write(un + "'s Login failed");
+//           generateError(langBundle.getString("ErrorPw"));
+//           return;
+//        }
+        else if ((pw.equals(correct) && un.equals(correct)) || userVerified){
                 sample.AppMethodsSingleton.closeWindow(loginButton);
+                Log.write(un + "'s Login was successful");
                 openMainUi();
                 return;
        } else {
+           Log.write(un + " Login failed");
            generateError(langBundle.getString("ErrorUnknown"));
            return;
        }

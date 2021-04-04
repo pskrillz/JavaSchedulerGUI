@@ -304,6 +304,40 @@ public class CustomerDaoImpl implements CustomerDao<Customer>{
     }
 
 
+    /**
+     * verifyUser()
+     * Used by the login controller
+     * Checks the username and pw to see if any are matching,
+     * if none are matching returns false;
+     * @param un
+     * @param pw
+     * @return
+     */
+    public boolean verifyUser(String un, String pw){
+        ObservableList<String> results = FXCollections.observableArrayList();
+        boolean userMatchFound = false;
+        try {
+            connection = getConnection();
+            prepStatment = connection.prepareStatement("SELECT * FROM WJ07tms.users where USER_NAME = ? AND " +
+                    "PASSWORD = ?;");
+            prepStatment.setString(1, un);
+            prepStatment.setString(2, pw);
+            resultSet = prepStatment.executeQuery();
+            // System.out.println(resultSet);
+
+            // loop to make observable list
+            while(resultSet.next()) {
+              results.add("match found");
+              userMatchFound = true;
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        } finally {
+            closeConnection();
+            return userMatchFound;
+        }
+    }
+
 
 
 }

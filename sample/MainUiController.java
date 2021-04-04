@@ -835,6 +835,7 @@ public class MainUiController {
     /**
      * My third report type:
      * Get a quick total of appointments that meet certain conditions.
+     * Can check for BOTH month and type to calculate total (not part of requirements)
      *
      *
      * getCalResults()
@@ -868,6 +869,10 @@ public class MainUiController {
         }
     }
 
+    /**
+     * generateScheduleTable()
+     * Takes the list of appointments by contact and displays it in the schedule table.
+     */
     @FXML
     public void generateScheduleTable(){
         ObservableList<Appointment> appList = appDao.getAppListByContact(rContactCB.getSelectionModel().getSelectedItem().getConID());

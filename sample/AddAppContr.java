@@ -179,14 +179,7 @@ public class AddAppContr {
     }
 
 
-//
-//    public void getAllAppTimes(){
-//        ObservableList<LocalTime> appStarts = FXCollections.observableArrayList();
-//
-//        for(Appointment app : Dao.AppDaoImpl.getInstance().getAllApps()){
-//
-//        }
-//    }
+
 
 
 
