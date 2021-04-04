@@ -22,7 +22,22 @@ public class Appointment {
     private SimpleIntegerProperty appUserId;
 
 
-
+    /**
+     * Appointment Constructor
+     * First constructor includes appointment ID and
+     * is used for creating appointment objects from query results.
+     *
+     * @param appId
+     * @param appTitle
+     * @param appDesc
+     * @param appLocation
+     * @param appType
+     * @param appStart
+     * @param appEnd
+     * @param appCustId
+     * @param appContactId
+     * @param appUserId
+     */
     public Appointment(int appId,
                        String appTitle,
                        String appDesc,
@@ -49,7 +64,21 @@ public class Appointment {
         this.appUserId = new SimpleIntegerProperty(appUserId);
     }
 
-    // Overloaded without ID for when creating locally
+    /**
+     * Second Appointment Constructor
+     * Is used to create appointment objects before using it to
+     * insert into the db where the appointment ID is automatically
+     * generated.
+     * @param appTitle
+     * @param appDesc
+     * @param appLocation
+     * @param appType
+     * @param appStart
+     * @param appEnd
+     * @param appCustId
+     * @param appContactId
+     * @param appUserId
+     */
     public Appointment(
                        String appTitle,
                        String appDesc,
@@ -73,6 +102,12 @@ public class Appointment {
         this.appContactId = new SimpleIntegerProperty(appContactId) ;
         this.appUserId = new SimpleIntegerProperty(appUserId);
     }
+
+
+    /**
+     * Getters and setters for appointments.
+     *
+     */
 
     public LocalDateTime getAppStartLocal() {
         return appStartLocal;
@@ -98,6 +133,10 @@ public class Appointment {
         return appDate.get();
     }
 
+    /**
+     * Returns the String form of the appointment start datetime
+     * @return
+     */
     public String getAppStartLocalString() {
         return appStartLocal.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
     }
@@ -106,6 +145,10 @@ public class Appointment {
         this.appStartLocal = appStartLocal;
     }
 
+    /**
+     * Returns the String form of the appointment end datetime.
+     * @return
+     */
     public String getAppEndLocalString() {
         return appEndLocal.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
     }
@@ -182,18 +225,6 @@ public class Appointment {
     public void setAppLocation(String appLocation) {
         this.appLocation.set(appLocation);
     }
-
-//    public SimpleStringProperty getAppStartProperty() {
-//        return appStart;
-//    }
-//
-//    public String getAppStart(){
-//        return  appStart.toString();
-//    }
-//
-//    public void setAppStart(SimpleStringProperty appStart) {
-//        this.appStart = appStart;
-//    }
 
     public String getAppEnd() {
         return appEnd.get();

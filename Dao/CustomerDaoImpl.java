@@ -210,8 +210,8 @@ public class CustomerDaoImpl implements CustomerDao<Customer>{
 
             // loop to make observable list
             while(resultSet.next()) {
-                SimpleIntegerProperty id = new SimpleIntegerProperty(resultSet.getInt(1));
-                SimpleStringProperty name = new SimpleStringProperty(resultSet.getString(2));
+                int id = resultSet.getInt(1);
+                String name = resultSet.getString(2);
                 Country currCountry = new Country(id, name);
                 allCountries.add(currCountry);
             }
@@ -226,9 +226,9 @@ public class CustomerDaoImpl implements CustomerDao<Customer>{
 
     public ObservableList<Country> getNeededCountries() {
         ObservableList<Country> neededCountries = FXCollections.observableArrayList();
-        Country canada = new Country(new SimpleIntegerProperty(38), new SimpleStringProperty("Canada"));
-        Country uk = new Country(new SimpleIntegerProperty(230), new SimpleStringProperty("United Kingdom"));
-        Country us = new Country(new SimpleIntegerProperty(231), new SimpleStringProperty("United States"));
+        Country canada = new Country(38, "Canada");
+        Country uk = new Country(230, "United Kingdom");
+        Country us = new Country(231, "United States");
         neededCountries.add(canada);
         neededCountries.add(us);
         neededCountries.add(uk);

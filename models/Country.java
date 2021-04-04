@@ -16,9 +16,9 @@ public class Country {
     PreparedStatement prepStatment = null;
     ResultSet resultSet = null;
 
-    public Country(SimpleIntegerProperty countryId, SimpleStringProperty countryName) {
-        this.countryId = countryId;
-        this.countryName = countryName;
+    public Country(int countryId, String countryName) {
+        this.countryId = new SimpleIntegerProperty(countryId);
+        this.countryName = new SimpleStringProperty(countryName);
     }
 
     // This converts the objects names to string names in the combobox

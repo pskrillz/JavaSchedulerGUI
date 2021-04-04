@@ -3,11 +3,11 @@
 
 
 The purpose of this application is to fulfill the exact requirements<br>
-of a fictional, international consultancy agency. This application acts like a CRM software, <br>
-with the ability to add, update, and delete customers and appointments. When an appointment  <br>
-is created, they are assigned to specific customers and contacts within the organization. <br>
-A reports function allows one to view appointment statistics and generate schedules for <br>
-organization contacts.
+of a fictional, international consultancy agency for class C195 Software II at WGU. <br> 
+This application acts like a CRM software, with the ability to add, update, and delete <br>
+customers and appointments. When an appointment is created, they are assigned to specific <br>
+customers and contacts within the organization. A reports function allows one to view <br>
+appointment statistics and generate schedules for organization contacts.
 
 To use the application, clone the github repo, set the root folder as source, and create <br>
 a build configuration that points to the main class, "sample.Main".<br>
@@ -34,4 +34,6 @@ Ability to select any combination of month and type<br>
 to generate total appointments. 
 
 Lambda expressions:<br>
+Lambda 1: MainUiController.java line 260
+Lambda 2: MainUiController.java line 835,845,853,863.
 

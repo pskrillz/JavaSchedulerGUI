@@ -196,7 +196,6 @@ public class MainUiController {
         if(customerTableView.getSelectionModel().getSelectedItem() == null){
             return;
         }
-
         selCustomer = customerTableView.getSelectionModel().getSelectedItem();
         System.out.println(selCustomer.getcName());
         custIdF.setText(Integer.toString(selCustomer.getcId()));
@@ -235,26 +234,46 @@ public class MainUiController {
         }
     }
 
+    /**
+     * Lambda1
+     * Using lambda to do a simple search and assign the
+     * match to a predetermined variable.
+     */
+    Lambda1 lambda1 = (p1, p2) -> {
+        for (Country country : p2) {
+            if (country.getCountryId() == p1) {
+                matchCountry = country;
+            }
+        }
+    };
+
 
     /**
      * Country findCountry(int countryId)
      * Finds the right country and returns it as the object
+     * Includes Lambda 1
      * @param countryId
      */
     Country matchCountry;
-   Country findCountry(int countryId){
-        for(Country country : customerDao.getNeededCountries()){
-            if (country.getCountryId() == countryId){
-                matchCountry = country;
-            }
-        }
-        return matchCountry;
-    }
+   Country findCountry(int countryId) {
+       ObservableList<Country> countryList = customerDao.getNeededCountries();
+       lambda1.findOne(countryId, countryList);
+       return matchCountry;
+   }
+
+
+//        for(Country country : customerDao.getNeededCountries()){
+//            if (country.getCountryId() == countryId){
+//                matchCountry = country;
+//            }
+//        }
+//        return matchCountry;
+
 
     /**
      * Division findDivision(int divId)
      * Returns the division object for the drop down
-     * (!) Could be rewritten for speed as its kind of slow right now.
+     * (!)
      * @param divId
      * @return
      */
@@ -800,19 +819,30 @@ public class MainUiController {
      */
 
     /**
+     * Second lambda,
+     * Another way to enable UI elements in more
+     * readable way.
+     */
+    Lambda2 lamda2 = element -> element.setDisable(false);
+
+
+    /**
      * enableCalSubmit()
      * Used by the combo box's to enable the submit button.
      */
     public void enableCalSubmit(){
-        calTotalSubmitBtn.setDisable(false);
+      //  calTotalSubmitBtn.setDisable(false);
+        lamda2.enableElement(calTotalSubmitBtn);
     }
+
+
 
     /**
      * enableMonthsCB()
      * Used by checkbox to enable months drop down
      */
     public void enableMonthCB(){
-        rMonthCB.setDisable(false);
+        lamda2.enableElement(rMonthCB);
     }
 
     /**
@@ -820,7 +850,8 @@ public class MainUiController {
      * Used by checkbox to enable type drow down
      */
     public void enableTypeCB(){
-        rTypeCB.setDisable(false);
+        lamda2.enableElement(rTypeCB);
+      //  rTypeCB.setDisable(false);
     }
 
     /**
@@ -829,7 +860,8 @@ public class MainUiController {
      * to enable the submit button on selection.
      */
     public void enableGenBtn(){
-        genScheduleBtn.setDisable(false);
+        lamda2.enableElement(genScheduleBtn);
+       // genScheduleBtn.setDisable(false);
     }
 
     /**
