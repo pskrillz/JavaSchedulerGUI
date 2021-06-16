@@ -11,8 +11,6 @@ appointment statistics and generate schedules for organization contacts.
 
 To use the application, clone the github repo, set the root folder as source, and create <br>
 a build configuration that points to the main class, "sample.Main".<br>
-Then download and add JavaFX and Mysql dependencies to project modules <br>
-and you're ready to build and run the application.  
 
 Upon running the application a login window displays, <br> 
 the default login info is username: "test", password: "test".<br>
